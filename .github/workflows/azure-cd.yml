@@ -16,6 +16,9 @@ env:
   FRONTEND_DIRECTORY: Src/LoansComparer.Presentation
   BACKEND_DIRECTORY: Src/LoansComparer.Services
 
+concurrency:
+  group: build
+
 permissions:
   contents: read
 

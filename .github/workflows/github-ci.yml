@@ -12,6 +12,9 @@ env:
   FRONTEND_DIRECTORY: Src/LoansComparer.Presentation
   BACKEND_DIRECTORY: Src/LoansComparer.Services
 
+concurrency:
+  group: build
+
 jobs:
   build:
     runs-on: windows-latest
