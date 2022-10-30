@@ -1,0 +1,46 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches: ["main"]
+
+env:
+  CONFIGURATION: Debug
+  NODE_VERSION: "16.x"
+  DOTNET_VERSION: 6.0.x
+  PROJECT_DIRECTORY: Src
+  FRONTEND_DIRECTORY: Src/LoansComparer.Presentation
+  BACKEND_DIRECTORY: Src/LoansComparer.Services
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "${{ env.FRONTEND_DIRECTORY }}/package-lock.json"
+
+      - name: Npm install
+        run: npm install
+        working-directory: ${{ env.FRONTEND_DIRECTORY }}
+
+      - name: Restore dependencies
+        run: dotnet restore "${{ env.PROJECT_DIRECTORY }}"
+
+      - name: Build
+        run: dotnet build "${{ env.PROJECT_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+
+      - name: Test
+        run: dotnet test "${{ env.PROJECT_DIRECTORY }}" --no-build
