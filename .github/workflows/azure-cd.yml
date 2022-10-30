@@ -1,0 +1,106 @@
+name: Build, test and deploy
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+env:
+  AZURE_CLIENT_NAME: loans-comparer
+  AZURE_API_NAME: loans-comparer-api
+  AZURE_WEBAPP_PACKAGE_PATH: "."
+  CONFIGURATION: Release
+  NODE_VERSION: "16.x"
+  DOTNET_VERSION: 6.0.x
+  PROJECT_DIRECTORY: Src
+  FRONTEND_DIRECTORY: Src/LoansComparer.Presentation
+  BACKEND_DIRECTORY: Src/LoansComparer.Services
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "${{ env.FRONTEND_DIRECTORY }}/package-lock.json"
+
+      - name: Npm install
+        run: npm install
+        working-directory: ${{ env.FRONTEND_DIRECTORY }}
+
+      - name: Restore dependencies
+        run: dotnet restore "${{ env.PROJECT_DIRECTORY }}"
+
+      - name: Build
+        run: dotnet build "${{ env.PROJECT_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+
+      - name: Test
+        run: dotnet test "${{ env.PROJECT_DIRECTORY }}" --no-build
+
+      - name: Publish
+        run: dotnet publish "${{ env.BACKEND_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.BACKEND_DIRECTORY }}/Release"
+
+      - name: Upload artifact for deployment job - .NET Core Web API
+        uses: actions/upload-artifact@v3
+        with:
+          name: webapp
+          path: "${{ env.BACKEND_DIRECTORY }}/Release/*"
+
+      - name: Upload artifact for deployment job - ClientApp
+        uses: actions/upload-artifact@v3
+        with:
+          name: clientapp
+          path: "${{ env.FRONTEND_DIRECTORY }}/dist/loans-comparer.presentation/*"
+
+  deploy-server:
+    permissions:
+      contents: none
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: webapp
+
+      - name: Deploy to Azure WebApp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_API_NAME }}
+          publish-profile: ${{ secrets.AZURE_API_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+  deploy-client:
+    permissions:
+      contents: none
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: clientapp
+
+      - name: Deploy to Azure ClientApp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_CLIENT_NAME }}
+          publish-profile: ${{ secrets.AZURE_CLIENT_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
