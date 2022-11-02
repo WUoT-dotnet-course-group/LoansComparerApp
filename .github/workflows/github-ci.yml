@@ -9,8 +9,8 @@ env:
   NODE_VERSION: "16.x"
   DOTNET_VERSION: 6.0.x
   PROJECT_DIRECTORY: Src
-  FRONTEND_DIRECTORY: Src/LoansComparer.Presentation
-  BACKEND_DIRECTORY: Src/LoansComparer.Services
+  FRONTEND_DIRECTORY: Src/LoansComparer.WebClient
+  BACKEND_DIRECTORY: Src/LoansComparer.Presentation
 
 concurrency:
   group: build
