@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LoansComparer.Presentation\LoansComparer.Presentation.esproj">
+    <ProjectReference Include="..\Core\Services\LoansComparer.Services\LoansComparer.Services.csproj" />
+    <ProjectReference Include="..\Infrastructure\LoansComparer.DataPersistence\LoansComparer.DataPersistence.csproj" />
+    <ProjectReference Include="..\Infrastructure\LoansComparer.EmailService\LoansComparer.EmailService.csproj" />
+    <ProjectReference Include="..\LoansComparer.WebClient\LoansComparer.WebClient.esproj">
         <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
