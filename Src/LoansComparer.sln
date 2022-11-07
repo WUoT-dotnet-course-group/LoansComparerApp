@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LoansComparer.WebClient", "LoansComparer.WebClient\LoansComparer.WebClient.esproj", "{4C25E986-FF72-45B1-AF00-D098F01375D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.Presentation", "LoansComparer.Presentation\LoansComparer.Presentation.csproj", "{EA784F2D-2739-4B7D-8AF4-F177665B66AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.WebAPI", "LoansComparer.WebAPI\LoansComparer.WebAPI.csproj", "{EA784F2D-2739-4B7D-8AF4-F177665B66AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.Services", "Core\Services\LoansComparer.Services\LoansComparer.Services.csproj", "{6F836519-F6F2-447E-98B9-B3B86157FC38}"
 EndProject
@@ -19,11 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{174D25A1-2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.CrossCutting", "Core\LoansComparer.CrossCutting\LoansComparer.CrossCutting.csproj", "{2D14765F-1849-4116-A695-FFB1DEC14F4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoansComparer.Domain", "Core\LoansComparer.Domain\LoansComparer.Domain.csproj", "{E01E27CD-9A87-4961-9527-1557259FA310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.Domain", "Core\LoansComparer.Domain\LoansComparer.Domain.csproj", "{E01E27CD-9A87-4961-9527-1557259FA310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoansComparer.DataPersistence", "Infrastructure\LoansComparer.DataPersistence\LoansComparer.DataPersistence.csproj", "{D72CC053-D9EC-46CB-A83C-870735A6BFA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.DataPersistence", "Infrastructure\LoansComparer.DataPersistence\LoansComparer.DataPersistence.csproj", "{D72CC053-D9EC-46CB-A83C-870735A6BFA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoansComparer.EmailService", "Infrastructure\LoansComparer.EmailService\LoansComparer.EmailService.csproj", "{18D0090B-3D2F-423F-B781-5BE0968C128E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.EmailService", "Infrastructure\LoansComparer.EmailService\LoansComparer.EmailService.csproj", "{18D0090B-3D2F-423F-B781-5BE0968C128E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansComparer.Presentation", "Infrastructure\LoansComparer.Presentation\LoansComparer.Presentation.csproj", "{18506D1C-CDAC-49A9-B8AC-E4870882311B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{18D0090B-3D2F-423F-B781-5BE0968C128E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18D0090B-3D2F-423F-B781-5BE0968C128E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18D0090B-3D2F-423F-B781-5BE0968C128E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18506D1C-CDAC-49A9-B8AC-E4870882311B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18506D1C-CDAC-49A9-B8AC-E4870882311B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18506D1C-CDAC-49A9-B8AC-E4870882311B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18506D1C-CDAC-49A9-B8AC-E4870882311B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{E01E27CD-9A87-4961-9527-1557259FA310} = {174D25A1-25F0-48B7-BC5C-EC190B827FCC}
 		{D72CC053-D9EC-46CB-A83C-870735A6BFA8} = {B5076AE3-6F88-4A01-8473-986BE0190D43}
 		{18D0090B-3D2F-423F-B781-5BE0968C128E} = {B5076AE3-6F88-4A01-8473-986BE0190D43}
+		{18506D1C-CDAC-49A9-B8AC-E4870882311B} = {B5076AE3-6F88-4A01-8473-986BE0190D43}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B6F2552-7E55-4DE2-812F-F01E15C23B71}
