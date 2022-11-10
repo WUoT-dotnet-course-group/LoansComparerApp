@@ -10,7 +10,7 @@ env:
   DOTNET_VERSION: 6.0.x
   PROJECT_DIRECTORY: Src
   FRONTEND_DIRECTORY: Src/LoansComparer.WebClient
-  BACKEND_DIRECTORY: Src/LoansComparer.Presentation
+  BACKEND_DIRECTORY: Src/LoansComparer.WebAPI
 
 concurrency:
   group: build
@@ -48,19 +48,6 @@ jobs:
           committer_name: GitHub Actions
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Commit files
-      #   run: |
-      #     git config --local user.name "github-actions[bot]"
-      #     git config --local user.email "25436629+github-actions[bot]@users.noreply.github.com"
-      #     git commit -a -m 'Automated dotnet-format update
-      #     Co-authored-by: ${{ github.event.comment.user.login }} <${{ github.event.comment.user.id }}+${{ github.event.comment.user.login }}@users.noreply.github.com>'
-
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@v0.5.0
-      #   with:
-      #     branch: ${{ steps.branch-info.outputs.ref }}
-      #     github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
   build:
     runs-on: windows-latest

@@ -14,7 +14,7 @@ env:
   DOTNET_VERSION: 6.0.x
   PROJECT_DIRECTORY: Src
   FRONTEND_DIRECTORY: Src/LoansComparer.WebClient
-  BACKEND_DIRECTORY: Src/LoansComparer.Presentation
+  BACKEND_DIRECTORY: Src/LoansComparer.WebAPI
 
 concurrency:
   group: build
@@ -68,7 +68,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: clientapp
-          path: "${{ env.FRONTEND_DIRECTORY }}/dist/loans-comparer.presentation/*"
+          path: "${{ env.FRONTEND_DIRECTORY }}/dist/loans-comparer.web-client/*"
 
   deploy-server:
     permissions:
