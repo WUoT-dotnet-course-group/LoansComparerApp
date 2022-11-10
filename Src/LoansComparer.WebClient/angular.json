@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "LoansComparer.Presentation": {
+    "LoansComparer.WebClient": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/loans-comparer.presentation",
+            "outputPath": "dist/loans-comparer.web-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "LoansComparer.Presentation:build:production"
+              "browserTarget": "LoansComparer.WebClient:build:production"
             },
             "development": {
-              "browserTarget": "LoansComparer.Presentation:build:development"
+              "browserTarget": "LoansComparer.WebClient:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LoansComparer.Presentation:build"
+            "browserTarget": "LoansComparer.WebClient:build"
           }
         },
         "test": {

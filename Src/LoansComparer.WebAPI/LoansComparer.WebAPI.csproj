@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Services\LoansComparer.Services\LoansComparer.Services.csproj" />
+    <ProjectReference Include="..\Infrastructure\LoansComparer.DataPersistence\LoansComparer.DataPersistence.csproj" />
+    <ProjectReference Include="..\Infrastructure\LoansComparer.EmailService\LoansComparer.EmailService.csproj" />
+    <ProjectReference Include="..\Infrastructure\LoansComparer.Presentation\LoansComparer.Presentation.csproj" />
+    <ProjectReference Include="..\LoansComparer.WebClient\LoansComparer.WebClient.esproj">
+        <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

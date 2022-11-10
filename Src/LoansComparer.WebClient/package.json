@@ -1,5 +1,5 @@
 {
-  "name": "loans-comparer.presentation",
+  "name": "loans-comparer.web-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
