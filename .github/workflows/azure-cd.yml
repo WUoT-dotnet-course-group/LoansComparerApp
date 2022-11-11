@@ -90,10 +90,13 @@ jobs:
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy-client:
+    needs: build
     permissions:
       contents: none
     runs-on: windows-latest
-    needs: build
+    environment:
+      name: Production
+      url: https://loans-comparer.azurewebsites.net/
 
     steps:
       - name: Download artifact
