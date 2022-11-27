@@ -8,4 +8,5 @@ body {
   background-image: url('app/resources/body-background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
 }
