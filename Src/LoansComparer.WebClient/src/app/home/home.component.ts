@@ -15,8 +15,8 @@ import {
     trigger('toggleLearnMore', [
       state('*', style({ opacity: 1 })),
       state('void', style({ opacity: 0 })),
-      transition('* => void', [animate('0.5s ease-in')]),
-      transition('void => *', [animate('0.5s 0.5s ease-in')]),
+      transition(':leave', [animate('0.5s ease-in')]),
+      transition(':enter', [animate('0.5s 0.5s ease-in')]),
     ]),
   ],
 })
