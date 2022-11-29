@@ -6,17 +6,24 @@ span {
 }
 
 button {
-  height: 50px;
-  width: 140px;
   font-size: 17.5px;
   font-family: 'Lilita One', cursive;
-  background-color: white;
   border-radius: 25px;
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
+.prim-button {
+  height: 60px;
+  width: 280px;
+  color: white;
+  background-color: rgb(119, 46, 158);
+  font-size: 20px;
+  align-self: center;
+}
+
+.sec-button {
+  height: 50px;
+  width: 140px;
+  background-color: white;
 }
 
 .header {
@@ -45,4 +52,13 @@ button {
   span {
     padding-bottom: 24px;
   }
+}
+
+.stack {
+  display: grid;
+}
+
+.stack-layer {
+  grid-column: 1;
+  grid-row: 1;
 }
