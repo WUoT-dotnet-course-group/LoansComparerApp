@@ -15,9 +15,10 @@ import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, LayoutComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, LayoutComponent, InquiryFormComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
