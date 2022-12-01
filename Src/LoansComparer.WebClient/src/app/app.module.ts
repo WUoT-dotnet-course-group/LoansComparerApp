@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ReviewOffersComponent } from './review-offers/review-offers.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
     HomeComponent,
     LayoutComponent,
     InquiryFormComponent,
+    ReviewOffersComponent,
   ],
   imports: [
     BrowserModule,
