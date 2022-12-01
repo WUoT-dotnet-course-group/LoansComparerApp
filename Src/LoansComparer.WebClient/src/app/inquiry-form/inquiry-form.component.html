@@ -52,14 +52,22 @@
 
         <mat-form-field class="field" appearance="fill">
           <mat-label>Government type</mat-label>
-          <input matInput>
+          <mat-select panelClass="select-panel">
+            <mat-option *ngFor="let govType of govIdTypesPlaceholder" [value]="govType">
+              {{govType.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <mat-form-field class="field" appearance="fill">
           <mat-label>Job type</mat-label>
-          <input matInput>
+          <mat-select panelClass="select-panel">
+            <mat-option *ngFor="let jobType of jobTypesPlaceholder" [value]="jobType">
+              {{jobType.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">

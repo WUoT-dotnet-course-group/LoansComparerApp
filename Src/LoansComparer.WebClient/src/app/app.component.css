@@ -4,11 +4,28 @@
   background-color: transparent;
 }
 
+/* form field (fill) */
 .mat-form-field-appearance-fill .mat-form-field-flex {
   background: rgba(164, 107, 230, 0.4);
   color: rgb(89, 0, 114);
 }
 
+/* form field label */
 .mat-form-field-label {
   color: rgb(119, 46, 158, 0.6) !important;
+}
+
+/* mat-select option menu*/
+.mat-select-panel {
+  background: rgb(119, 46, 158);
+}
+
+/* mat-select option menu text */
+mat-option .mat-option-text {
+  color: white;
+}
+
+/* mat-select field value */
+.mat-select-value-text {
+  color: rgb(89, 0, 114);
 }
