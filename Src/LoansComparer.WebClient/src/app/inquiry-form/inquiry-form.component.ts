@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 export interface SelectType {
   id: number;
@@ -10,6 +17,13 @@ export interface SelectType {
   selector: 'app-inquiry-form',
   templateUrl: './inquiry-form.component.html',
   styleUrls: ['./inquiry-form.component.less'],
+  animations: [
+    trigger('displayForm', [
+      state('*', style({ opacity: 1 })),
+      state('void', style({ opacity: 0 })),
+      transition(':enter', [animate('0.75s ease-in')]),
+    ]),
+  ],
 })
 export class InquiryFormComponent implements OnInit {
   currencySuffix: string = 'zł';
