@@ -10,7 +10,7 @@
         <mat-form-field class="field" appearance="fill">
           <mat-label>Loan value</mat-label>
           <input matInput type="number" class="text-right-align">
-          <span matSuffix [ngStyle]="{'padding-left':'10px'}">{{currencySuffix}}</span>
+          <span matSuffix [ngStyle]="{'padding-left':'10px', 'padding-right':'8px'}">{{currencySuffix}}</span>
         </mat-form-field>
 
         <mat-form-field class="field" appearance="fill">
@@ -34,7 +34,9 @@
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <mat-form-field class="field" appearance="fill">
           <mat-label>Birth date</mat-label>
-          <input matInput>
+          <input matInput [matDatepicker]="birthPicker">
+          <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+          <mat-datepicker #birthPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
@@ -68,12 +70,18 @@
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <mat-form-field class="field" appearance="fill">
           <mat-label>Job start date</mat-label>
-          <input matInput>
+          <input matInput [matDatepicker]="jobStartPicker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="jobStartPicker"></mat-datepicker-toggle>
+          <mat-datepicker #jobStartPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="field" appearance="fill">
           <mat-label>Job end date</mat-label>
-          <input matInput>
+          <input matInput [matDatepicker]="jobEndPicker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="jobEndPicker"></mat-datepicker-toggle>
+          <mat-datepicker #jobEndPicker></mat-datepicker>
         </mat-form-field>
       </div>
 
