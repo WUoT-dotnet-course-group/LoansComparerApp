@@ -9,12 +9,13 @@
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <mat-form-field class="field" appearance="fill">
           <mat-label>Loan value</mat-label>
-          <input matInput>
+          <input matInput type="number" class="text-right-align">
+          <span matSuffix [ngStyle]="{'padding-left':'10px'}">{{currencySuffix}}</span>
         </mat-form-field>
 
         <mat-form-field class="field" appearance="fill">
           <mat-label>Installments number</mat-label>
-          <input matInput>
+          <input matInput type="number">
         </mat-form-field>
       </div>
 

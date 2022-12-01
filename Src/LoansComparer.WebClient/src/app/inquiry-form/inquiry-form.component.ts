@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inquiry-form.component.less'],
 })
 export class InquiryFormComponent implements OnInit {
+  currencySuffix: string = 'zł';
+
   constructor() {}
 
   ngOnInit(): void {}
