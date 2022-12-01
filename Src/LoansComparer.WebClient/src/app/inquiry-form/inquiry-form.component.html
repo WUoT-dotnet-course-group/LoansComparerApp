@@ -4,5 +4,85 @@
       <span class="header">Create inquiry</span>
       <hr>
     </div>
+
+    <div class="content" fxLayout="column" fxLayoutAlign="center">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Loan value</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Installments number</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>First name</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Last name</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Birth date</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Government id number</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Government type</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Job type</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Job start date</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Job end date</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+          <input matInput>
+        </mat-form-field>
+
+        <button mat-button class="prim-button">Submit</button>
+      </div>
+    </div>
   </div>
 </div>

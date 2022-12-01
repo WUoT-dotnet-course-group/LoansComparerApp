@@ -16,9 +16,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, LayoutComponent, InquiryFormComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    HomeComponent,
+    LayoutComponent,
+    InquiryFormComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -31,6 +39,8 @@ import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
     MatListModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
