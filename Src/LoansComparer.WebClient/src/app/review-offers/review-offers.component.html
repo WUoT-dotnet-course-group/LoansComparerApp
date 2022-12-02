@@ -1,1 +1,36 @@
-<p>review-offers works!</p>
+<div fxLayout="row" fxLayoutAlign="center center" fxFill [@displayForm]>
+  <table mat-table [dataSource]="offers" class="mat-elevation-z8">
+    <!-- Bank Column -->
+    <ng-container matColumnDef="bankName">
+      <th mat-header-cell *matHeaderCellDef> Bank </th>
+      <td mat-cell *matCellDef="let element"> {{element.bankName}} </td>
+    </ng-container>
+
+    <!-- Percentage Column -->
+    <ng-container matColumnDef="percentage">
+      <th mat-header-cell *matHeaderCellDef> Percentage </th>
+      <td mat-cell *matCellDef="let element"> {{element.percentage}} </td>
+    </ng-container>
+
+    <!-- MonthlyInstallment Column -->
+    <ng-container matColumnDef="monthlyInstallment">
+      <th mat-header-cell *matHeaderCellDef> Monthly installment </th>
+      <td mat-cell *matCellDef="let element"> {{element.monthlyInstallment}} </td>
+    </ng-container>
+
+    <!-- LoanPeriod Column -->
+    <ng-container matColumnDef="loanPeriod">
+      <th mat-header-cell *matHeaderCellDef> Loan period (months) </th>
+      <td mat-cell *matCellDef="let element"> {{element.requestedPeriodInMonth}} </td>
+    </ng-container>
+
+    <!-- LoanValue Column -->
+    <ng-container matColumnDef="loanValue">
+      <th mat-header-cell *matHeaderCellDef> Loan value </th>
+      <td mat-cell *matCellDef="let element"> {{element.requestedValue}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
