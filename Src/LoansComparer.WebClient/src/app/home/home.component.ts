@@ -22,6 +22,7 @@ import {
 })
 export class HomeComponent implements OnInit {
   isLearnMore: boolean = true;
+  currentInquiresMade: number = 102;
 
   constructor() {}
 
