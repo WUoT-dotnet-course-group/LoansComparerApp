@@ -33,6 +33,7 @@ export interface Offer {
       state('*', style({ opacity: 1 })),
       state('void', style({ opacity: 0 })),
       transition(':enter', [animate('0.75s ease-in')]),
+      transition(':leave', [animate('0.75s ease-in')]),
     ]),
   ],
 })
