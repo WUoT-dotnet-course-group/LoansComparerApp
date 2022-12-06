@@ -24,6 +24,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
+import { InquirySubmissionFormComponent } from './inquiry-submission-form/inquiry-submission-form.component';
+import { SuccessMessageComponent } from './success-message/success-message.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { DescriptionComponent } from './description/description.component';
@@ -46,6 +49,8 @@ import { MatSortModule } from '@angular/material/sort';
     LayoutComponent,
     InquiryFormComponent,
     ReviewOffersComponent,
+    InquirySubmissionFormComponent,
+    SuccessMessageComponent,
     InquiryHistoryComponent,
     DescriptionComponent,
     SignInGoogleComponent,
@@ -74,6 +79,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatSelectModule,
     MatTableModule,
     MatRippleModule,
+    MatDialogModule,
     ReactiveFormsModule,
     HttpClientModule,
     ScrollingModule,

@@ -51,6 +51,10 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
     // );
   }
 
+  onRowSelected(offer: ReviewOffer): void {
+    this.selectedOffer = offer;
+  }
+
   ngOnDestroy(): void {
     // this.offersSubscription.unsubscribe();
   }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DescriptionComponent } from './description/description.component';
 import { HomeComponent } from './home/home.component';
 import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
+import { InquirySubmissionFormComponent } from './inquiry-submission-form/inquiry-submission-form.component';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { OfferStatusComponent } from './offer-status/offer-status.component';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   },
   // { path: 'offers/:bankId/:offerId', component: OfferStatusComponent },
   { path: 'offers/status', component: OfferStatusComponent },
+  { path: 'submit-inquiry', component: InquirySubmissionFormComponent },
   { path: '**', redirectTo: '/home' },
 ];
 
