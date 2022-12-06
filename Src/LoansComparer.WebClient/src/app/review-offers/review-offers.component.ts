@@ -81,6 +81,7 @@ export class ReviewOffersComponent implements OnInit {
     'loanPeriod',
     'loanValue',
   ];
+  selectedOffer: Offer | null = null;
 
   constructor() {}
 

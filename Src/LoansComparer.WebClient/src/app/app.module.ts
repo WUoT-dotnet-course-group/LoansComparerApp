@@ -23,6 +23,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MatTableModule } from '@angular/material/table';
     MatNativeDateModule,
     MatSelectModule,
     MatTableModule,
+    MatRippleModule,
   ],
   providers: [
     MatDatepickerModule,

@@ -59,3 +59,8 @@ mat-option .mat-option-text {
 .mat-row:nth-child(odd) {
   background-color: rgba(164, 107, 230, 0.4);
 }
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: rgba(164, 107, 230, 0.8);
+}
