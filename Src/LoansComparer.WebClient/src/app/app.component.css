@@ -55,3 +55,7 @@ mat-option .mat-option-text {
   color: rgb(89, 0, 114);
   padding: 20px 32px !important;
 }
+
+.mat-row:nth-child(odd) {
+  background-color: rgba(164, 107, 230, 0.4);
+}
