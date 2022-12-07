@@ -126,8 +126,16 @@ export class InquiryFormComponent implements OnInit {
   ];
 
   inquiryForm!: FormGroup;
+
   dateNow!: Date;
   dateEighteenYearsBefore!: Date;
+
+  invalidFirstNameError: string = 'Please enter valid first name';
+  invalidLastNameError: string = 'Please enter valid last name';
+  invalidBirthDateError: string = 'Please enter valid birth date';
+  missingFieldError: string = 'Please enter value';
+  invalidJobStartError: string = 'Please enter valid job start date';
+  invalidJobEndError: string = 'Please enter valid job end date';
 
   constructor(protected router: Router) {}
 

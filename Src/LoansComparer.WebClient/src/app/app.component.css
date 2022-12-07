@@ -16,6 +16,11 @@
   color: rgb(119, 46, 158, 0.6) !important;
 }
 
+/* form field message */
+.mat-form-field-subscript-wrapper {
+  margin-top: 4px !important;
+}
+
 /* mat-select option menu*/
 .mat-select-panel {
   background: rgb(119, 46, 158);
