@@ -133,7 +133,7 @@ export class InquiryFormComponent implements OnInit {
   invalidFirstNameError: string = 'Please enter valid first name';
   invalidLastNameError: string = 'Please enter valid last name';
   invalidBirthDateError: string = 'Please enter valid birth date';
-  missingFieldError: string = 'Please enter value';
+  requiredFieldError: string = 'Field is required';
   invalidJobStartError: string = 'Please enter valid job start date';
   invalidJobEndError: string = 'Please enter valid job end date';
 

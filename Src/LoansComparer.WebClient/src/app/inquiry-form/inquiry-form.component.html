@@ -12,13 +12,13 @@
           <mat-label>Loan value</mat-label>
           <input matInput formControlName="loanValue" type="number" class="text-right-align">
           <span matSuffix [ngStyle]="{'padding-left':'10px', 'padding-right':'8px'}">{{currencySuffix}}</span>
-          <mat-error *ngIf="!inquiryForm.get('loanValue')?.valid">{{missingFieldError}}</mat-error>
+          <mat-error *ngIf="!inquiryForm.get('loanValue')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="field" appearance="fill">
           <mat-label>Installments number</mat-label>
           <input matInput formControlName="installmentsNumber" type="number">
-          <mat-error *ngIf="!inquiryForm.get('installmentsNumber')?.valid">{{missingFieldError}}</mat-error>
+          <mat-error *ngIf="!inquiryForm.get('installmentsNumber')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
       </div>
 
@@ -27,13 +27,31 @@
           <mat-form-field class="field" appearance="fill">
             <mat-label>First name</mat-label>
             <input matInput formControlName="firstName">
-            <mat-error *ngIf="!inquiryForm.get('personalData.firstName')?.valid">{{invalidFirstNameError}}</mat-error>
+            <mat-error *ngIf="!inquiryForm.get('personalData.firstName')?.valid">
+              <div *ngIf="inquiryForm.get('personalData.firstName')?.hasError('required'); else elseError">
+                {{requiredFieldError}}
+              </div>
+              <ng-template #elseError>
+                <div>
+                  {{invalidFirstNameError}}
+                </div>
+              </ng-template>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="field" appearance="fill">
             <mat-label>Last name</mat-label>
             <input matInput formControlName="lastName">
-            <mat-error *ngIf="!inquiryForm.get('personalData.lastName')?.valid">{{invalidLastNameError}}</mat-error>
+            <mat-error *ngIf="!inquiryForm.get('personalData.lastName')?.valid">
+              <div *ngIf="inquiryForm.get('personalData.lastName')?.hasError('required'); else elseError">
+                {{requiredFieldError}}
+              </div>
+              <ng-template #elseError>
+                <div>
+                  {{invalidLastNameError}}
+                </div>
+              </ng-template>
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -43,7 +61,16 @@
             <input matInput formControlName="birthDate" [max]="dateEighteenYearsBefore" [matDatepicker]="birthPicker">
             <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
             <mat-datepicker #birthPicker></mat-datepicker>
-            <mat-error *ngIf="!inquiryForm.get('personalData.birthDate')?.valid">{{invalidBirthDateError}}</mat-error>
+            <mat-error *ngIf="!inquiryForm.get('personalData.birthDate')?.valid">
+              <div *ngIf="inquiryForm.get('personalData.birthDate')?.hasError('required'); else elseError">
+                {{requiredFieldError}}
+              </div>
+              <ng-template #elseError>
+                <div>
+                  {{invalidBirthDateError}}
+                </div>
+              </ng-template>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
@@ -56,7 +83,7 @@
         <mat-form-field class="field" appearance="fill">
           <mat-label>Government id number</mat-label>
           <input matInput formControlName="governmentId">
-          <mat-error *ngIf="!inquiryForm.get('governmentId')?.valid">{{missingFieldError}}</mat-error>
+          <mat-error *ngIf="!inquiryForm.get('governmentId')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="field" appearance="fill">
@@ -66,7 +93,7 @@
               {{govType.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="!inquiryForm.get('governmentIdType')?.valid">{{missingFieldError}}</mat-error>
+          <mat-error *ngIf="!inquiryForm.get('governmentIdType')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
       </div>
 
@@ -78,7 +105,7 @@
               {{jobType.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="!inquiryForm.get('jobType')?.valid">{{missingFieldError}}</mat-error>
+          <mat-error *ngIf="!inquiryForm.get('jobType')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
@@ -94,7 +121,16 @@
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="jobStartPicker"></mat-datepicker-toggle>
           <mat-datepicker #jobStartPicker></mat-datepicker>
-          <mat-error *ngIf="!inquiryForm.get('jobStartDate')?.valid">{{invalidJobStartError}}</mat-error>
+          <mat-error *ngIf="!inquiryForm.get('jobStartDate')?.valid">
+            <div *ngIf="inquiryForm.get('jobStartDate')?.hasError('required'); else elseError">
+              {{requiredFieldError}}
+            </div>
+            <ng-template #elseError>
+              <div>
+                {{invalidJobStartError}}
+              </div>
+            </ng-template>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="field" appearance="fill">
@@ -103,7 +139,16 @@
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="jobEndPicker"></mat-datepicker-toggle>
           <mat-datepicker #jobEndPicker></mat-datepicker>
-          <mat-error *ngIf="!inquiryForm.get('jobEndDate')?.valid">{{invalidJobEndError}}</mat-error>
+          <mat-error *ngIf="!inquiryForm.get('jobEndDate')?.valid">
+            <div *ngIf="inquiryForm.get('jobEndDate')?.hasError('required'); else elseError">
+              {{requiredFieldError}}
+            </div>
+            <ng-template #elseError>
+              <div>
+                {{invalidJobEndError}}
+              </div>
+            </ng-template>
+          </mat-error>
         </mat-form-field>
       </div>
 
