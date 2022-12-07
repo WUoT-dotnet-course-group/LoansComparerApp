@@ -55,6 +55,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatRippleModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     MatDatepickerModule,

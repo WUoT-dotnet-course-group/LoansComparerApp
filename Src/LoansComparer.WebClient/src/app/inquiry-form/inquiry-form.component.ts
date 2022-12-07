@@ -8,12 +8,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
-
-export interface SelectType {
-  id: number;
-  name: string;
-  description: string;
-}
+import { SelectType } from '../shared/services/loaning-bank.service';
 
 @Component({
   selector: 'app-inquiry-form',
