@@ -34,7 +34,7 @@
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <mat-form-field class="field" appearance="fill">
           <mat-label>Birth date</mat-label>
-          <input matInput formControlName="birthDate" [matDatepicker]="birthPicker">
+          <input matInput formControlName="birthDate" [max]="dateEighteenYearsBefore" [matDatepicker]="birthPicker">
           <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
           <mat-datepicker #birthPicker></mat-datepicker>
         </mat-form-field>
@@ -78,7 +78,8 @@
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <mat-form-field class="field" appearance="fill">
           <mat-label>Job start date</mat-label>
-          <input matInput formControlName="jobStartDate" [matDatepicker]="jobStartPicker">
+          <input matInput formControlName="jobStartDate" [max]="dateNow > jobEndDate ? jobEndDate : dateNow"
+            [matDatepicker]="jobStartPicker">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="jobStartPicker"></mat-datepicker-toggle>
           <mat-datepicker #jobStartPicker></mat-datepicker>
@@ -86,7 +87,7 @@
 
         <mat-form-field class="field" appearance="fill">
           <mat-label>Job end date</mat-label>
-          <input matInput formControlName="jobEndDate" [matDatepicker]="jobEndPicker">
+          <input matInput formControlName="jobEndDate" [min]="jobStartDate" [matDatepicker]="jobEndPicker">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="jobEndPicker"></mat-datepicker-toggle>
           <mat-datepicker #jobEndPicker></mat-datepicker>

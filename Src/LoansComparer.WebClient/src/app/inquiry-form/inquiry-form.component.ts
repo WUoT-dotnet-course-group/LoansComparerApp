@@ -8,7 +8,6 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
-import { previousDateValidator } from '../shared/validators/previous-date-validator';
 
 export interface SelectType {
   id: number;
@@ -127,10 +126,17 @@ export class InquiryFormComponent implements OnInit {
   ];
 
   inquiryForm!: FormGroup;
+  dateNow!: Date;
+  dateEighteenYearsBefore!: Date;
 
   constructor(protected router: Router) {}
 
   ngOnInit(): void {
+    this.dateNow = new Date(Date.now());
+
+    this.dateEighteenYearsBefore = new Date(Date.now());
+    this.dateEighteenYearsBefore.setFullYear(this.dateNow.getFullYear() - 18);
+
     this.inquiryForm = new FormGroup({
       loanValue: new FormControl(null, Validators.required),
       installmentsNumber: new FormControl(null, Validators.required),
@@ -148,5 +154,13 @@ export class InquiryFormComponent implements OnInit {
   onFormSubmit(): void {
     console.log(this.inquiryForm);
     this.router.navigateByUrl('/offers');
+  }
+
+  get jobStartDate(): Date {
+    return this.inquiryForm.controls['jobStartDate'].value;
+  }
+
+  get jobEndDate(): Date {
+    return this.inquiryForm.controls['jobEndDate'].value;
   }
 }
