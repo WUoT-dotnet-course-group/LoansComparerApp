@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import {
   trigger,
   state,
@@ -6,6 +7,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { Router } from '@angular/router';
 
 export interface SelectType {
   id: number;
@@ -123,7 +125,27 @@ export class InquiryFormComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  inquiryForm!: FormGroup;
 
-  ngOnInit(): void {}
+  constructor(protected router: Router) {}
+
+  ngOnInit(): void {
+    this.inquiryForm = new FormGroup({
+      loanValue: new FormControl(),
+      installmentsNumber: new FormControl(),
+      firstName: new FormControl(),
+      lastName: new FormControl(),
+      birthDate: new FormControl(),
+      governmentIdType: new FormControl(),
+      governmentId: new FormControl(),
+      jobType: new FormControl(),
+      jobStartDate: new FormControl(),
+      jobEndDate: new FormControl(),
+    });
+  }
+
+  onFormSubmit(): void {
+    console.log(this.inquiryForm);
+    this.router.navigateByUrl('/offers');
+  }
 }

@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatSelectModule,
     MatTableModule,
     MatRippleModule,
+    ReactiveFormsModule,
   ],
   providers: [
     MatDatepickerModule,
