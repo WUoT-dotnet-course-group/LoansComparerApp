@@ -146,17 +146,19 @@ export class InquiryFormComponent implements OnInit {
     this.dateEighteenYearsBefore.setFullYear(this.dateNow.getFullYear() - 18);
 
     this.inquiryForm = new FormGroup({
+      personalData: new FormGroup({
+        firstName: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[a-zA-Z]+'),
+        ]),
+        lastName: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[a-zA-Z]+'),
+        ]),
+        birthDate: new FormControl(null, Validators.required),
+      }),
       loanValue: new FormControl(null, Validators.required),
       installmentsNumber: new FormControl(null, Validators.required),
-      firstName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[a-zA-Z]+'),
-      ]),
-      lastName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[a-zA-Z]+'),
-      ]),
-      birthDate: new FormControl(null, Validators.required),
       governmentIdType: new FormControl(null, Validators.required),
       governmentId: new FormControl(null, Validators.required),
       jobType: new FormControl(null, Validators.required),

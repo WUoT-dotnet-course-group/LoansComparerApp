@@ -22,32 +22,34 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-        <mat-form-field class="field" appearance="fill">
-          <mat-label>First name</mat-label>
-          <input matInput formControlName="firstName">
-          <mat-error *ngIf="!inquiryForm.get('firstName')?.valid">{{invalidFirstNameError}}</mat-error>
-        </mat-form-field>
+      <div formGroupName="personalData">
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstName">
+            <mat-error *ngIf="!inquiryForm.get('personalData.firstName')?.valid">{{invalidFirstNameError}}</mat-error>
+          </mat-form-field>
 
-        <mat-form-field class="field" appearance="fill">
-          <mat-label>Last name</mat-label>
-          <input matInput formControlName="lastName">
-          <mat-error *ngIf="!inquiryForm.get('lastName')?.valid">{{invalidLastNameError}}</mat-error>
-        </mat-form-field>
-      </div>
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastName">
+            <mat-error *ngIf="!inquiryForm.get('personalData.lastName')?.valid">{{invalidLastNameError}}</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-        <mat-form-field class="field" appearance="fill">
-          <mat-label>Birth date</mat-label>
-          <input matInput formControlName="birthDate" [max]="dateEighteenYearsBefore" [matDatepicker]="birthPicker">
-          <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
-          <mat-datepicker #birthPicker></mat-datepicker>
-          <mat-error *ngIf="!inquiryForm.get('birthDate')?.valid">{{invalidBirthDateError}}</mat-error>
-        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-form-field class="field" appearance="fill">
+            <mat-label>Birth date</mat-label>
+            <input matInput formControlName="birthDate" [max]="dateEighteenYearsBefore" [matDatepicker]="birthPicker">
+            <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+            <mat-datepicker #birthPicker></mat-datepicker>
+            <mat-error *ngIf="!inquiryForm.get('personalData.birthDate')?.valid">{{invalidBirthDateError}}</mat-error>
+          </mat-form-field>
 
-        <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
-          <input matInput>
-        </mat-form-field>
+          <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+            <input matInput>
+          </mat-form-field>
+        </div>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="space-around center">
