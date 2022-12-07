@@ -157,7 +157,7 @@
           <input matInput>
         </mat-form-field>
 
-        <button mat-button class="prim-button" type="submit">Submit</button>
+        <button mat-button class="prim-button" type="submit" [disabled]="inquiryForm.invalid">Submit</button>
       </div>
     </div>
   </form>
