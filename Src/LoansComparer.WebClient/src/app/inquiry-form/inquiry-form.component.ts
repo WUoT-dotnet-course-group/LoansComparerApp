@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   trigger,
   state,
@@ -8,6 +8,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
+import { previousDateValidator } from '../shared/validators/previous-date-validator';
 
 export interface SelectType {
   id: number;
@@ -131,16 +132,16 @@ export class InquiryFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.inquiryForm = new FormGroup({
-      loanValue: new FormControl(),
-      installmentsNumber: new FormControl(),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      birthDate: new FormControl(),
-      governmentIdType: new FormControl(),
-      governmentId: new FormControl(),
-      jobType: new FormControl(),
-      jobStartDate: new FormControl(),
-      jobEndDate: new FormControl(),
+      loanValue: new FormControl(null, Validators.required),
+      installmentsNumber: new FormControl(null, Validators.required),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      birthDate: new FormControl(null, Validators.required),
+      governmentIdType: new FormControl(null, Validators.required),
+      governmentId: new FormControl(null, Validators.required),
+      jobType: new FormControl(null, Validators.required),
+      jobStartDate: new FormControl(null, Validators.required),
+      jobEndDate: new FormControl(null, Validators.required),
     });
   }
 
