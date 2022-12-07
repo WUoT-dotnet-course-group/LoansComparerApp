@@ -140,8 +140,14 @@ export class InquiryFormComponent implements OnInit {
     this.inquiryForm = new FormGroup({
       loanValue: new FormControl(null, Validators.required),
       installmentsNumber: new FormControl(null, Validators.required),
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z]+'),
+      ]),
+      lastName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z]+'),
+      ]),
       birthDate: new FormControl(null, Validators.required),
       governmentIdType: new FormControl(null, Validators.required),
       governmentId: new FormControl(null, Validators.required),
