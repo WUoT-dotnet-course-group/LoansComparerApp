@@ -1,0 +1,30 @@
+<div class="stack">
+  <div class="stack-layer" fxLayout="column" *ngIf="isLearnMore; else description" [@toggleLearnMore]>
+    <span class="header">Let Us Loan For You </span>
+
+    <div class="content" fxLayout="column">
+      <span>Want to realize your dreams? </span>
+      <span>Take an investment into future? </span>
+      <span>Or maybe simply have an empty wallet? </span>
+    </div>
+
+    <button mat-button class="sec-button" color="primary" (click)="onLearnMoreClick()">Learn More</button>
+  </div>
+</div>
+
+<ng-template #description>
+  <div class="stack-layer" fxLayout="column" [@toggleLearnMore]>
+    <div class="description" fxLayout="column">
+      <span [ngStyle]="{'width': '600px'}">LoansComparer is a necessary tool for anyone who wants to take the
+        best loan from those offered by top-ranked banks. </span>
+      <span [ngStyle]="{'width': '560px'}">You can send your inquiry and compare best-fitting bank offers. Then you
+        can submit an inquiry request for your favorite offer. We will send a formal request to chosen offer bank for
+        you. </span>
+      <span [ngStyle]="{'width': '530px'}">You will be notified about further bank steps regarding your inquiry. We
+        also highly recommend you register so you can see the history of your inquiries and make submitting
+        future inquiry requests even easier. </span>
+    </div>
+
+    <button mat-button color="primary" class="sec-button" (click)="onLearnMoreClick()">Go Back</button>
+  </div>
+</ng-template>

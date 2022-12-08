@@ -8,11 +8,11 @@ import {
 } from '@angular/animations';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less'],
+  selector: 'app-app-description',
+  templateUrl: './app-description.component.html',
+  styleUrls: ['./app-description.component.less'],
   animations: [
-    trigger('animation', [
+    trigger('toggleLearnMore', [
       state('*', style({ opacity: 1 })),
       state('void', style({ opacity: 0 })),
       transition(':leave', [animate('0.5s ease-in')]),
@@ -20,10 +20,14 @@ import {
     ]),
   ],
 })
-export class HomeComponent implements OnInit {
-  currentInquiresMade: number = 102;
+export class AppDescriptionComponent implements OnInit {
+  isLearnMore: boolean = true;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  onLearnMoreClick(): void {
+    this.isLearnMore = !this.isLearnMore;
+  }
 }

@@ -25,6 +25,8 @@ import { ReviewOffersComponent } from './review-offers/review-offers.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
+import { AppDescriptionComponent } from './app-description/app-description.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LayoutComponent,
     InquiryFormComponent,
     ReviewOffersComponent,
+    InquiryHistoryComponent,
+    AppDescriptionComponent,
   ],
   imports: [
     BrowserModule,
