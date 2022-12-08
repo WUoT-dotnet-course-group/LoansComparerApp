@@ -8,7 +8,13 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
-import { SelectType } from '../shared/services/loaning-bank.service';
+import { LoaningBankService } from '../shared/services/loaning-bank.service';
+
+export interface SelectType {
+  id: number;
+  name: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-inquiry-form',
@@ -132,7 +138,10 @@ export class InquiryFormComponent implements OnInit {
   invalidJobStartError: string = 'Please enter valid job start date';
   invalidJobEndError: string = 'Please enter valid job end date';
 
-  constructor(protected router: Router) {}
+  constructor(
+    protected loaningBankService: LoaningBankService,
+    protected router: Router
+  ) {}
 
   ngOnInit(): void {
     this.dateNow = new Date(Date.now());
@@ -163,7 +172,25 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    console.log(this.inquiryForm);
+    console.log(this.inquiryForm.value);
+    this.loaningBankService.createInquiry({
+      loanValue: this.inquiryForm.value.loanValue,
+      installmentsNumber: this.inquiryForm.value.installmentsNumber,
+      personalData: this.inquiryForm.value.personalData,
+      governmentDocument: {
+        typeId: this.inquiryForm.value.governmentIdType.id,
+        name: this.inquiryForm.value.governmentIdType.name,
+        description: this.inquiryForm.value.governmentIdType.description,
+        number: this.inquiryForm.value.governmentId,
+      },
+      jobDetails: {
+        typeId: this.inquiryForm.value.jobType.id,
+        name: this.inquiryForm.value.jobType.name,
+        description: this.inquiryForm.value.jobType.description,
+        jobStartDate: this.inquiryForm.value.jobStartDate,
+        jobEndDate: this.inquiryForm.value.jobEndDate,
+      },
+    });
     this.router.navigateByUrl('/offers');
   }
 
