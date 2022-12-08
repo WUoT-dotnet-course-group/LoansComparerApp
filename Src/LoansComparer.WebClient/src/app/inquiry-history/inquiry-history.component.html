@@ -1,1 +1,33 @@
-<p>inquiry-history works!</p>
+<div fxLayout="column" fxLayoutAlign="center start" fxFill [@enterAndLeave]>
+  <span class="header">Your recent inquiries:</span>
+  <div class="table-container mat-elevation-z8" cdkScrollable>
+    <table mat-table [dataSource]="inquiries" class="mat-elevation-z8">
+      <!-- LoanValue Column -->
+      <ng-container matColumnDef="loanValue">
+        <th mat-header-cell *matHeaderCellDef> Loan value </th>
+        <td mat-cell *matCellDef="let element"> {{element.loanValue}} </td>
+      </ng-container>
+
+      <!-- InquireDate Column -->
+      <ng-container matColumnDef="inquireDate">
+        <th mat-header-cell *matHeaderCellDef> Inquire date </th>
+        <td mat-cell *matCellDef="let element"> {{element.inquireDate | date:'medium'}} </td>
+      </ng-container>
+
+      <!-- OfferStatus Column -->
+      <ng-container matColumnDef="offerStatus">
+        <th mat-header-cell *matHeaderCellDef> Offer status </th>
+        <td mat-cell *matCellDef="let element"> {{element.offerStatus}} </td>
+      </ng-container>
+
+      <!-- BankOfChosenOffer Column -->
+      <ng-container matColumnDef="bankOfChosenOffer">
+        <th mat-header-cell *matHeaderCellDef> Chosen bank </th>
+        <td mat-cell *matCellDef="let element"> {{element.bankOfChosenOffer}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

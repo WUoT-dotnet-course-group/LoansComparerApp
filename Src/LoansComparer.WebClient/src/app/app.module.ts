@@ -27,6 +27,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { AppDescriptionComponent } from './app-description/app-description.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AppDescriptionComponent } from './app-description/app-description.compo
     MatRippleModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ScrollingModule,
   ],
   providers: [
     MatDatepickerModule,

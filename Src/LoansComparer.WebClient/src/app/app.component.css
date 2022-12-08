@@ -36,6 +36,12 @@ mat-option .mat-option-text {
   color: rgb(89, 0, 114);
 }
 
+table {
+  width: fit-content !important;
+  height: fit-content !important;
+  background: white !important;
+}
+
 /* mat-table */
 .mat-table {
   border-radius: 12px;

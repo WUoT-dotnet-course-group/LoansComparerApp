@@ -15,8 +15,8 @@ import {
     trigger('animation', [
       state('*', style({ opacity: 1 })),
       state('void', style({ opacity: 0 })),
-      transition(':leave', [animate('0.5s ease-in')]),
-      transition(':enter', [animate('0.5s 0.5s ease-in')]),
+      transition(':leave', [animate('0.4s ease-in')]),
+      transition(':enter', [animate('0.4s 0.4s ease-in')]),
     ]),
   ],
 })
