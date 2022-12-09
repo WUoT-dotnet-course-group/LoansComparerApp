@@ -12,6 +12,7 @@ import {
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-inquiry-history',
@@ -33,11 +34,12 @@ export class InquiryHistoryComponent implements OnInit {
     'loanValue',
     'inquireDate',
     'offerStatus',
-    'bankOfChosenOffer',
+    'chosenBank',
   ];
   dataSource = new MatTableDataSource<GetInquiryData>(this.inquiries);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private loansComparerService: LoansComparerService) {}
 
@@ -49,5 +51,6 @@ export class InquiryHistoryComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }

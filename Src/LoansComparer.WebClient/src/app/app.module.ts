@@ -36,6 +36,7 @@ import { AuthInterceptorService } from './shared/services/auth/auth-interceptor.
 import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 import { PersonalDataComponent } from './shared/personal-data/personal-data.component';
 import { OfferStatusComponent } from './offer-status/offer-status.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { OfferStatusComponent } from './offer-status/offer-status.component';
     HttpClientModule,
     ScrollingModule,
     MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     MatDatepickerModule,
