@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   trigger,
   state,
@@ -10,6 +10,8 @@ import {
   GetInquiryData,
   LoansComparerService,
 } from '../shared/services/loans-comparer/loans-comparer.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-inquiry-history',
@@ -33,6 +35,9 @@ export class InquiryHistoryComponent implements OnInit {
     'offerStatus',
     'bankOfChosenOffer',
   ];
+  dataSource = new MatTableDataSource<GetInquiryData>(this.inquiries);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private loansComparerService: LoansComparerService) {}
 
@@ -40,5 +45,9 @@ export class InquiryHistoryComponent implements OnInit {
     this.loansComparerService
       .getInquiries()
       .subscribe((response: GetInquiryData[]) => (this.inquiries = response));
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 }
