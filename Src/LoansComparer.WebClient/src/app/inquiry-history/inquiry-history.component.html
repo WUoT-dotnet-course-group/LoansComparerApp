@@ -2,6 +2,12 @@
   <span class="header">Your recent inquiries:</span>
   <div class="table-container mat-elevation-z8" cdkScrollable>
     <table mat-table [dataSource]="inquiries" class="mat-elevation-z8">
+      <!-- Indexer Column -->
+      <ng-container matColumnDef="indexer">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
+      </ng-container>
+
       <!-- LoanValue Column -->
       <ng-container matColumnDef="loanValue">
         <th mat-header-cell *matHeaderCellDef> Loan value </th>

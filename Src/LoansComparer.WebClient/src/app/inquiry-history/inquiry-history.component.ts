@@ -67,6 +67,7 @@ export class InquiryHistoryComponent implements OnInit {
     },
   ];
   displayedColumns: string[] = [
+    'indexer',
     'loanValue',
     'inquireDate',
     'offerStatus',
