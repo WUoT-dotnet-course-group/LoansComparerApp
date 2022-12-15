@@ -14,7 +14,11 @@
   </div>
 
   <div fxFlex fxLayout="column" fxFlexOffset="20" [@toggleLearnMore]>
-    <button mat-button class="prim-button" fxFlexOffset="76" routerLink="/inquire">Create your first
+    <div class="header" fxLayout="column" fxLayoutAlign="center center">
+      <span>{{ currentInquiresMade }}</span>
+      <span class="header-content">loaners have already trusted us!</span>
+    </div>
+    <button mat-button class="prim-button" routerLink="/inquire">Create your first
       inquiry</button>
   </div>
 </div>
