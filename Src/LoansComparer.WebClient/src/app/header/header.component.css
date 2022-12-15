@@ -1,6 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
 
-* {
+span {
   font-family: 'Comfortaa', cursive;
-  font-size: 30px;
+  font-size: 32px;
+}
+
+button {
+  font-size: 17.5px;
+  font-family: 'Lilita One', cursive;
+  border-radius: 25px;
+  height: 42px;
+}
+
+.prim-button {
+  width: 120px;
+  color: white;
+  background-color: rgb(119, 46, 158);
+  align-self: center;
+  margin-right: 10px;
+}
+
+.sec-button {
+  width: 120px;
+  background-color: white;
 }
