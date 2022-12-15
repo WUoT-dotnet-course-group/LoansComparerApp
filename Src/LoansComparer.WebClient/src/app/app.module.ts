@@ -15,9 +15,21 @@ import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, LayoutComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    HomeComponent,
+    LayoutComponent,
+    InquiryFormComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -30,8 +42,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
