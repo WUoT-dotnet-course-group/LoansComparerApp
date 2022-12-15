@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppDescriptionComponent } from './app-description/app-description.component';
 import { HomeComponent } from './home/home.component';
 import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
+import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+    children: [
+      { path: 'signed-in', component: InquiryHistoryComponent },
+      { path: '', component: AppDescriptionComponent },
+    ],
+  },
   { path: 'inquire', component: InquiryFormComponent },
   { path: 'offers', component: ReviewOffersComponent },
   { path: '**', redirectTo: '/home' },
