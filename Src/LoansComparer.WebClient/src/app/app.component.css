@@ -36,7 +36,7 @@ mat-option .mat-option-text {
   color: rgb(89, 0, 114);
 }
 
-table {
+table.mat-table {
   width: fit-content !important;
   height: fit-content !important;
   background: white !important;
