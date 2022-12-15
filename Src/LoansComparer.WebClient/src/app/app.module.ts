@@ -21,6 +21,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ReviewOffersComponent } from './review-offers/review-offers.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
     HomeComponent,
     LayoutComponent,
     InquiryFormComponent,
+    ReviewOffersComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatTableModule,
+    MatRippleModule,
   ],
   providers: [
     MatDatepickerModule,
