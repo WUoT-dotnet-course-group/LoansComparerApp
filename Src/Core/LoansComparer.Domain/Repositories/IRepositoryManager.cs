@@ -3,6 +3,7 @@
     public interface IRepositoryManager
     {
         IInquiryRepository InquiryRepository { get; }
+
         IUnitOfWork UnitOfWork { get; }
     }
 }

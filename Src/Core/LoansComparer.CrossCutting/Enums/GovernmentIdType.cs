@@ -1,9 +1,9 @@
-﻿namespace LoansComparer.Domain.Entities
+﻿namespace LoansComparer.CrossCutting.Enums
 {
     public enum GovernmentIdType
     {
         PESEL,
-        Id,
+        ID,
         Passport
     }
 }
