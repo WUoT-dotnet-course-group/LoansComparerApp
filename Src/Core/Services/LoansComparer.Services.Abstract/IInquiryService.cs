@@ -2,8 +2,8 @@
 {
     public interface IInquiryService
     {
-      /*  Task Add(AddInquiryDTO inquiry);
+        /*  Task Add(AddInquiryDTO inquiry);
 
-        Task<List<GetInquiryDTO>> GetAll();*/
+          Task<List<GetInquiryDTO>> GetAll();*/
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LoansComparer.Domain.Entities
+﻿namespace LoansComparer.Domain.Entities
 {
     public abstract class Inquiry
     {
@@ -15,5 +9,6 @@ namespace LoansComparer.Domain.Entities
         public PersonalData PersonalData { get; set; } = default!;
         public Guid ChosenBankId { get; set; }
         public Guid ChosenBankInquiryId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

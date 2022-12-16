@@ -1,5 +1,4 @@
-﻿using LoansComparer.DataPersistence;
-using LoansComparer.Domain.Entities;
+﻿using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
