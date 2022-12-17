@@ -1,4 +1,5 @@
 ﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
 using Mapster;
@@ -11,18 +12,26 @@ namespace LoansComparer.Services
 
         public InquiryService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
 
-        //public async Task Add(AddInquiryDTO inquiry)
-        //{
-        //    var inquiryToAdd = inquiry.Adapt<Inquiry>();
+        public async Task Add(AddInquiryDTO inquiry)
+        {
+            // TODO: logged in user
 
-        //    await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
-        //}
+            // logged out user
+            var inquiryToAdd = inquiry.Adapt<Inquiry>();
+            inquiryToAdd.User = new User()
+            {
+                PersonalData = inquiry.PersonalData.Adapt<PersonalData>(),
+                Email = inquiry.Email
+            };
+
+            await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
+        }
 
         public async Task<List<GetInquiryDTO>> GetAll()
         {
             var inquiries = await _repositoryManager.InquiryRepository.GetAll();
 
-            // TODO: make repository request for bank names 
+            // TODO: configurate adapt method to fill ChosenBank property
 
             return inquiries.Adapt<List<GetInquiryDTO>>();
         }

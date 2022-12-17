@@ -18,5 +18,12 @@ namespace LoansComparer.Presentation.Controllers
             var inquiries = await _serviceManager.InquiryService.GetAll();
             return Ok(inquiries);
         }
+
+        [HttpPost("add")]
+        public async Task<ActionResult> Add([FromBody] AddInquiryDTO inquiry)
+        {
+            await _serviceManager.InquiryService.Add(inquiry);
+            return Ok();
+        }
     }
 }
