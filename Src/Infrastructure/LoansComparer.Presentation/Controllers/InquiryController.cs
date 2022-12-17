@@ -25,5 +25,12 @@ namespace LoansComparer.Presentation.Controllers
             await _serviceManager.InquiryService.Add(inquiry);
             return Ok();
         }
+
+        [HttpPatch("{inquiryId}/chooseOffer")]
+        public async Task<ActionResult> ChooseOffer(Guid inquiryId, [FromBody] ChooseOfferDTO chosenOffer)
+        {
+            await _serviceManager.InquiryService.ChooseOffer(inquiryId, chosenOffer);
+            return Ok();
+        }
     }
 }

@@ -27,6 +27,16 @@ namespace LoansComparer.Services
             await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
         }
 
+        public async Task ChooseOffer(Guid inquiryId, ChooseOfferDTO chosenOffer)
+        {
+            var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
+
+            inquiry.ChosenBank = await _repositoryManager.BankRepository.GetById(chosenOffer.OfferBankId);
+            inquiry.ChosenBankInquiryId = chosenOffer.OfferId;
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        }
+
         public async Task<List<GetInquiryDTO>> GetAll()
         {
             var inquiries = await _repositoryManager.InquiryRepository.GetAll();
