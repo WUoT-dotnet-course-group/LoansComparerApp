@@ -1,6 +1,7 @@
-﻿using LoansComparer.Domain.Repositories;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
-//using Mapster;
+using Mapster;
 
 namespace LoansComparer.Services
 {
@@ -17,11 +18,13 @@ namespace LoansComparer.Services
         //    await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
         //}
 
-        //public async Task<List<GetInquiryDTO>> GetAll()
-        //{
-        //    var inquiries = await _repositoryManager.InquiryRepository.GetAll();
+        public async Task<List<GetInquiryDTO>> GetAll()
+        {
+            var inquiries = await _repositoryManager.InquiryRepository.GetAll();
 
-        //    return inquiries.Adapt<List<GetInquiryDTO>>();
-        //}
+            // TODO: make repository request for bank names 
+
+            return inquiries.Adapt<List<GetInquiryDTO>>();
+        }
     }
 }
