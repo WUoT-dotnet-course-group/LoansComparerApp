@@ -1,14 +1,17 @@
 ﻿namespace LoansComparer.Domain.Entities
 {
-    public abstract class Inquiry
+    public class Inquiry
     {
-        public Guid Id { get; set; }
+        public Guid ID { get; set; }
         public int LoanValue { get; set; }
         public short NumberOfInstallments { get; set; }
         public DateTime InquireDate { get; set; }
-        public PersonalData PersonalData { get; set; } = default!;
-        public Guid ChosenBankId { get; set; }
         public Guid ChosenBankInquiryId { get; set; }
-        public Guid UserId { get; set; }
+        
+        public Guid UserID { get; set; }
+        public User User { get; set; } = default!;
+        
+        public Guid? ChosenBankID { get; set; }
+        public Bank? ChosenBank { get; set; } = default!;
     }
 }

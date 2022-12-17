@@ -14,7 +14,20 @@ namespace LoansComparer.DataPersistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .OwnsOne(
+                x => x.PersonalData,
+                pd =>
+                {
+                    pd.Property(y => y.FirstName).HasColumnName("FirstName");
+                    pd.Property(y => y.LastName).HasColumnName("LastName");
+                    pd.Property(y => y.GovernmentId).HasColumnName("GovernmentId");
+                    pd.Property(y => y.GovernmentIdType).HasColumnName("GovernmentIdType");
+                });
 
+            modelBuilder.Entity<Inquiry>()
+                .Property(x => x.InquireDate)
+                .HasDefaultValueSql("getdate()");
         }
     }
 }

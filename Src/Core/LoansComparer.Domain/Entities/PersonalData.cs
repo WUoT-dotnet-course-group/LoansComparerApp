@@ -1,4 +1,6 @@
-﻿namespace LoansComparer.Domain.Entities
+﻿using LoansComparer.CrossCutting.Enums;
+
+namespace LoansComparer.Domain.Entities
 {
     public class PersonalData
     {
