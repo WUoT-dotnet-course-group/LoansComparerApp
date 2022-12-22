@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 export enum GovernmentIdType {
   PESEL = 1,
@@ -40,11 +41,13 @@ export interface InquiryDetails {
   providedIn: 'root',
 })
 export class LoaningBankService {
+  private path: string = environment.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   createInquiry(inquiryDetails: InquiryDetails) {
     this.http
-      .post('https://loaning-bank-api.azurewebsites.net/api/inquiries/add', {
+      .post(this.path + 'api/inquiries/add', {
         loanValue: inquiryDetails.loanValue,
         numberOfInstallments: inquiryDetails.installmentsNumber,
         personalData: {
