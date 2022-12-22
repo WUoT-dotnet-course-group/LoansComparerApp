@@ -1,13 +1,30 @@
-﻿namespace LoansComparer
+﻿using LoansComparer.DataPersistence;
+using LoansComparer.DataPersistence.Repositories;
+using LoansComparer.Domain.Repositories;
+using LoansComparer.Services.Abstract;
+using LoansComparer.Services;
+using LoansComparer.WebAPI.Configuration;
+using Microsoft.EntityFrameworkCore;
+
+namespace LoansComparer
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private readonly ConfigurationsManager ConfigurationsManager;
 
-        public Startup(IConfiguration configuration) => Configuration = configuration;
+        public Startup(IConfiguration configuration)
+        {
+            ConfigurationsManager = new ConfigurationsManager(configuration);
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<RepositoryDbContext>(conf =>
+                conf.UseSqlServer(ConfigurationsManager.DbConnectionString));
+
+            services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+
             services.AddControllers()
                 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
