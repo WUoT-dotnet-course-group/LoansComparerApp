@@ -1,6 +1,8 @@
-﻿using LoansComparer.Domain.Repositories;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.Domain.Entities;
+using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
-//using Mapster;
+using Mapster;
 
 namespace LoansComparer.Services
 {
@@ -10,18 +12,38 @@ namespace LoansComparer.Services
 
         public InquiryService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
 
-        //public async Task Add(AddInquiryDTO inquiry)
-        //{
-        //    var inquiryToAdd = inquiry.Adapt<Inquiry>();
+        public async Task Add(AddInquiryDTO inquiry)
+        {
+            // TODO: logged in user
 
-        //    await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
-        //}
+            // logged out user
+            var inquiryToAdd = inquiry.Adapt<Inquiry>();
+            inquiryToAdd.User = new User()
+            {
+                PersonalData = inquiry.PersonalData.Adapt<PersonalData>(),
+                Email = inquiry.Email
+            };
 
-        //public async Task<List<GetInquiryDTO>> GetAll()
-        //{
-        //    var inquiries = await _repositoryManager.InquiryRepository.GetAll();
+            await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
+        }
 
-        //    return inquiries.Adapt<List<GetInquiryDTO>>();
-        //}
+        public async Task ChooseOffer(Guid inquiryId, ChooseOfferDTO chosenOffer)
+        {
+            var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
+
+            inquiry.Bank = await _repositoryManager.BankRepository.GetById(chosenOffer.OfferBankId);
+            inquiry.ChosenBankInquiryId = chosenOffer.OfferId;
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<List<GetInquiryDTO>> GetAll()
+        {
+            var inquiries = await _repositoryManager.InquiryRepository.GetAll();
+
+            // TODO: configurate adapt method to fill ChosenBank property
+
+            return inquiries.Adapt<List<GetInquiryDTO>>();
+        }
     }
 }

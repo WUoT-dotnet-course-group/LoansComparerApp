@@ -17,5 +17,11 @@ namespace LoansComparer.DataPersistence.Repositories
         }
 
         public async Task<List<Inquiry>> GetAll() => await _dbContext.Inquiries.AsNoTracking().ToListAsync();
+
+        public async Task<Inquiry> GetById(Guid id)
+        {
+            // TODO: do validation in advance 
+            return await _dbContext.Inquiries.SingleAsync(x => x.ID == id);
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace LoansComparer.DataPersistence
         {
         }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<Bank> Banks { get; set; }
         public DbSet<Inquiry> Inquiries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

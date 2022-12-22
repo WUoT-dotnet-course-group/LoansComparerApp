@@ -11,7 +11,7 @@
         public Guid UserID { get; set; }
         public User User { get; set; } = default!;
 
-        public Guid? ChosenBankID { get; set; }
-        public Bank? ChosenBank { get; set; } = default!;
+        public Guid? BankID { get; set; }
+        public Bank? Bank { get; set; } = default!;
     }
 }
