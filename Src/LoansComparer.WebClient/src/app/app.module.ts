@@ -28,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { AppDescriptionComponent } from './app-description/app-description.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ReviewOffersComponent,
     InquiryHistoryComponent,
     AppDescriptionComponent,
+    SignInGoogleComponent,
   ],
   imports: [
     BrowserModule,
