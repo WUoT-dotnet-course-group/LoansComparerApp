@@ -29,6 +29,7 @@ import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.compo
 import { AppDescriptionComponent } from './app-description/app-description.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component';
+import { SignOutComponent } from './sign-out/sign-out.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component
     InquiryHistoryComponent,
     AppDescriptionComponent,
     SignInGoogleComponent,
+    SignOutComponent,
   ],
   imports: [
     BrowserModule,
