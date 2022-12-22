@@ -55,6 +55,9 @@ namespace LoansComparer
                     };
                 });
 
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
             services.AddSwaggerGen();
         }
 
@@ -71,6 +74,8 @@ namespace LoansComparer
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
 
