@@ -5,18 +5,27 @@ import { HomeComponent } from './home/home.component';
 import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
+import { AuthGuard } from './shared/services/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
     children: [
-      { path: 'signed-in', component: InquiryHistoryComponent },
+      {
+        path: 'signed-in',
+        component: InquiryHistoryComponent,
+        canActivate: [AuthGuard],
+      },
       { path: '', component: AppDescriptionComponent },
     ],
   },
   { path: 'inquire', component: InquiryFormComponent },
-  { path: 'offers', component: ReviewOffersComponent },
+  {
+    path: 'offers',
+    component: ReviewOffersComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', redirectTo: '/home' },
 ];
 

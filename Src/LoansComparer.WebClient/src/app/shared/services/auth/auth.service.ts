@@ -22,7 +22,9 @@ export class AuthService {
   isAuthenticated!: boolean;
 
   constructor(private httpClient: HttpClient) {
-    this.user$.subscribe((value) => (this.isAuthenticated = value != null));
+    this.user$.subscribe((value: User | null) => {
+      this.isAuthenticated = !!value;
+    });
   }
 
   signIn(credentials: string): Observable<AuthData> {
@@ -36,7 +38,6 @@ export class AuthService {
       )
       .pipe(
         tap((response: AuthData) => {
-          localStorage.setItem('token', response.encryptedToken);
           this.user$.next(
             new User(
               response.userEmail,
@@ -49,7 +50,6 @@ export class AuthService {
   }
 
   signOut = () => {
-    localStorage.removeItem('token');
     this.user$.next(null);
   };
 }
