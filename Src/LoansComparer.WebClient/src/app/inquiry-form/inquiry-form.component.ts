@@ -190,6 +190,7 @@ export class InquiryFormComponent implements OnInit {
         jobStartDate: this.inquiryForm.value.jobStartDate,
         jobEndDate: this.inquiryForm.value.jobEndDate,
       },
+      email: 'test',
     });
     this.router.navigateByUrl('/offers');
   }

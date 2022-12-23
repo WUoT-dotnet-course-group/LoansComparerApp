@@ -35,6 +35,7 @@ export interface InquiryDetails {
   personalData: PersonalData;
   governmentDocument: GovernmentDocument;
   jobDetails: JobDetails;
+  email: string;
 }
 
 @Injectable({
@@ -56,6 +57,7 @@ export class LoaningBankService {
           governmentId: inquiryDetails.governmentDocument.number,
           governmentIdType: inquiryDetails.governmentDocument.typeId - 1,
         },
+        email: inquiryDetails.email,
       })
       .subscribe((response) => {
         console.log(response);
