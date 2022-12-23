@@ -11,15 +11,20 @@ namespace LoansComparer.Presentation.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
+        private readonly IServicesConfiguration _configuration;
 
-        public AuthController(IServiceManager serviceManager) => _serviceManager = serviceManager;
+        public AuthController(IServiceManager serviceManager, IServicesConfiguration configuration)
+        {
+            _serviceManager = serviceManager;
+            _configuration = configuration;
+        }
 
         [HttpPost("signIn")]
         public async Task<ActionResult<AuthDTO>> SignInWithGoogle([FromBody] string credentials)
         {
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
-                Audience = new List<string> { "926857553613-qeeqtu9t32am5ngfrgrvj7j56hng5i6d.apps.googleusercontent.com" }
+                Audience = new List<string> { _configuration.GetGoogleAuthClientId() }
             };
 
             var payload = await GoogleJsonWebSignature.ValidateAsync(credentials, settings);

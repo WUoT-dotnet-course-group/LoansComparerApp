@@ -8,9 +8,9 @@ namespace LoansComparer.Services
         private readonly Lazy<IUserService> _lazyUserService;
         private readonly Lazy<IInquiryService> _lazyInquiryService;
 
-        public ServiceManager(IRepositoryManager repositoryManager)
+        public ServiceManager(IRepositoryManager repositoryManager, IServicesConfiguration configuration)
         {
-            _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager));
+            _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager, configuration));
             _lazyInquiryService = new Lazy<IInquiryService>(() => new InquiryService(repositoryManager));
         }
 

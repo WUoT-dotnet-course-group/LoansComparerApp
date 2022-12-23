@@ -10,13 +10,18 @@ namespace LoansComparer.Services
     internal sealed class UserService : IUserService
     {
         private readonly IRepositoryManager _repositoryManager;
+        private readonly IServicesConfiguration _configuration;
 
-        public UserService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
+        public UserService(IRepositoryManager repositoryManager, IServicesConfiguration configuration)
+        {
+            _repositoryManager = repositoryManager;
+            _configuration = configuration;
+        }
 
         public async Task<AuthDTO> Authenticate(string userEmail)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Some secret veeery secret secret");
+            var key = Encoding.ASCII.GetBytes(_configuration.GetGoogleAuthSecretKey());
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

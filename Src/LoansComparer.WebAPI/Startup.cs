@@ -27,6 +27,7 @@ namespace LoansComparer
 
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
+            services.AddScoped<IServicesConfiguration, ConfigurationsManager>();
 
             services.AddControllers()
                 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
@@ -43,7 +44,7 @@ namespace LoansComparer
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Same secret very secret secret as in GenerateJWT")),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationsManager.GetGoogleAuthSecretKey())),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
