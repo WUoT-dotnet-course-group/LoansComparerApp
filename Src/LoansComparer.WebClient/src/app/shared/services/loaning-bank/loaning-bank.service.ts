@@ -48,7 +48,7 @@ export class LoaningBankService {
 
   createInquiry(inquiryDetails: InquiryDetails) {
     this.http
-      .post(this.path + 'api/inquiries/add', {
+      .post<any>(this.path + 'api/inquiries/add', {
         loanValue: inquiryDetails.loanValue,
         numberOfInstallments: inquiryDetails.installmentsNumber,
         personalData: {
@@ -59,7 +59,7 @@ export class LoaningBankService {
         },
         email: inquiryDetails.email,
       })
-      .subscribe((response) => {
+      .subscribe((response: any) => {
         console.log(response);
       });
   }

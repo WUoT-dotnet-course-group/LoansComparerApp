@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
@@ -18,11 +18,11 @@ export interface AuthData {
 export class AuthService {
   private _path = environment.apiUrl;
 
-  user = new Subject<User | null>();
-  isAuthenticated: boolean = false;
+  user$ = new BehaviorSubject<User | null>(null);
+  isAuthenticated!: boolean;
 
   constructor(private httpClient: HttpClient) {
-    this.user.subscribe((value) => (this.isAuthenticated = value != null));
+    this.user$.subscribe((value) => (this.isAuthenticated = value != null));
   }
 
   signIn(credentials: string): Observable<AuthData> {
@@ -37,13 +37,19 @@ export class AuthService {
       .pipe(
         tap((response: AuthData) => {
           localStorage.setItem('token', response.encryptedToken);
-          this.user.next(new User(response.userEmail, response.userId));
+          this.user$.next(
+            new User(
+              response.userEmail,
+              response.userId,
+              response.encryptedToken
+            )
+          );
         })
       );
   }
 
   signOut = () => {
     localStorage.removeItem('token');
-    this.user.next(null);
+    this.user$.next(null);
   };
 }
