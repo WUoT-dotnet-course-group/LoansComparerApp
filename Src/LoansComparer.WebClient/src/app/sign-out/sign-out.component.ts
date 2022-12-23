@@ -10,14 +10,14 @@ import { AuthService } from '../shared/services/auth/auth.service';
 export class SignOutComponent implements OnInit {
   constructor(
     private router: Router,
-    private service: AuthService,
+    private authService: AuthService,
     private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {}
 
-  logout() {
-    this.service.signOutExternal();
+  signOut() {
+    this.authService.signOut();
     this.ngZone.run(() => {
       this.router.navigate(['/home']).then(() => window.location.reload());
     });

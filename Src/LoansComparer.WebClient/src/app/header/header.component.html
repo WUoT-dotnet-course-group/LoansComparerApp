@@ -1,5 +1,5 @@
 <mat-toolbar class="transparent" fxLayout="row" fxLayoutAlign="space-between center">
   <span>LoansComparer</span>
-  <app-sign-in-google [userSignedIn]="userSignedIn$" *ngIf="!isAuthenticated"></app-sign-in-google>
+  <app-sign-in-google *ngIf="!isAuthenticated"></app-sign-in-google>
   <app-sign-out *ngIf="isAuthenticated"></app-sign-out>
 </mat-toolbar>
