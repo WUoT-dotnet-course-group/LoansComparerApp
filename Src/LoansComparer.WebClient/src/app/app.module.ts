@@ -30,6 +30,7 @@ import { AppDescriptionComponent } from './app-description/app-description.compo
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SignOutComponent } from './sign-out/sign-out.component';
     AppDescriptionComponent,
     SignInGoogleComponent,
     SignOutComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
