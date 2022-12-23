@@ -5,6 +5,9 @@ using LoansComparer.Services.Abstract;
 using LoansComparer.Services;
 using LoansComparer.WebAPI.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LoansComparer
 {
@@ -28,6 +31,35 @@ namespace LoansComparer
             services.AddControllers()
                 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddCookie(x => x.Cookie.Name = "token")
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Same secret very secret secret as in GenerateJWT")),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                    x.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token = context.Request.Cookies["token"];
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
             services.AddSwaggerGen();
         }
 
@@ -44,6 +76,10 @@ namespace LoansComparer
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

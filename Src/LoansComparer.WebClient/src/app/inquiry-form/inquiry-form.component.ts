@@ -8,7 +8,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
-import { LoaningBankService } from '../shared/services/loaning-bank.service';
+import { LoaningBankService } from '../shared/services/loaning-bank/loaning-bank.service';
 
 export interface SelectType {
   id: number;

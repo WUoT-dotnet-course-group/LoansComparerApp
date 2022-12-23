@@ -1,0 +1,11 @@
+button {
+  font-size: 17.5px;
+  font-family: 'Lilita One', cursive;
+  border-radius: 25px;
+  height: 42px;
+}
+
+.sec-button {
+  width: 120px;
+  background-color: white;
+}

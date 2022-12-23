@@ -3,6 +3,7 @@ namespace LoansComparer.WebAPI.Configuration
     public class ConfigurationsManager
     {
         private readonly DatabaseConfig _databaseConfig;
+        private readonly GoogleAuthConfig _googleAuthConfig;
 
         public readonly IConfiguration Configuration;
 
@@ -10,6 +11,7 @@ namespace LoansComparer.WebAPI.Configuration
         {
             Configuration = configuration;
             _databaseConfig = Configuration.GetRequiredSection(DatabaseConfig.SectionName).Get<DatabaseConfig>();
+            _googleAuthConfig = Configuration.GetRequiredSection(GoogleAuthConfig.SectionName).Get<GoogleAuthConfig>();
         }
 
         public string DbConnectionString
@@ -22,5 +24,8 @@ namespace LoansComparer.WebAPI.Configuration
                     $"MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=15;";
             }
         }
+
+        public string GoogleAuthClientId => _googleAuthConfig.ClientId;
+        public string GoogleAuthSecretKey => _googleAuthConfig.SecretKey;
     }
 }
