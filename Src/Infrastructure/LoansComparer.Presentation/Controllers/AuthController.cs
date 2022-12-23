@@ -1,7 +1,6 @@
 ﻿using Google.Apis.Auth;
 using LoansComparer.CrossCutting.DTO;
 using LoansComparer.Services.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoansComparer.Presentation.Controllers
@@ -33,17 +32,6 @@ namespace LoansComparer.Presentation.Controllers
             if (userExists)
             {
                 var authInfo = await _serviceManager.UserService.Authenticate(payload.Email);
-
-                HttpContext.Response.Cookies.Append("token", authInfo.EncryptedToken,
-                     new CookieOptions
-                     {
-                         Expires = DateTime.Now.AddDays(7),
-                         HttpOnly = true,
-                         Secure = true,
-                         IsEssential = true,
-                         SameSite = SameSiteMode.None
-                     });
-
                 return Ok(authInfo);
             }
             else

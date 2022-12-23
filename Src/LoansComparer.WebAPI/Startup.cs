@@ -32,12 +32,17 @@ namespace LoansComparer
             services.AddControllers()
                 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+                builder.WithOrigins("http://localhost:4200", "https://loans-comparer.azurewebsites.net")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()));
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddCookie(x => x.Cookie.Name = "token")
-                .AddJwtBearer(x =>
+            }).AddJwtBearer(x =>
                 {
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = true;
@@ -52,14 +57,15 @@ namespace LoansComparer
                     {
                         OnMessageReceived = context =>
                         {
-                            context.Token = context.Request.Cookies["token"];
+                            if (context.Request.Headers.TryGetValue("Authentication", out var token))
+                            {
+                                context.Token = token.FirstOrDefault();
+                            }
                             return Task.CompletedTask;
                         }
                     };
                 });
 
-            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
-                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
             services.AddSwaggerGen();
         }
