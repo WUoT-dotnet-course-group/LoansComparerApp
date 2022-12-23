@@ -1,8 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in-google',
@@ -10,11 +11,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./sign-in-google.component.css'],
 })
 export class SignInGoogleComponent implements OnInit {
-  // TODO
-  // private clientId = environment.clientId;
+  @Input()
+  userSignedIn!: BehaviorSubject<boolean>;
 
-  private clientId =
-    '926857553613-qeeqtu9t32am5ngfrgrvj7j56hng5i6d.apps.googleusercontent.com';
+  private clientId = environment.googleAuthClientId;
 
   constructor(
     private router: Router,
@@ -50,6 +50,7 @@ export class SignInGoogleComponent implements OnInit {
         this.ngZone.run(() => {
           this.router.navigate(['/home/signed-in']);
         });
+        this.userSignedIn.next(true);
       },
       error: (error: any) => {
         console.log(error);
