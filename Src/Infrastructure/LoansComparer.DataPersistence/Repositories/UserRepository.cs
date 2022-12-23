@@ -10,5 +10,11 @@ namespace LoansComparer.DataPersistence.Repositories
         public UserRepository(RepositoryDbContext dbContext) => _dbContext = dbContext;
 
         public async Task<bool> UserExistsByEmail(string email) => await _dbContext.Users.AnyAsync(x => x.Email == email);
+
+        public async Task<Guid> GetUserIdByEmail(string email)
+        {
+            var user = await _dbContext.Users.SingleAsync(x => x.Email == email);
+            return user.ID;
+        }
     }
 }

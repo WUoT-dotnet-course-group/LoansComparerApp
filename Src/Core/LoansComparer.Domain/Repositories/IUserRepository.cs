@@ -3,5 +3,6 @@
     public interface IUserRepository
     {
         Task<bool> UserExistsByEmail(string email);
+        Task<Guid> GetUserIdByEmail(string email);
     }
 }

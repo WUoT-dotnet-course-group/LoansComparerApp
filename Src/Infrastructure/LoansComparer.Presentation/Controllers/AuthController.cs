@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Auth;
+using LoansComparer.CrossCutting.DTO;
 using LoansComparer.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,11 @@ namespace LoansComparer.Presentation.Controllers
         public AuthController(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
         [HttpPost("signIn")]
-        public async Task<IActionResult> SignInWithGoogle([FromBody] string credentials)
+        public async Task<ActionResult<AuthDTO>> SignInWithGoogle([FromBody] string credentials)
         {
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
-                Audience = new List<string> { "926857553613-k7hh3i9e7o1lop88rr4b1gphlchla81j.apps.googleusercontent.com" }
+                Audience = new List<string> { "926857553613-qeeqtu9t32am5ngfrgrvj7j56hng5i6d.apps.googleusercontent.com" }
             };
 
             var payload = await GoogleJsonWebSignature.ValidateAsync(credentials, settings);
@@ -26,7 +27,7 @@ namespace LoansComparer.Presentation.Controllers
             var userExists = await _serviceManager.UserService.UserExistsByEmail(payload.Email);
             if (userExists)
             {
-                var authInfo = _serviceManager.UserService.GenerateTokenForUser(payload.Email);
+                var authInfo = await _serviceManager.UserService.Authenticate(payload.Email);
 
                 HttpContext.Response.Cookies.Append("token", authInfo.EncryptedToken,
                      new CookieOptions

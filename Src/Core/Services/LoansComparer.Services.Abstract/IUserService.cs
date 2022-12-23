@@ -5,6 +5,6 @@ namespace LoansComparer.Services.Abstract
     public interface IUserService
     {
         Task<bool> UserExistsByEmail(string userEmail);
-        AuthDTO GenerateTokenForUser(string userEmail);
+        Task<AuthDTO> Authenticate(string userEmail);
     }
 }
