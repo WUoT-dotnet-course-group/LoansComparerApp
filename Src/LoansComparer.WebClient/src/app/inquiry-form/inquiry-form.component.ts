@@ -9,6 +9,7 @@ import {
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import { LoaningBankService } from '../shared/services/loaning-bank/loaning-bank.service';
+import { ErrorMessage } from '../shared/resources/error-message';
 
 export interface SelectType {
   id: number;
@@ -131,12 +132,12 @@ export class InquiryFormComponent implements OnInit {
   dateNow!: Date;
   dateEighteenYearsBefore!: Date;
 
-  invalidFirstNameError: string = 'Please enter valid first name';
-  invalidLastNameError: string = 'Please enter valid last name';
-  invalidBirthDateError: string = 'Please enter valid birth date';
-  requiredFieldError: string = 'Field is required';
-  invalidJobStartError: string = 'Please enter valid job start date';
-  invalidJobEndError: string = 'Please enter valid job end date';
+  invalidFirstNameError: string = ErrorMessage.invalidFirstName;
+  invalidLastNameError: string = ErrorMessage.invalidLastName;
+  invalidBirthDateError: string = ErrorMessage.invalidBirthDate;
+  requiredFieldError: string = ErrorMessage.requiredField;
+  invalidJobStartError: string = ErrorMessage.invalidJobStart;
+  invalidJobEndError: string = ErrorMessage.invalidJobEnd;
 
   constructor(
     protected loaningBankService: LoaningBankService,
