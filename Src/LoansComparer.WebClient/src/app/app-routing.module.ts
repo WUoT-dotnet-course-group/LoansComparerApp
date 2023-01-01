@@ -6,6 +6,7 @@ import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
 import { AuthGuard } from './shared/services/auth/auth.guard';
+import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
       },
       { path: '', component: AppDescriptionComponent },
     ],
+  },
+  {
+    path: 'personal-data',
+    component: PersonalDataFormComponent,
+    canActivate: [AuthGuard],
   },
   { path: 'inquire', component: InquiryFormComponent },
   {

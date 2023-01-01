@@ -32,6 +32,7 @@ import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './shared/services/auth/auth-interceptor.service';
+import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AuthInterceptorService } from './shared/services/auth/auth-interceptor.
     SignInGoogleComponent,
     SignOutComponent,
     LoadingSpinnerComponent,
+    PersonalDataFormComponent,
   ],
   imports: [
     BrowserModule,
