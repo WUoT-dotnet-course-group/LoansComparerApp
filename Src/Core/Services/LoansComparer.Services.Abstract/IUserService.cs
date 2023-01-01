@@ -4,7 +4,7 @@ namespace LoansComparer.Services.Abstract
 {
     public interface IUserService
     {
-        Task AddUser(AddUserDTO user);
+        Task SaveUser(SaveUserDTO user);
         Task<bool> UserExistsByEmail(string userEmail);
         Task<AuthDTO> Authenticate(string userEmail);
     }

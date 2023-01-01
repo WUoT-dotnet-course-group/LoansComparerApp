@@ -17,12 +17,13 @@ namespace LoansComparer.Presentation.Controllers
             _serviceManager = serviceManager;
         }
 
-        [HttpPost("add")]
-        public async Task<ActionResult> Add([FromBody] AddUserDTO user)
+        [HttpPost("save")]
+        public async Task<ActionResult> Save([FromBody] SaveUserDTO user)
         {
             // TODO: add user email validation
-            await _serviceManager.UserService.AddUser(user);
+            // + reject situation when user with email exists and personal data is null (altogether)
+            await _serviceManager.UserService.SaveUser(user);
             return Ok();
-        } 
+        }
     }
 }
