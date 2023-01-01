@@ -8,7 +8,10 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
-import { LoaningBankService } from '../shared/services/loaning-bank/loaning-bank.service';
+import {
+  InquiryDetails,
+  LoaningBankService,
+} from '../shared/services/loaning-bank/loaning-bank.service';
 import { ErrorMessage } from '../shared/resources/error-message';
 
 export interface SelectType {
@@ -173,7 +176,7 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    this.loaningBankService.createInquiry({
+    this.loaningBankService.createInquiry(<InquiryDetails>{
       loanValue: this.inquiryForm.value.loanValue,
       installmentsNumber: this.inquiryForm.value.installmentsNumber,
       personalData: this.inquiryForm.value.personalData,
@@ -190,7 +193,6 @@ export class InquiryFormComponent implements OnInit {
         jobStartDate: this.inquiryForm.value.jobStartDate,
         jobEndDate: this.inquiryForm.value.jobEndDate,
       },
-      email: 'test',
     });
 
     this.router.navigateByUrl('/offers');
