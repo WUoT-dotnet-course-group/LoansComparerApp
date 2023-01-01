@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center" fxFill [@displayForm]>
-  <form [formGroup]="inquiryForm" class="form" fxLayout="column" (ngSubmit)="onFormSubmit()"
+  <form [formGroup]="personalDataForm" class="form" fxLayout="column" (ngSubmit)="onFormSubmit()"
     (keydown.enter)="$event.preventDefault()">
     <div class="header">
       <span class="header">Edit personal data</span>
@@ -12,8 +12,8 @@
           <mat-form-field class="field" appearance="fill">
             <mat-label>First name</mat-label>
             <input matInput formControlName="firstName">
-            <mat-error *ngIf="!inquiryForm.get('personalData.firstName')?.valid">
-              <div *ngIf="inquiryForm.get('personalData.firstName')?.hasError('required'); else elseError">
+            <mat-error *ngIf="!personalDataForm.get('personalData.firstName')?.valid">
+              <div *ngIf="personalDataForm.get('personalData.firstName')?.hasError('required'); else elseError">
                 {{requiredFieldError}}
               </div>
               <ng-template #elseError>
@@ -27,8 +27,8 @@
           <mat-form-field class="field" appearance="fill">
             <mat-label>Last name</mat-label>
             <input matInput formControlName="lastName">
-            <mat-error *ngIf="!inquiryForm.get('personalData.lastName')?.valid">
-              <div *ngIf="inquiryForm.get('personalData.lastName')?.hasError('required'); else elseError">
+            <mat-error *ngIf="!personalDataForm.get('personalData.lastName')?.valid">
+              <div *ngIf="personalDataForm.get('personalData.lastName')?.hasError('required'); else elseError">
                 {{requiredFieldError}}
               </div>
               <ng-template #elseError>
@@ -46,8 +46,8 @@
             <input matInput formControlName="birthDate" [max]="dateEighteenYearsBefore" [matDatepicker]="birthPicker">
             <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
             <mat-datepicker #birthPicker></mat-datepicker>
-            <mat-error *ngIf="!inquiryForm.get('personalData.birthDate')?.valid">
-              <div *ngIf="inquiryForm.get('personalData.birthDate')?.hasError('required'); else elseError">
+            <mat-error *ngIf="!personalDataForm.get('personalData.birthDate')?.valid">
+              <div *ngIf="personalDataForm.get('personalData.birthDate')?.hasError('required'); else elseError">
                 {{requiredFieldError}}
               </div>
               <ng-template #elseError>
@@ -68,7 +68,7 @@
         <mat-form-field class="field" appearance="fill">
           <mat-label>Government id number</mat-label>
           <input matInput formControlName="governmentId">
-          <mat-error *ngIf="!inquiryForm.get('governmentId')?.valid">{{requiredFieldError}}</mat-error>
+          <mat-error *ngIf="!personalDataForm.get('governmentId')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="field" appearance="fill">
@@ -78,7 +78,7 @@
               {{govType.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="!inquiryForm.get('governmentIdType')?.valid">{{requiredFieldError}}</mat-error>
+          <mat-error *ngIf="!personalDataForm.get('governmentIdType')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
       </div>
 
@@ -90,7 +90,7 @@
               {{jobType.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="!inquiryForm.get('jobType')?.valid">{{requiredFieldError}}</mat-error>
+          <mat-error *ngIf="!personalDataForm.get('jobType')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
@@ -106,8 +106,8 @@
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="jobStartPicker"></mat-datepicker-toggle>
           <mat-datepicker #jobStartPicker></mat-datepicker>
-          <mat-error *ngIf="!inquiryForm.get('jobStartDate')?.valid">
-            <div *ngIf="inquiryForm.get('jobStartDate')?.hasError('required'); else elseError">
+          <mat-error *ngIf="!personalDataForm.get('jobStartDate')?.valid">
+            <div *ngIf="personalDataForm.get('jobStartDate')?.hasError('required'); else elseError">
               {{requiredFieldError}}
             </div>
             <ng-template #elseError>
@@ -124,8 +124,8 @@
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="jobEndPicker"></mat-datepicker-toggle>
           <mat-datepicker #jobEndPicker></mat-datepicker>
-          <mat-error *ngIf="!inquiryForm.get('jobEndDate')?.valid">
-            <div *ngIf="inquiryForm.get('jobEndDate')?.hasError('required'); else elseError">
+          <mat-error *ngIf="!personalDataForm.get('jobEndDate')?.valid">
+            <div *ngIf="personalDataForm.get('jobEndDate')?.hasError('required'); else elseError">
               {{requiredFieldError}}
             </div>
             <ng-template #elseError>
@@ -142,7 +142,7 @@
           <input matInput>
         </mat-form-field>
 
-        <button mat-button class="prim-button" type="submit" [disabled]="inquiryForm.invalid">Save</button>
+        <button mat-button class="prim-button" type="submit" [disabled]="personalDataForm.invalid">Save</button>
       </div>
     </div>
   </form>

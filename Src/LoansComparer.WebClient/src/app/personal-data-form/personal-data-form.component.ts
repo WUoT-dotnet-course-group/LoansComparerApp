@@ -9,6 +9,13 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectType } from '../inquiry-form/inquiry-form.component';
 import { ErrorMessage } from '../shared/resources/error-message';
+import {
+  LoaningBankService,
+  PersonalDataDTO,
+  SaveUserData,
+} from '../shared/services/loaning-bank/loaning-bank.service';
+import { AuthService } from '../shared/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-personal-data-form',
@@ -26,7 +33,7 @@ import { ErrorMessage } from '../shared/resources/error-message';
 export class PersonalDataFormComponent implements OnInit {
   dateNow!: Date;
   dateEighteenYearsBefore!: Date;
-  inquiryForm: any;
+  personalDataForm: any;
 
   invalidFirstNameError: string = ErrorMessage.invalidFirstName;
   invalidLastNameError: string = ErrorMessage.invalidLastName;
@@ -131,7 +138,11 @@ export class PersonalDataFormComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private authService: AuthService,
+    private loaningBankService: LoaningBankService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.dateNow = new Date(Date.now());
@@ -139,7 +150,7 @@ export class PersonalDataFormComponent implements OnInit {
     this.dateEighteenYearsBefore = new Date(Date.now());
     this.dateEighteenYearsBefore.setFullYear(this.dateNow.getFullYear() - 18);
 
-    this.inquiryForm = new FormGroup({
+    this.personalDataForm = new FormGroup({
       personalData: new FormGroup({
         firstName: new FormControl('', [
           Validators.required,
@@ -160,14 +171,24 @@ export class PersonalDataFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    console.log(this.inquiryForm.value);
+    this.loaningBankService.saveUserData(<SaveUserData>{
+      email: this.authService.user$.value?.email,
+      personalData: <PersonalDataDTO>{
+        firstName: this.personalDataForm.value.personalData.firstName,
+        lastName: this.personalDataForm.value.personalData.lastName,
+        governmentId: this.personalDataForm.value.governmentId,
+        governmentIdType: this.personalDataForm.value.governmentIdType.id,
+      },
+    });
+
+    this.router.navigateByUrl('/home');
   }
 
   get jobStartDate(): Date {
-    return this.inquiryForm.controls['jobStartDate'].value;
+    return this.personalDataForm.controls['jobStartDate'].value;
   }
 
   get jobEndDate(): Date {
-    return this.inquiryForm.controls['jobEndDate'].value;
+    return this.personalDataForm.controls['jobEndDate'].value;
   }
 }

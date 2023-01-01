@@ -173,7 +173,6 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    console.log(this.inquiryForm.value);
     this.loaningBankService.createInquiry({
       loanValue: this.inquiryForm.value.loanValue,
       installmentsNumber: this.inquiryForm.value.installmentsNumber,
@@ -193,6 +192,7 @@ export class InquiryFormComponent implements OnInit {
       },
       email: 'test',
     });
+
     this.router.navigateByUrl('/offers');
   }
 
