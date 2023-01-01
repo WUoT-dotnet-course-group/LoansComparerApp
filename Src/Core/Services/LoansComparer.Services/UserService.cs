@@ -1,6 +1,8 @@
 ﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
+using Mapster;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -16,6 +18,12 @@ namespace LoansComparer.Services
         {
             _repositoryManager = repositoryManager;
             _configuration = configuration;
+        }
+
+        public async Task AddUser(AddUserDTO user)
+        {
+            var userToAdd = user.Adapt<User>();
+            await _repositoryManager.UserRepository.AddUser(userToAdd);
         }
 
         public async Task<AuthDTO> Authenticate(string userEmail)

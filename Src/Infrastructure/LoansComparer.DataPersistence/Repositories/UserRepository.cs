@@ -1,4 +1,6 @@
-﻿using LoansComparer.Domain.Repositories;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.Domain.Entities;
+using LoansComparer.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoansComparer.DataPersistence.Repositories
@@ -8,6 +10,12 @@ namespace LoansComparer.DataPersistence.Repositories
         private readonly RepositoryDbContext _dbContext;
 
         public UserRepository(RepositoryDbContext dbContext) => _dbContext = dbContext;
+
+        public async Task AddUser(User user)
+        {
+            _dbContext.Users.Add(user);
+            await _dbContext.SaveChangesAsync();
+        }
 
         public async Task<bool> UserExistsByEmail(string email) => await _dbContext.Users.AnyAsync(x => x.Email == email);
 
