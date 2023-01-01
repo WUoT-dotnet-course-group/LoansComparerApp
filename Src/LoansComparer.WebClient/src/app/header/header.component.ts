@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
@@ -8,11 +8,13 @@ import { AuthService } from '../shared/services/auth/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  onSignIn(): void {}
+  onPersonalDataClick(): void {
+    this.router.navigate(['/personal-data']);
+  }
 
   get isAuthenticated() {
     return this.authService.isAuthenticated;

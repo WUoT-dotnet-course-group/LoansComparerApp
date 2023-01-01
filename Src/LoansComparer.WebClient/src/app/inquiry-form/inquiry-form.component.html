@@ -1,4 +1,4 @@
-<div class="main" fxLayout="row" fxLayoutAlign="center" fxFill [@displayForm]>
+<div fxLayout="row" fxLayoutAlign="center" fxFill [@displayForm]>
   <form [formGroup]="inquiryForm" class="form" fxLayout="column" (ngSubmit)="onFormSubmit()"
     (keydown.enter)="$event.preventDefault()">
     <div class="header">
