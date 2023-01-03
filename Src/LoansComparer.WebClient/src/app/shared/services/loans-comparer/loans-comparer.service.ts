@@ -39,8 +39,12 @@ export interface AddInquiryDTO {
 export interface PersonalDataDTO {
   firstName: string;
   lastName: string;
+  birthDate: Date;
   governmentId: string;
   governmentIdType: number;
+  jobType: number;
+  jobStartDate: Date;
+  jobEndDate: Date;
 }
 
 export interface SaveUserData {
@@ -75,7 +79,7 @@ export class LoansComparerService {
       .subscribe((_) => {});
   }
 
-  saveUserData(userData: SaveUserData): void {
+  saveUserData(userData: PersonalDataDTO): void {
     this.http
       .post<any>(this.path + 'api/users/save-data', userData)
       .subscribe((_) => {});

@@ -33,6 +33,7 @@ import { SignOutComponent } from './sign-out/sign-out.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './shared/services/auth/auth-interceptor.service';
 import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
+import { PersonalDataComponent } from './shared/personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { PersonalDataFormComponent } from './personal-data-form/personal-data-fo
     SignOutComponent,
     LoadingSpinnerComponent,
     PersonalDataFormComponent,
+    PersonalDataComponent,
   ],
   imports: [
     BrowserModule,
