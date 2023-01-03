@@ -21,6 +21,14 @@ namespace LoansComparer.Services
             _configuration = configuration;
         }
 
+        public async Task CreateUser(string email)
+        {
+            await _repositoryManager.UserRepository.AddUser(new User
+            { 
+                Email = email 
+            });
+        }
+
         public async Task SaveData(Guid userId, PersonalDataDTO userData)
         {
             var user = await _repositoryManager.UserRepository.GetUserById(userId);

@@ -29,15 +29,13 @@ namespace LoansComparer.Presentation.Controllers
             var payload = await GoogleJsonWebSignature.ValidateAsync(credentials, settings);
 
             var userExists = await _serviceManager.UserService.UserExistsByEmail(payload.Email);
-            if (userExists)
+            if (!userExists)
             {
-                var authInfo = await _serviceManager.UserService.Authenticate(payload.Email);
-                return Ok(authInfo);
+                await _serviceManager.UserService.CreateUser(payload.Email);
             }
-            else
-            {
-                return BadRequest();
-            }
+
+            var authInfo = await _serviceManager.UserService.Authenticate(payload.Email);
+            return Ok(authInfo);
         }
     }
 }

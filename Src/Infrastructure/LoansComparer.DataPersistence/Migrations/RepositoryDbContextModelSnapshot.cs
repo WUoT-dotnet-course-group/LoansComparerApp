@@ -176,8 +176,7 @@ namespace LoansComparer.DataPersistence.Migrations
 
                     b.Navigation("Bank");
 
-                    b.Navigation("PersonalData")
-                        .IsRequired();
+                    b.Navigation("PersonalData");
                 });
 
             modelBuilder.Entity("LoansComparer.Domain.Entities.Bank", b =>
