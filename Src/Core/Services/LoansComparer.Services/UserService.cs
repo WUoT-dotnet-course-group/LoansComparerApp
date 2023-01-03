@@ -5,6 +5,7 @@ using LoansComparer.Services.Abstract;
 using Mapster;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace LoansComparer.Services
@@ -38,21 +39,19 @@ namespace LoansComparer.Services
 
         public async Task<AuthDTO> Authenticate(string userEmail)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration.GetGoogleAuthSecretKey());
+            var userId = await _repositoryManager.UserRepository.GetUserIdByEmail(userEmail);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                //Subject = new ClaimsIdentity(new[] { }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
+                Subject = new ClaimsIdentity(new[] { new Claim("Id", userId.ToString()) }),
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetGoogleAuthSecretKey())), SecurityAlgorithms.HmacSha512Signature)
             };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            var encrypterToken = tokenHandler.WriteToken(token);
 
-            var userId = await _repositoryManager.UserRepository.GetUserIdByEmail(userEmail);
-
-            return new AuthDTO { EncryptedToken = encrypterToken, UserEmail = userEmail, UserId = userId };
+            return new AuthDTO { EncryptedToken = tokenHandler.WriteToken(token), UserEmail = userEmail };
         }
 
         public async Task<bool> UserExistsByEmail(string userEmail) => await _repositoryManager.UserRepository.UserExistsByEmail(userEmail);

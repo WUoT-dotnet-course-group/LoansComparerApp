@@ -74,7 +74,7 @@ export class LoaningBankService {
 
   saveUserData(userData: SaveUserData): void {
     this.http
-      .post<any>(this.path + 'api/users/save', userData)
+      .post<any>(this.path + 'api/users/save-data', userData)
       .subscribe((_) => {});
   }
 }

@@ -39,11 +39,7 @@ export class AuthService {
       .pipe(
         tap((response: AuthData) => {
           this.user$.next(
-            new User(
-              response.userEmail,
-              response.userId,
-              response.encryptedToken
-            )
+            new User(response.userEmail, response.encryptedToken)
           );
         })
       );
