@@ -58,19 +58,23 @@ export class LoaningBankService {
   constructor(private http: HttpClient) {}
 
   createInquiry(inquiryDetails: InquiryDetails): void {
-    this.http.post<any>(this.path + 'api/inquiries/add', {
-      loanValue: inquiryDetails.loanValue,
-      numberOfInstallments: inquiryDetails.installmentsNumber,
-      personalData: {
-        firstName: inquiryDetails.personalData.firstName,
-        lastName: inquiryDetails.personalData.lastName,
-        governmentId: inquiryDetails.governmentDocument.number,
-        governmentIdType: inquiryDetails.governmentDocument.typeId - 1,
-      },
-    });
+    this.http
+      .post<any>(this.path + 'api/inquiries/add', {
+        loanValue: inquiryDetails.loanValue,
+        numberOfInstallments: inquiryDetails.installmentsNumber,
+        personalData: {
+          firstName: inquiryDetails.personalData.firstName,
+          lastName: inquiryDetails.personalData.lastName,
+          governmentId: inquiryDetails.governmentDocument.number,
+          governmentIdType: inquiryDetails.governmentDocument.typeId - 1,
+        },
+      })
+      .subscribe((_) => {});
   }
 
   saveUserData(userData: SaveUserData): void {
-    this.http.post<any>(this.path + 'api/users/save', userData);
+    this.http
+      .post<any>(this.path + 'api/users/save', userData)
+      .subscribe((_) => {});
   }
 }
