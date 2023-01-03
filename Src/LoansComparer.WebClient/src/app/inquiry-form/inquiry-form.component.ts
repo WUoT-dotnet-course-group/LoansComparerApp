@@ -9,7 +9,7 @@ import {
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import {
-  InquiryDetails,
+  AddInquiryDTO,
   LoansComparerService,
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { ErrorMessage } from '../shared/resources/error-message';
@@ -176,9 +176,9 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    this.loansComparerService.createInquiry(<InquiryDetails>{
+    this.loansComparerService.createInquiry(<AddInquiryDTO>{
       loanValue: this.inquiryForm.value.loanValue,
-      installmentsNumber: this.inquiryForm.value.installmentsNumber,
+      numberOfInstallments: this.inquiryForm.value.installmentsNumber,
       personalData: this.inquiryForm.value.personalData,
       governmentDocument: {
         typeId: this.inquiryForm.value.governmentIdType.id,

@@ -30,12 +30,10 @@ export interface JobDetails {
   jobEndDate: Date;
 }
 
-export interface InquiryDetails {
+export interface AddInquiryDTO {
   loanValue: number;
-  installmentsNumber: number;
-  personalData: PersonalData;
-  governmentDocument: GovernmentDocument;
-  jobDetails: JobDetails;
+  numberOfInstallments: number;
+  personalData: PersonalDataDTO;
 }
 
 export interface PersonalDataDTO {
@@ -65,18 +63,9 @@ export class LoansComparerService {
 
   constructor(private http: HttpClient) {}
 
-  createInquiry(inquiryDetails: InquiryDetails): void {
+  createInquiry(addInquiryData: AddInquiryDTO): void {
     this.http
-      .post<any>(this.path + 'api/inquiries/add', {
-        loanValue: inquiryDetails.loanValue,
-        numberOfInstallments: inquiryDetails.installmentsNumber,
-        personalData: {
-          firstName: inquiryDetails.personalData.firstName,
-          lastName: inquiryDetails.personalData.lastName,
-          governmentId: inquiryDetails.governmentDocument.number,
-          governmentIdType: inquiryDetails.governmentDocument.typeId - 1,
-        },
-      })
+      .post<any>(this.path + 'api/inquiries/add', addInquiryData)
       .subscribe((_) => {});
   }
 
