@@ -37,9 +37,9 @@ namespace LoansComparer.Services
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
-        public async Task<List<GetInquiryDTO>> GetAll()
+        public async Task<List<GetInquiryDTO>> GetAllByUser(Guid userId)
         {
-            var inquiries = await _repositoryManager.InquiryRepository.GetAll();
+            var inquiries = await _repositoryManager.InquiryRepository.GetAllByUser(userId);
 
             // TODO: configurate adapt method to fill ChosenBank property
 

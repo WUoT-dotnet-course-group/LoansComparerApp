@@ -6,6 +6,6 @@ namespace LoansComparer.Domain.Repositories
     {
         Task Add(Inquiry inquiry);
         Task<Inquiry> GetById(Guid id);
-        Task<List<Inquiry>> GetAll();
+        Task<List<Inquiry>> GetAllByUser(Guid userId);
     }
 }

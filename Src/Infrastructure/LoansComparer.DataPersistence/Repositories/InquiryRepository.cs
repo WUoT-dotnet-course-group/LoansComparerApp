@@ -16,7 +16,7 @@ namespace LoansComparer.DataPersistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Inquiry>> GetAll() => await _dbContext.Inquiries.AsNoTracking().ToListAsync();
+        public async Task<List<Inquiry>> GetAllByUser(Guid userId) => await _dbContext.Inquiries.AsNoTracking().Where(x => x.UserID == userId).ToListAsync();
 
         public async Task<Inquiry> GetById(Guid id)
         {

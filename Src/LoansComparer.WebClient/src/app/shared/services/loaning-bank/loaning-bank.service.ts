@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export enum GovernmentIdType {
@@ -49,6 +50,13 @@ export interface SaveUserData {
   personalData: PersonalDataDTO;
 }
 
+export interface GetInquiryData {
+  loanValue: number;
+  inquireDate: Date;
+  chosenBank: string;
+  offerStatus: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -76,5 +84,9 @@ export class LoaningBankService {
     this.http
       .post<any>(this.path + 'api/users/save-data', userData)
       .subscribe((_) => {});
+  }
+
+  getInquiries(): Observable<GetInquiryData[]> {
+    return this.http.get<GetInquiryData[]>(this.path + 'api/inquiries');
   }
 }
