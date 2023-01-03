@@ -7,9 +7,9 @@ import {
   transition,
 } from '@angular/animations';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SelectType } from '../inquiry-form/inquiry-form.component';
 import { ErrorMessage } from '../shared/resources/error-message';
 import {
+  DictionaryDTO,
   LoansComparerService,
   PersonalDataDTO,
   SaveUserData,
@@ -43,7 +43,7 @@ export class PersonalDataFormComponent implements OnInit {
   invalidJobEndError: string = ErrorMessage.invalidJobEnd;
 
   currencySuffix: string = 'zł';
-  govIdTypesPlaceholder: SelectType[] = [
+  govIdTypesPlaceholder: DictionaryDTO[] = [
     {
       id: 1,
       name: 'Driver License',
@@ -60,7 +60,7 @@ export class PersonalDataFormComponent implements OnInit {
       description: 'Government Id',
     },
   ];
-  jobTypesPlaceholder: SelectType[] = [
+  jobTypesPlaceholder: DictionaryDTO[] = [
     {
       id: 79,
       name: 'Analyst',

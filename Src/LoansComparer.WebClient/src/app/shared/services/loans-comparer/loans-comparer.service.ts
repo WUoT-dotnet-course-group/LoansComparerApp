@@ -55,6 +55,12 @@ export interface GetInquiryData {
   offerStatus: string;
 }
 
+export interface DictionaryDTO {
+  id: number;
+  name: string;
+  description: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -77,5 +83,11 @@ export class LoansComparerService {
 
   getInquiries(): Observable<GetInquiryData[]> {
     return this.http.get<GetInquiryData[]>(this.path + 'api/inquiries');
+  }
+
+  getJobTypes(): Observable<DictionaryDTO[]> {
+    return this.http.get<DictionaryDTO[]>(
+      this.path + 'api/dictionary/job-types'
+    );
   }
 }
