@@ -147,6 +147,10 @@ namespace LoansComparer.DataPersistence.Migrations
                             b1.Property<Guid>("UserID")
                                 .HasColumnType("uniqueidentifier");
 
+                            b1.Property<DateTime>("BirthDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("BirthDate");
+
                             b1.Property<string>("FirstName")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
@@ -160,6 +164,18 @@ namespace LoansComparer.DataPersistence.Migrations
                             b1.Property<int>("GovernmentIdType")
                                 .HasColumnType("int")
                                 .HasColumnName("GovernmentIdType");
+
+                            b1.Property<DateTime>("JobEndDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("JobEndDate");
+
+                            b1.Property<DateTime>("JobStartDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("JobStartDate");
+
+                            b1.Property<int>("JobType")
+                                .HasColumnType("int")
+                                .HasColumnName("JobType");
 
                             b1.Property<string>("LastName")
                                 .IsRequired()
