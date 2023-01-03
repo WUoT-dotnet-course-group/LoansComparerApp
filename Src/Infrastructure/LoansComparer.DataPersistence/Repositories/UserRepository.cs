@@ -1,5 +1,4 @@
-﻿using LoansComparer.CrossCutting.DTO;
-using LoansComparer.Domain.Entities;
+﻿using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +16,8 @@ namespace LoansComparer.DataPersistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<bool> UserExistsById(Guid userId) => await _dbContext.Users.AnyAsync(x => x.ID == userId);
+
         public async Task<bool> UserExistsByEmail(string email) => await _dbContext.Users.AnyAsync(x => x.Email == email);
 
         public async Task<Guid> GetUserIdByEmail(string email)
@@ -26,5 +27,7 @@ namespace LoansComparer.DataPersistence.Repositories
         }
 
         public async Task<User?> GetUserByEmail(string email) => await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
+
+        public async Task<User> GetUserById(Guid userId) => await _dbContext.Users.SingleAsync(x => x.ID == userId);
     }
 }

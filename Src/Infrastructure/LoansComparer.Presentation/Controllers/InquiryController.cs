@@ -17,7 +17,6 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetInquiryDTO>>> GetAll()
         {
-            // TODO: handle(?) userId == null situation
             var userId = User.FindFirst("Id")?.Value;
 
             var inquiries = await _serviceManager.InquiryService.GetAllByUser(Guid.Parse(userId!));
@@ -28,7 +27,9 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPost("add")]
         public async Task<ActionResult> Add([FromBody] AddInquiryDTO inquiry)
         {
-            await _serviceManager.InquiryService.Add(inquiry);
+            var userId = User.FindFirst("Id")?.Value;
+
+            await _serviceManager.InquiryService.Add(inquiry, userId);
             return Ok();
         }
 

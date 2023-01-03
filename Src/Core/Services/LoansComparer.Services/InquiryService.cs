@@ -12,17 +12,21 @@ namespace LoansComparer.Services
 
         public InquiryService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
 
-        public async Task Add(AddInquiryDTO inquiry)
+        public async Task Add(AddInquiryDTO inquiry, string? userId)
         {
-            // TODO: logged in user
-
-            // logged out user
             var inquiryToAdd = inquiry.Adapt<Inquiry>();
-            inquiryToAdd.User = new User()
+
+            if (userId is null)
             {
-                PersonalData = inquiry.PersonalData.Adapt<PersonalData>(),
-                Email = inquiry.Email
-            };
+                inquiryToAdd.User = new User()
+                {
+                    PersonalData = inquiry.PersonalData.Adapt<PersonalData>(),
+                };
+            }
+            else
+            {
+                inquiryToAdd.User = await _repositoryManager.UserRepository.GetUserById(Guid.Parse(userId));
+            }
 
             await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
         }
