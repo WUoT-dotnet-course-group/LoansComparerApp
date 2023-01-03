@@ -8,8 +8,8 @@ import {
 } from '@angular/animations';
 import {
   GetInquiryData,
-  LoaningBankService,
-} from '../shared/services/loaning-bank/loaning-bank.service';
+  LoansComparerService,
+} from '../shared/services/loans-comparer/loans-comparer.service';
 
 @Component({
   selector: 'app-inquiry-history',
@@ -34,10 +34,10 @@ export class InquiryHistoryComponent implements OnInit {
     'bankOfChosenOffer',
   ];
 
-  constructor(private loaningBankService: LoaningBankService) {}
+  constructor(private loansComparerService: LoansComparerService) {}
 
   ngOnInit(): void {
-    this.loaningBankService
+    this.loansComparerService
       .getInquiries()
       .subscribe((response: GetInquiryData[]) => (this.inquiries = response));
   }

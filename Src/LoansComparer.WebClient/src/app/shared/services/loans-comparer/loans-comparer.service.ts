@@ -60,7 +60,7 @@ export interface GetInquiryData {
 @Injectable({
   providedIn: 'root',
 })
-export class LoaningBankService {
+export class LoansComparerService {
   private path: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {}

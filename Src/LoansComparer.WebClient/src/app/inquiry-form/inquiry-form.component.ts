@@ -10,8 +10,8 @@ import {
 import { Router } from '@angular/router';
 import {
   InquiryDetails,
-  LoaningBankService,
-} from '../shared/services/loaning-bank/loaning-bank.service';
+  LoansComparerService,
+} from '../shared/services/loans-comparer/loans-comparer.service';
 import { ErrorMessage } from '../shared/resources/error-message';
 
 export interface SelectType {
@@ -143,7 +143,7 @@ export class InquiryFormComponent implements OnInit {
   invalidJobEndError: string = ErrorMessage.invalidJobEnd;
 
   constructor(
-    protected loaningBankService: LoaningBankService,
+    protected loansComparerService: LoansComparerService,
     protected router: Router
   ) {}
 
@@ -176,7 +176,7 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    this.loaningBankService.createInquiry(<InquiryDetails>{
+    this.loansComparerService.createInquiry(<InquiryDetails>{
       loanValue: this.inquiryForm.value.loanValue,
       installmentsNumber: this.inquiryForm.value.installmentsNumber,
       personalData: this.inquiryForm.value.personalData,

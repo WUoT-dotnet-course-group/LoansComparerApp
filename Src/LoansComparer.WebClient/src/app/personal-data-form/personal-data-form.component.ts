@@ -10,10 +10,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectType } from '../inquiry-form/inquiry-form.component';
 import { ErrorMessage } from '../shared/resources/error-message';
 import {
-  LoaningBankService,
+  LoansComparerService,
   PersonalDataDTO,
   SaveUserData,
-} from '../shared/services/loaning-bank/loaning-bank.service';
+} from '../shared/services/loans-comparer/loans-comparer.service';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -140,7 +140,7 @@ export class PersonalDataFormComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private loaningBankService: LoaningBankService,
+    private loansComparerService: LoansComparerService,
     private router: Router
   ) {}
 
@@ -171,7 +171,7 @@ export class PersonalDataFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    this.loaningBankService.saveUserData(<SaveUserData>{
+    this.loansComparerService.saveUserData(<SaveUserData>{
       email: this.authService.user$.value?.email,
       personalData: <PersonalDataDTO>{
         firstName: this.personalDataForm.value.personalData.firstName,
