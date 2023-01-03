@@ -6,7 +6,6 @@ namespace LoansComparer.Domain.Repositories
     {
         Task AddUser(User user);
         Task<User> GetUserById(Guid userId);
-        Task<User?> GetUserByEmail(string email);
         Task<bool> UserExistsByEmail(string email);
         Task<Guid> GetUserIdByEmail(string email);
     }

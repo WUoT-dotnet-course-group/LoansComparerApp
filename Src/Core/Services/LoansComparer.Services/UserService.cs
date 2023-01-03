@@ -21,20 +21,13 @@ namespace LoansComparer.Services
             _configuration = configuration;
         }
 
-        public async Task SaveUser(SaveUserDTO user)
+        public async Task SaveData(Guid userId, PersonalDataDTO userData)
         {
-            var userByEmail = await GetUserByEmail(user.Email);
+            var user = await _repositoryManager.UserRepository.GetUserById(userId);
 
-            if (userByEmail is null)
-            {
-                var userToAdd = user.Adapt<User>();
-                await _repositoryManager.UserRepository.AddUser(userToAdd);
-            }
-            else
-            {
-                userByEmail.PersonalData = user.PersonalData!.Adapt<PersonalData>();
-                await _repositoryManager.UnitOfWork.SaveChangesAsync();
-            }
+            user.PersonalData = userData.Adapt<PersonalData>();
+            
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
         public async Task<AuthDTO> Authenticate(string userEmail)
@@ -55,7 +48,5 @@ namespace LoansComparer.Services
         }
 
         public async Task<bool> UserExistsByEmail(string userEmail) => await _repositoryManager.UserRepository.UserExistsByEmail(userEmail);
-
-        public async Task<User?> GetUserByEmail(string userEmail) => await _repositoryManager.UserRepository.GetUserByEmail(userEmail);
     }
 }

@@ -18,10 +18,12 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [HttpPost("save-data")]
-        public async Task<ActionResult> Save([FromBody] SaveUserDTO user)
+        public async Task<ActionResult> SaveData([FromBody] PersonalDataDTO userData)
         {
-            // TODO: reject situation when user with email exists and personal data is null (altogether)
-            await _serviceManager.UserService.SaveUser(user);
+            var userID = User.FindFirst("Id")?.Value!;
+
+            await _serviceManager.UserService.SaveData(Guid.Parse(userID), userData);
+
             return Ok();
         }
     }

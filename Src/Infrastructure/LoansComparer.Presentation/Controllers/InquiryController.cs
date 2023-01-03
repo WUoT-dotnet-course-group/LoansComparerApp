@@ -17,9 +17,9 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetInquiryDTO>>> GetAll()
         {
-            var userId = User.FindFirst("Id")?.Value;
+            var userId = User.FindFirst("Id")?.Value!;
 
-            var inquiries = await _serviceManager.InquiryService.GetAllByUser(Guid.Parse(userId!));
+            var inquiries = await _serviceManager.InquiryService.GetAllByUser(Guid.Parse(userId));
             return Ok(inquiries);
         }
 
