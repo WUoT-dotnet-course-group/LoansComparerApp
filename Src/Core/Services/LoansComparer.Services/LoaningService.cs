@@ -23,9 +23,6 @@ namespace LoansComparer.Services
             return await SendAsync<CreateInquiryResponse, CreateInquiryRequest>(HttpMethod.Post, "api/inquiries/add", body);
         }
 
-        private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class 
-            => await SendRequestAsync<T>(new HttpRequestMessage(httpMethod, url));
-
         private async Task<BaseResponse<T>> SendAsync<T, P>(HttpMethod httpMethod, string url, P payload) where T : class
         {
             var request = new HttpRequestMessage(httpMethod, url)
