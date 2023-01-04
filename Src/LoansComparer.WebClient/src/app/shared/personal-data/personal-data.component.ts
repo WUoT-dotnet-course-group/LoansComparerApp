@@ -57,11 +57,15 @@ export class PersonalDataComponent implements OnInit {
         Validators.pattern('[a-zA-Z]+'),
       ]),
       birthDate: new FormControl(null, Validators.required),
-      governmentIdType: new FormControl(null, Validators.required),
-      governmentId: new FormControl(null, Validators.required),
-      jobType: new FormControl(null, Validators.required),
-      jobStartDate: new FormControl(null, Validators.required),
-      jobEndDate: new FormControl(null, Validators.required),
+      governmentDocument: new FormGroup({
+        governmentIdType: new FormControl(null, Validators.required),
+        governmentId: new FormControl(null, Validators.required),
+      }),
+      jobDetails: new FormGroup({
+        jobType: new FormControl(null, Validators.required),
+        jobStartDate: new FormControl(null, Validators.required),
+        jobEndDate: new FormControl(null, Validators.required),
+      }),
     });
     this.parentForm.addControl('personalData', this.personalDataForm);
 
@@ -78,11 +82,11 @@ export class PersonalDataComponent implements OnInit {
     });
   }
 
-  get jobStartDate(): Date {
-    return this.personalDataForm.controls['jobStartDate'].value;
+  get jobStartDate(): Date | null {
+    return this.personalDataForm.get('jobDetails.jobStartDate')?.value;
   }
 
-  get jobEndDate(): Date {
-    return this.personalDataForm.controls['jobEndDate'].value;
+  get jobEndDate(): Date | null {
+    return this.personalDataForm.get('jobDetails.jobEndDate')?.value;
   }
 }

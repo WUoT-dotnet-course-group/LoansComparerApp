@@ -48,15 +48,9 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    // TODO: do mapping on backend
-    let inquiryDetails = <AddInquiryDTO>this.inquiryForm.value;
-    inquiryDetails.personalData.jobType =
-      this.inquiryForm.value.personalData.jobType.typeId;
-    inquiryDetails.personalData.governmentIdType =
-      this.inquiryForm.value.personalData.governmentIdType.typeId;
-
-    console.log(inquiryDetails);
-    this.loansComparerService.createInquiry(inquiryDetails);
+    this.loansComparerService.createInquiry(
+      <AddInquiryDTO>this.inquiryForm.value
+    );
 
     this.router.navigateByUrl('/offers');
   }

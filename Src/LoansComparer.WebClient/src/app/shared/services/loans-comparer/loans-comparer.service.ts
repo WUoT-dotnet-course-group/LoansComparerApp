@@ -22,10 +22,7 @@ export interface GovernmentDocument {
   number: string;
 }
 
-export interface JobDetails {
-  typeId: number;
-  name: string;
-  description: string;
+export interface JobDetailsDTO extends DictionaryDTO {
   jobStartDate: Date;
   jobEndDate: Date;
 }
@@ -42,9 +39,7 @@ export interface PersonalDataDTO {
   birthDate: Date;
   governmentId: string;
   governmentIdType: number;
-  jobType: number;
-  jobStartDate: Date;
-  jobEndDate: Date;
+  jobDetails: JobDetailsDTO;
 }
 
 export interface SaveUserData {
