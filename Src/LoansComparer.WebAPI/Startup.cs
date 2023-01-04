@@ -36,6 +36,12 @@ namespace LoansComparer
             services.AddSingleton(mappingConfig);
             services.AddScoped<IMapper, ServiceMapper>();
 
+            services.AddHttpClient("LoaningBank", client =>
+            {
+                client.BaseAddress = new Uri(ConfigurationsManager.LoaningBankDomain);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
             services.AddControllers()
                 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
