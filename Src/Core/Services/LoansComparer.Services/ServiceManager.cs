@@ -7,15 +7,19 @@ namespace LoansComparer.Services
     {
         private readonly Lazy<IUserService> _lazyUserService;
         private readonly Lazy<IInquiryService> _lazyInquiryService;
+        private readonly Lazy<ILoaningService> _lazyLoaningService;
 
         public ServiceManager(IRepositoryManager repositoryManager, IServicesConfiguration configuration)
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager, configuration));
             _lazyInquiryService = new Lazy<IInquiryService>(() => new InquiryService(repositoryManager));
+            _lazyLoaningService = new Lazy<ILoaningService>(() => new LoaningService(repositoryManager));
         }
 
         public IUserService UserService => _lazyUserService.Value;
 
         public IInquiryService InquiryService => _lazyInquiryService.Value;
+
+        public ILoaningService LoaningService => _lazyLoaningService.Value;
     }
 }
