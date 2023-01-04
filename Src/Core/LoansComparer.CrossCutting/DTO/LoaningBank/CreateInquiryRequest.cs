@@ -1,0 +1,11 @@
+﻿namespace LoansComparer.CrossCutting.DTO.LoaningBank
+{
+    public class CreateInquiryRequest
+    {
+        public int LoanValue { get; set; }
+        public short NumberOfInstallments { get; set; }
+        public PersonalData PersonalData { get; set; } = default!;
+        public GovernmentDocument GovernmentDocument { get; set; } = default!;
+        public JobDetails JobDetails { get; set; } = default!;
+    }
+}

@@ -1,5 +1,7 @@
-﻿using LoansComparer.CrossCutting.DTO.LoaningBank;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
+using Mapster;
 using System.Text;
 using System.Text.Json;
 
@@ -12,6 +14,13 @@ namespace LoansComparer.Services
         public LoaningService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
+        }
+
+        public async Task<BaseResponse<CreateInquiryResponse>> Inquire(AddInquiryDTO inquiryData)
+        {
+            var body = inquiryData.Adapt<CreateInquiryRequest>();
+            // TODO: fetch hardcoded url from db
+            return await SendAsync<CreateInquiryResponse, CreateInquiryRequest>(HttpMethod.Post, "api/inquiries/add", body);
         }
 
         private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class 

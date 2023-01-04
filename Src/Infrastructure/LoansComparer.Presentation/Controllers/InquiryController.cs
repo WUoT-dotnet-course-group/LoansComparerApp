@@ -28,8 +28,9 @@ namespace LoansComparer.Presentation.Controllers
         public async Task<ActionResult> Add([FromBody] AddInquiryDTO inquiry)
         {
             var userId = User.FindFirst("Id")?.Value;
-
             await _serviceManager.InquiryService.Add(inquiry, userId);
+
+            await _serviceManager.LoaningService.Inquire(inquiry);
             return Ok();
         }
 
