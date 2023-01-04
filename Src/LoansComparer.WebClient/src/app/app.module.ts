@@ -26,7 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
-import { AppDescriptionComponent } from './app-description/app-description.component';
+import { DescriptionComponent } from './description/description.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
@@ -44,7 +44,7 @@ import { PersonalDataComponent } from './shared/personal-data/personal-data.comp
     InquiryFormComponent,
     ReviewOffersComponent,
     InquiryHistoryComponent,
-    AppDescriptionComponent,
+    DescriptionComponent,
     SignInGoogleComponent,
     SignOutComponent,
     LoadingSpinnerComponent,
