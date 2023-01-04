@@ -44,9 +44,6 @@ namespace LoansComparer.Services
         public async Task<List<GetInquiryDTO>> GetAllByUser(Guid userId)
         {
             var inquiries = await _repositoryManager.InquiryRepository.GetAllByUser(userId);
-
-            // TODO: configurate adapt method to fill ChosenBank property
-
             return inquiries.Adapt<List<GetInquiryDTO>>();
         }
     }
