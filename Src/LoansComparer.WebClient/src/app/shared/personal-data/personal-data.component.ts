@@ -25,24 +25,8 @@ export class PersonalDataComponent implements OnInit {
   parentForm!: FormGroup;
   personalDataForm!: FormGroup;
 
-  govIdTypesPlaceholder: DictionaryDTO[] = [
-    {
-      id: 1,
-      name: 'Driver License',
-      description: 'Driver License',
-    },
-    {
-      id: 2,
-      name: 'Passport',
-      description: 'Passport',
-    },
-    {
-      id: 3,
-      name: 'Government Id',
-      description: 'Government Id',
-    },
-  ];
-  jobTypesPlaceholder: DictionaryDTO[] = [];
+  governmentIdTypes: DictionaryDTO[] = [];
+  jobTypes: DictionaryDTO[] = [];
 
   dateNow!: Date;
   dateEighteenYearsBefore!: Date;
@@ -85,8 +69,12 @@ export class PersonalDataComponent implements OnInit {
     this.dateEighteenYearsBefore = new Date(Date.now());
     this.dateEighteenYearsBefore.setFullYear(this.dateNow.getFullYear() - 18);
 
+    this.loansComparerService.getGovernmentIdTypes().subscribe((response) => {
+      this.governmentIdTypes = response;
+    });
+
     this.loansComparerService.getJobTypes().subscribe((response) => {
-      this.jobTypesPlaceholder = response;
+      this.jobTypes = response;
     });
   }
 

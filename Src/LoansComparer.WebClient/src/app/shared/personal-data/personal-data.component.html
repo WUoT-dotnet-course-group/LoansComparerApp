@@ -64,7 +64,7 @@
     <mat-form-field class="field" appearance="fill">
       <mat-label>Government type</mat-label>
       <mat-select formControlName="governmentIdType" panelClass="select-panel">
-        <mat-option *ngFor="let govType of govIdTypesPlaceholder" [value]="govType">
+        <mat-option *ngFor="let govType of governmentIdTypes" [value]="govType">
           {{govType.name}}
         </mat-option>
       </mat-select>
@@ -76,7 +76,7 @@
     <mat-form-field class="field" appearance="fill">
       <mat-label>Job type</mat-label>
       <mat-select formControlName="jobType" panelClass="select-panel">
-        <mat-option *ngFor="let jobType of jobTypesPlaceholder" [value]="jobType">
+        <mat-option *ngFor="let jobType of jobTypes" [value]="jobType">
           {{jobType.name}}
         </mat-option>
       </mat-select>

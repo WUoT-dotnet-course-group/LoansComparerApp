@@ -60,7 +60,7 @@ export interface GetInquiryData {
 }
 
 export interface DictionaryDTO {
-  id: number;
+  typeId: number;
   name: string;
   description: string;
 }
@@ -92,6 +92,12 @@ export class LoansComparerService {
   getJobTypes(): Observable<DictionaryDTO[]> {
     return this.http.get<DictionaryDTO[]>(
       this.path + 'api/dictionary/job-types'
+    );
+  }
+
+  getGovernmentIdTypes(): Observable<DictionaryDTO[]> {
+    return this.http.get<DictionaryDTO[]>(
+      this.path + 'api/dictionary/government-id-types'
     );
   }
 }

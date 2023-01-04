@@ -9,14 +9,22 @@ namespace LoansComparer.Presentation.Controllers
     [Route("api/dictionary")]
     public class DictionaryController : ControllerBase
     {
-        private readonly IServiceManager _serviceManager;
-
-        public DictionaryController(IServiceManager serviceManager) => _serviceManager = serviceManager;
-
         [HttpGet("job-types")]
         public ActionResult<List<DictionaryDTO>> GetJobTypes()
         {
             var jobTypes = Enum.GetValues<JobType>().Select(x => new DictionaryDTO()
+            {
+                Id = (int)x,
+                Name = x.GetEnumDescription()
+            }).ToList();
+
+            return Ok(jobTypes);
+        }
+
+        [HttpGet("government-id-types")]
+        public ActionResult<List<DictionaryDTO>> GetGovernmentIdTypes()
+        {
+            var jobTypes = Enum.GetValues<GovernmentIdType>().Select(x => new DictionaryDTO()
             {
                 Id = (int)x,
                 Name = x.GetEnumDescription()
