@@ -4,55 +4,55 @@ namespace LoansComparer.CrossCutting.Enums
 {
     public enum JobType
     {
-        [Description("Director")] 
+        [Description("Director")]
         Director,
-        [Description("Agent")] 
+        [Description("Agent")]
         Agent,
-        [Description("Administrator")] 
+        [Description("Administrator")]
         Administrator,
-        [Description("Coordinator")] 
+        [Description("Coordinator")]
         Coordinator,
-        [Description("Specialist")] 
+        [Description("Specialist")]
         Specialist,
-        [Description("Orchestrator")] 
+        [Description("Orchestrator")]
         Orchestrator,
-        [Description("Assistant")] 
+        [Description("Assistant")]
         Assistant,
-        [Description("Designer")] 
+        [Description("Designer")]
         Designer,
-        [Description("Facilitator")] 
+        [Description("Facilitator")]
         Facilitator,
-        [Description("Analyst")] 
+        [Description("Analyst")]
         Analyst,
-        [Description("Producer")] 
+        [Description("Producer")]
         Producer,
-        [Description("Technician")] 
+        [Description("Technician")]
         Technician,
-        [Description("Manager")] 
+        [Description("Manager")]
         Manager,
-        [Description("Liaison")] 
+        [Description("Liaison")]
         Liaison,
-        [Description("Associate")] 
+        [Description("Associate")]
         Associate,
-        [Description("Consultant")] 
+        [Description("Consultant")]
         Consultant,
-        [Description("Engineer")] 
+        [Description("Engineer")]
         Engineer,
-        [Description("Strategist")] 
+        [Description("Strategist")]
         Strategist,
-        [Description("Supervisor")] 
+        [Description("Supervisor")]
         Supervisor,
-        [Description("Executive")] 
+        [Description("Executive")]
         Executive,
-        [Description("Planner")] 
+        [Description("Planner")]
         Planner,
-        [Description("Developer")] 
+        [Description("Developer")]
         Developer,
-        [Description("Officer")] 
+        [Description("Officer")]
         Officer,
-        [Description("Architect")] 
+        [Description("Architect")]
         Architect,
-        [Description("Representative")] 
+        [Description("Representative")]
         Representative,
     }
 }

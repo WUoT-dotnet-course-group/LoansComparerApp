@@ -24,8 +24,8 @@ namespace LoansComparer.Services
         public async Task CreateUser(string email)
         {
             await _repositoryManager.UserRepository.AddUser(new User
-            { 
-                Email = email 
+            {
+                Email = email
             });
         }
 
@@ -34,7 +34,7 @@ namespace LoansComparer.Services
             var user = await _repositoryManager.UserRepository.GetUserById(userId);
 
             user.PersonalData = userData.Adapt<PersonalData>();
-            
+
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
