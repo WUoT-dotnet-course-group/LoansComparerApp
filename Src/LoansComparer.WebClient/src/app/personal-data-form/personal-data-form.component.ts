@@ -37,9 +37,13 @@ export class PersonalDataFormComponent implements OnInit {
   ngOnInit(): void {}
 
   onFormSubmit(): void {
-    this.loansComparerService.saveUserData(
-      <PersonalDataDTO>this.form.value.personalData
-    );
+    // TODO: do mapping on backend
+    let personalData = <PersonalDataDTO>this.form.value.personalData;
+    personalData.jobType = this.form.value.personalData.jobType.typeId;
+    personalData.governmentIdType =
+      this.form.value.personalData.governmentIdType.typeId;
+
+    this.loansComparerService.saveUserData(personalData);
 
     this.router.navigateByUrl('/home');
   }

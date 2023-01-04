@@ -17,8 +17,8 @@
 
         <mat-form-field class="field" appearance="fill">
           <mat-label>Installments number</mat-label>
-          <input matInput formControlName="installmentsNumber" type="number">
-          <mat-error *ngIf="!inquiryForm.get('installmentsNumber')?.valid">{{requiredFieldError}}</mat-error>
+          <input matInput formControlName="numberOfInstallments" type="number">
+          <mat-error *ngIf="!inquiryForm.get('numberOfInstallments')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
       </div>
 

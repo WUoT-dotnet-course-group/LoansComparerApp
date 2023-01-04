@@ -43,14 +43,20 @@ export class InquiryFormComponent implements OnInit {
   ngOnInit(): void {
     this.inquiryForm = new FormGroup({
       loanValue: new FormControl(null, Validators.required),
-      installmentsNumber: new FormControl(null, Validators.required),
+      numberOfInstallments: new FormControl(null, Validators.required),
     });
   }
 
   onFormSubmit(): void {
-    this.loansComparerService.createInquiry(
-      <AddInquiryDTO>this.inquiryForm.value
-    );
+    // TODO: do mapping on backend
+    let inquiryDetails = <AddInquiryDTO>this.inquiryForm.value;
+    inquiryDetails.personalData.jobType =
+      this.inquiryForm.value.personalData.jobType.typeId;
+    inquiryDetails.personalData.governmentIdType =
+      this.inquiryForm.value.personalData.governmentIdType.typeId;
+
+    console.log(inquiryDetails);
+    this.loansComparerService.createInquiry(inquiryDetails);
 
     this.router.navigateByUrl('/offers');
   }
