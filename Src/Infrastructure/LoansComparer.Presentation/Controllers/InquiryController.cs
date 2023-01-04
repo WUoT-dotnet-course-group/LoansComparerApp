@@ -1,10 +1,12 @@
 ﻿using LoansComparer.CrossCutting.DTO;
 using LoansComparer.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoansComparer.Presentation.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/inquiries")]
     public class InquiryController : ControllerBase
     {
@@ -15,17 +17,23 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetInquiryDTO>>> GetAll()
         {
-            var inquiries = await _serviceManager.InquiryService.GetAll();
+            var userId = User.FindFirst("Id")?.Value!;
+
+            var inquiries = await _serviceManager.InquiryService.GetAllByUser(Guid.Parse(userId));
             return Ok(inquiries);
         }
 
+        [AllowAnonymous]
         [HttpPost("add")]
         public async Task<ActionResult> Add([FromBody] AddInquiryDTO inquiry)
         {
-            await _serviceManager.InquiryService.Add(inquiry);
+            var userId = User.FindFirst("Id")?.Value;
+
+            await _serviceManager.InquiryService.Add(inquiry, userId);
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPatch("{inquiryId}/chooseOffer")]
         public async Task<ActionResult> ChooseOffer(Guid inquiryId, [FromBody] ChooseOfferDTO chosenOffer)
         {

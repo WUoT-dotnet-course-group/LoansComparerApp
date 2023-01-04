@@ -8,9 +8,9 @@ import {
 } from '@angular/animations';
 
 @Component({
-  selector: 'app-app-description',
-  templateUrl: './app-description.component.html',
-  styleUrls: ['./app-description.component.less'],
+  selector: 'app-description',
+  templateUrl: './description.component.html',
+  styleUrls: ['./description.component.less'],
   animations: [
     trigger('toggleLearnMore', [
       state('*', style({ opacity: 1 })),
@@ -20,7 +20,7 @@ import {
     ]),
   ],
 })
-export class AppDescriptionComponent implements OnInit {
+export class DescriptionComponent implements OnInit {
   isLearnMore: boolean = true;
 
   constructor() {}

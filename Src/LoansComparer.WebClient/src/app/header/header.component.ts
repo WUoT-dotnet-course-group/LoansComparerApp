@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,18 +8,15 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  isAuthenticated!: boolean;
-  userSignedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor() {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.userSignedIn$.subscribe(
-      (signedIn: boolean) => (this.isAuthenticated = signedIn)
-    );
+  onPersonalDataClick(): void {
+    this.router.navigate(['/personal-data']);
   }
 
-  onSignIn(): void {}
-
-  onRegister(): void {}
+  get isAuthenticated() {
+    return this.authService.isAuthenticated;
+  }
 }

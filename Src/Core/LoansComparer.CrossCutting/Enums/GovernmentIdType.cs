@@ -1,9 +1,14 @@
-﻿namespace LoansComparer.CrossCutting.Enums
+﻿using System.ComponentModel;
+
+namespace LoansComparer.CrossCutting.Enums
 {
     public enum GovernmentIdType
     {
-        PESEL,
-        ID,
-        Passport
+        [Description("Driver License")]
+        DriverLicense = 1,
+        [Description("Passport")]
+        Passport = 2,
+        [Description("Government Id")]
+        ID = 3,
     }
 }

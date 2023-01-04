@@ -6,13 +6,10 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-
-export interface InquiryHistoryRow {
-  loanValue: number;
-  inquireDate: Date;
-  bankOfChosenOffer: string;
-  offerStatus: string;
-}
+import {
+  GetInquiryData,
+  LoansComparerService,
+} from '../shared/services/loans-comparer/loans-comparer.service';
 
 @Component({
   selector: 'app-inquiry-history',
@@ -28,44 +25,7 @@ export interface InquiryHistoryRow {
   ],
 })
 export class InquiryHistoryComponent implements OnInit {
-  inquiries: InquiryHistoryRow[] = [
-    {
-      loanValue: 12000,
-      inquireDate: new Date(),
-      bankOfChosenOffer: 'BNP',
-      offerStatus: 'Pending',
-    },
-    {
-      loanValue: 3000,
-      inquireDate: new Date(),
-      bankOfChosenOffer: 'ING',
-      offerStatus: 'Accepted',
-    },
-    {
-      loanValue: 6500,
-      inquireDate: new Date(),
-      bankOfChosenOffer: 'Pekao',
-      offerStatus: 'Rejected',
-    },
-    {
-      loanValue: 12000,
-      inquireDate: new Date(),
-      bankOfChosenOffer: 'BNP',
-      offerStatus: 'Pending',
-    },
-    {
-      loanValue: 3000,
-      inquireDate: new Date(),
-      bankOfChosenOffer: 'ING',
-      offerStatus: 'Accepted',
-    },
-    {
-      loanValue: 3000,
-      inquireDate: new Date(),
-      bankOfChosenOffer: 'ING',
-      offerStatus: 'Accepted',
-    },
-  ];
+  inquiries: GetInquiryData[] = [];
   displayedColumns: string[] = [
     'indexer',
     'loanValue',
@@ -74,7 +34,11 @@ export class InquiryHistoryComponent implements OnInit {
     'bankOfChosenOffer',
   ];
 
-  constructor() {}
+  constructor(private loansComparerService: LoansComparerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loansComparerService
+      .getInquiries()
+      .subscribe((response: GetInquiryData[]) => (this.inquiries = response));
+  }
 }

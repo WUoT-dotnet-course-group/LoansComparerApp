@@ -1,6 +1,8 @@
+using LoansComparer.Services.Abstract;
+
 namespace LoansComparer.WebAPI.Configuration
 {
-    public class ConfigurationsManager
+    public class ConfigurationsManager : IServicesConfiguration
     {
         private readonly DatabaseConfig _databaseConfig;
         private readonly GoogleAuthConfig _googleAuthConfig;
@@ -25,7 +27,7 @@ namespace LoansComparer.WebAPI.Configuration
             }
         }
 
-        public string GoogleAuthClientId => _googleAuthConfig.ClientId;
-        public string GoogleAuthSecretKey => _googleAuthConfig.SecretKey;
+        public string GetGoogleAuthClientId() => _googleAuthConfig.ClientId;
+        public string GetGoogleAuthSecretKey() => _googleAuthConfig.SecretKey;
     }
 }

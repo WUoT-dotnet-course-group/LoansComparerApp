@@ -1,6 +1,6 @@
 ﻿using Google.Apis.Auth;
+using LoansComparer.CrossCutting.DTO;
 using LoansComparer.Services.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoansComparer.Presentation.Controllers
@@ -10,40 +10,32 @@ namespace LoansComparer.Presentation.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
+        private readonly IServicesConfiguration _configuration;
 
-        public AuthController(IServiceManager serviceManager) => _serviceManager = serviceManager;
+        public AuthController(IServiceManager serviceManager, IServicesConfiguration configuration)
+        {
+            _serviceManager = serviceManager;
+            _configuration = configuration;
+        }
 
         [HttpPost("signIn")]
-        public async Task<IActionResult> SignInWithGoogle([FromBody] string credentials)
+        public async Task<ActionResult<AuthDTO>> SignInWithGoogle([FromBody] string credentials)
         {
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
-                Audience = new List<string> { "926857553613-k7hh3i9e7o1lop88rr4b1gphlchla81j.apps.googleusercontent.com" }
+                Audience = new List<string> { _configuration.GetGoogleAuthClientId() }
             };
 
             var payload = await GoogleJsonWebSignature.ValidateAsync(credentials, settings);
 
             var userExists = await _serviceManager.UserService.UserExistsByEmail(payload.Email);
-            if (userExists)
+            if (!userExists)
             {
-                var authInfo = _serviceManager.UserService.GenerateTokenForUser(payload.Email);
-
-                HttpContext.Response.Cookies.Append("token", authInfo.EncryptedToken,
-                     new CookieOptions
-                     {
-                         Expires = DateTime.Now.AddDays(7),
-                         HttpOnly = true,
-                         Secure = true,
-                         IsEssential = true,
-                         SameSite = SameSiteMode.None
-                     });
-
-                return Ok(authInfo);
+                await _serviceManager.UserService.CreateUser(payload.Email);
             }
-            else
-            {
-                return BadRequest();
-            }
+
+            var authInfo = await _serviceManager.UserService.Authenticate(payload.Email);
+            return Ok(authInfo);
         }
     }
 }

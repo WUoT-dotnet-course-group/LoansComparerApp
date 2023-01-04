@@ -23,8 +23,12 @@ namespace LoansComparer.DataPersistence
                 {
                     pd.Property(y => y.FirstName).HasColumnName("FirstName");
                     pd.Property(y => y.LastName).HasColumnName("LastName");
+                    pd.Property(y => y.BirthDate).HasColumnName("BirthDate");
                     pd.Property(y => y.GovernmentId).HasColumnName("GovernmentId");
                     pd.Property(y => y.GovernmentIdType).HasColumnName("GovernmentIdType");
+                    pd.Property(y => y.JobType).HasColumnName("JobType");
+                    pd.Property(y => y.JobStartDate).HasColumnName("JobStartDate");
+                    pd.Property(y => y.JobEndDate).HasColumnName("JobEndDate");
                 });
 
             modelBuilder.Entity<Inquiry>()

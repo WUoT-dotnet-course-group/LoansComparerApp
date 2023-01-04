@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Mapster;
+using MapsterMapper;
 
 namespace LoansComparer
 {
@@ -27,23 +29,34 @@ namespace LoansComparer
 
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
+            services.AddScoped<IServicesConfiguration, ConfigurationsManager>();
+
+            var mappingConfig = TypeAdapterConfig.GlobalSettings;
+            mappingConfig.Scan(typeof(Services.Mapping.AssemblyReference).Assembly);
+            services.AddSingleton(mappingConfig);
+            services.AddScoped<IMapper, ServiceMapper>();
 
             services.AddControllers()
                 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+                builder.WithOrigins("http://localhost:4200", "https://loans-comparer.azurewebsites.net")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()));
 
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddCookie(x => x.Cookie.Name = "token")
-                .AddJwtBearer(x =>
+            }).AddJwtBearer(x =>
                 {
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = true;
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Same secret very secret secret as in GenerateJWT")),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationsManager.GetGoogleAuthSecretKey())),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
@@ -51,14 +64,15 @@ namespace LoansComparer
                     {
                         OnMessageReceived = context =>
                         {
-                            context.Token = context.Request.Cookies["token"];
+                            if (context.Request.Headers.TryGetValue("Authentication", out var token))
+                            {
+                                context.Token = token.FirstOrDefault();
+                            }
                             return Task.CompletedTask;
                         }
                     };
                 });
 
-            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
-                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
             services.AddSwaggerGen();
         }

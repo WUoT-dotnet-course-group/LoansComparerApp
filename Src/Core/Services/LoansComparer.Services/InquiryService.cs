@@ -12,17 +12,21 @@ namespace LoansComparer.Services
 
         public InquiryService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
 
-        public async Task Add(AddInquiryDTO inquiry)
+        public async Task Add(AddInquiryDTO inquiry, string? userId)
         {
-            // TODO: logged in user
-
-            // logged out user
             var inquiryToAdd = inquiry.Adapt<Inquiry>();
-            inquiryToAdd.User = new User()
+
+            if (userId is null)
             {
-                PersonalData = inquiry.PersonalData.Adapt<PersonalData>(),
-                Email = inquiry.Email
-            };
+                inquiryToAdd.User = new User()
+                {
+                    PersonalData = inquiry.PersonalData.Adapt<PersonalData>(),
+                };
+            }
+            else
+            {
+                inquiryToAdd.User = await _repositoryManager.UserRepository.GetUserById(Guid.Parse(userId));
+            }
 
             await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
         }
@@ -37,12 +41,9 @@ namespace LoansComparer.Services
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
-        public async Task<List<GetInquiryDTO>> GetAll()
+        public async Task<List<GetInquiryDTO>> GetAllByUser(Guid userId)
         {
-            var inquiries = await _repositoryManager.InquiryRepository.GetAll();
-
-            // TODO: configurate adapt method to fill ChosenBank property
-
+            var inquiries = await _repositoryManager.InquiryRepository.GetAllByUser(userId);
             return inquiries.Adapt<List<GetInquiryDTO>>();
         }
     }

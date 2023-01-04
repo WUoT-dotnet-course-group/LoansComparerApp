@@ -1,0 +1,21 @@
+<div fxLayout="row" fxLayoutAlign="center" fxFill [@displayForm]>
+  <form [formGroup]="form" class="form" fxLayout="column" (ngSubmit)="onFormSubmit()"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="header">
+      <span class="header">Edit personal data</span>
+      <hr>
+    </div>
+
+    <div class="content" fxLayout="column" fxLayoutAlign="center">
+      <app-personal-data></app-personal-data>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+          <input matInput>
+        </mat-form-field>
+
+        <button mat-button class="prim-button" type="submit" [disabled]="form.invalid">Save</button>
+      </div>
+    </div>
+  </form>
+</div>

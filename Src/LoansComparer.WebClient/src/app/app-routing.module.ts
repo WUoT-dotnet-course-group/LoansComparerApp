@@ -1,22 +1,37 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppDescriptionComponent } from './app-description/app-description.component';
+import { DescriptionComponent } from './description/description.component';
 import { HomeComponent } from './home/home.component';
 import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
+import { AuthGuard } from './shared/services/auth/auth.guard';
+import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
     children: [
-      { path: 'signed-in', component: InquiryHistoryComponent },
-      { path: '', component: AppDescriptionComponent },
+      {
+        path: 'signed-in',
+        component: InquiryHistoryComponent,
+        canActivate: [AuthGuard],
+      },
+      { path: '', component: DescriptionComponent },
     ],
   },
+  {
+    path: 'personal-data',
+    component: PersonalDataFormComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'inquire', component: InquiryFormComponent },
-  { path: 'offers', component: ReviewOffersComponent },
+  {
+    path: 'offers',
+    component: ReviewOffersComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', redirectTo: '/home' },
 ];
 

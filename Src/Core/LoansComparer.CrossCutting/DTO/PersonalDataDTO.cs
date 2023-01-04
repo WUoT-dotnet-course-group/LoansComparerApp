@@ -1,11 +1,10 @@
-﻿using LoansComparer.CrossCutting.Enums;
-
-namespace LoansComparer.CrossCutting.DTO;
+﻿namespace LoansComparer.CrossCutting.DTO;
 
 public class PersonalDataDTO
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
-    public string GovernmentId { get; set; } = default!;
-    public GovernmentIdType GovernmentIdType { get; set; }
+    public DateTime BirthDate { get; set; }
+    public GovernmentDocumentDTO GovernmentDocument { get; set; } = default!;
+    public JobDetailsDTO JobDetails { get; set; } = default!;
 }

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,10 +26,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
-import { AppDescriptionComponent } from './app-description/app-description.component';
+import { DescriptionComponent } from './description/description.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthInterceptorService } from './shared/services/auth/auth-interceptor.service';
+import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
+import { PersonalDataComponent } from './shared/personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
@@ -40,9 +44,12 @@ import { SignOutComponent } from './sign-out/sign-out.component';
     InquiryFormComponent,
     ReviewOffersComponent,
     InquiryHistoryComponent,
-    AppDescriptionComponent,
+    DescriptionComponent,
     SignInGoogleComponent,
     SignOutComponent,
+    LoadingSpinnerComponent,
+    PersonalDataFormComponent,
+    PersonalDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +77,11 @@ import { SignOutComponent } from './sign-out/sign-out.component';
   providers: [
     MatDatepickerModule,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

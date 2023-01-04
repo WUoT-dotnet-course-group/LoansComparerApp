@@ -1,9 +1,8 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
+import { CredentialResponse } from 'google-one-tap';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in-google',
@@ -11,14 +10,11 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./sign-in-google.component.css'],
 })
 export class SignInGoogleComponent implements OnInit {
-  @Input()
-  userSignedIn!: BehaviorSubject<boolean>;
-
   private clientId = environment.googleAuthClientId;
 
   constructor(
     private router: Router,
-    private service: AuthService,
+    private authService: AuthService,
     private ngZone: NgZone
   ) {}
 
@@ -39,18 +35,16 @@ export class SignInGoogleComponent implements OnInit {
         { theme: 'outline', size: 'large', width: '100%' }
       );
       // @ts-ignore
-      google.accounts.id.prompt((notification: PromptMomentNotification) => {});
+      google.accounts.id.prompt((_) => {});
     };
   }
 
   handleCredentialResponse(response: CredentialResponse) {
-    this.service.signInWithGoogle(response.credential).subscribe({
-      next: (next: any) => {
-        localStorage.setItem('token', next.token);
+    this.authService.signIn(response.credential).subscribe({
+      next: (_) => {
         this.ngZone.run(() => {
           this.router.navigate(['/home/signed-in']);
         });
-        this.userSignedIn.next(true);
       },
       error: (error: any) => {
         console.log(error);
