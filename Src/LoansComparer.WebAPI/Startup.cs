@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Mapster;
+using MapsterMapper;
 
 namespace LoansComparer
 {
@@ -28,6 +30,11 @@ namespace LoansComparer
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServicesConfiguration, ConfigurationsManager>();
+
+            var mappingConfig = TypeAdapterConfig.GlobalSettings;
+            mappingConfig.Scan(typeof(Services.Mapping.AssemblyReference).Assembly);
+            services.AddSingleton(mappingConfig);
+            services.AddScoped<IMapper, ServiceMapper>();
 
             services.AddControllers()
                 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
