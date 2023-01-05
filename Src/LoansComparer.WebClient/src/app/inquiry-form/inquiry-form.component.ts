@@ -13,6 +13,7 @@ import {
   LoansComparerService,
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { ErrorMessage } from '../shared/resources/error-message';
+import { OfferProviderService } from '../shared/services/providers/bank-offer.service';
 
 @Component({
   selector: 'app-inquiry-form',
@@ -37,7 +38,7 @@ export class InquiryFormComponent implements OnInit {
 
   constructor(
     protected loansComparerService: LoansComparerService,
-    protected router: Router
+    protected offerProviderService: OfferProviderService
   ) {}
 
   ngOnInit(): void {
@@ -48,10 +49,10 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    this.loansComparerService.createInquiry(
-      <CreateInquiryDTO>this.inquiryForm.value
-    );
-
-    this.router.navigateByUrl('/offers');
+    this.loansComparerService
+      .createInquiry(<CreateInquiryDTO>this.inquiryForm.value)
+      .subscribe((response) => {
+        this.offerProviderService.inquiryCreated.next(response);
+      });
   }
 }
