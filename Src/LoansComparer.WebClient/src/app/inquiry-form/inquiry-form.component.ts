@@ -9,7 +9,7 @@ import {
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import {
-  AddInquiryDTO,
+  CreateInquiryDTO,
   LoansComparerService,
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { ErrorMessage } from '../shared/resources/error-message';
@@ -49,7 +49,7 @@ export class InquiryFormComponent implements OnInit {
 
   onFormSubmit(): void {
     this.loansComparerService.createInquiry(
-      <AddInquiryDTO>this.inquiryForm.value
+      <CreateInquiryDTO>this.inquiryForm.value
     );
 
     this.router.navigateByUrl('/offers');

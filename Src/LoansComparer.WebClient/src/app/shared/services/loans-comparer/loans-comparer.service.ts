@@ -27,10 +27,15 @@ export interface JobDetailsDTO extends DictionaryDTO {
   jobEndDate: Date;
 }
 
-export interface AddInquiryDTO {
+export interface CreateInquiryDTO {
   loanValue: number;
   numberOfInstallments: number;
   personalData: PersonalDataDTO;
+}
+
+export interface CreateInquiryResponseDTO {
+  inquiryId: string;
+  bankInquiryId: string;
 }
 
 export interface PersonalDataDTO {
@@ -60,6 +65,13 @@ export interface DictionaryDTO {
   description: string;
 }
 
+export interface OfferDTO {}
+
+export interface ChooseOfferDTO {
+  offerId: string;
+  offerBankId: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -68,10 +80,13 @@ export class LoansComparerService {
 
   constructor(private http: HttpClient) {}
 
-  createInquiry(addInquiryData: AddInquiryDTO): void {
-    this.http
-      .post<any>(this.path + 'api/inquiries/add', addInquiryData)
-      .subscribe((_) => {});
+  createInquiry(
+    createInquiryData: CreateInquiryDTO
+  ): Observable<CreateInquiryResponseDTO> {
+    return this.http.post<CreateInquiryResponseDTO>(
+      this.path + 'api/inquiries/create',
+      createInquiryData
+    );
   }
 
   saveUserData(userData: PersonalDataDTO): void {
@@ -82,6 +97,21 @@ export class LoansComparerService {
 
   getInquiries(): Observable<GetInquiryData[]> {
     return this.http.get<GetInquiryData[]>(this.path + 'api/inquiries');
+  }
+
+  getOffer(bankInquiryId: string): Observable<OfferDTO> {
+    return this.http.get<OfferDTO>(
+      this.path + `api/inquiries/${bankInquiryId}/offer`
+    );
+  }
+
+  chooseOffer(inquiryId: string, chooseOfferData: ChooseOfferDTO): void {
+    this.http
+      .patch<any>(
+        this.path + `api/inquiries/${inquiryId}/choose-offer`,
+        chooseOfferData
+      )
+      .subscribe((_) => {});
   }
 
   getJobTypes(): Observable<DictionaryDTO[]> {
