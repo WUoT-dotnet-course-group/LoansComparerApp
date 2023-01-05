@@ -30,7 +30,7 @@ namespace LoansComparer.Services
         {
             var request = new HttpRequestMessage(httpMethod, url)
             {
-                Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"),
             };
 
             return await SendRequestAsync<T>(request);
@@ -41,12 +41,20 @@ namespace LoansComparer.Services
             var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
             var content = await response.Content.ReadAsStreamAsync();
 
+            var baseResponse = new BaseResponse<T>()
+            {
+                StatusCode = response.StatusCode
+            };
+
             if (response.IsSuccessStatusCode)
             {
-                return new BaseResponse<T>() { Content = await JsonSerializer.DeserializeAsync<T>(content) };
+                baseResponse.Content = await JsonSerializer.DeserializeAsync<T>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                baseResponse.IsSuccessful = true;
             }
-
-            return new BaseResponse<T>() { ErrorStatusCode = response.StatusCode };
+            return baseResponse;
         }
     }
 }
