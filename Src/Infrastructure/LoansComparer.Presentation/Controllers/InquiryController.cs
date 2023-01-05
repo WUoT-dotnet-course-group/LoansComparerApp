@@ -41,6 +41,19 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("{bankInquiryId}/offer")]
+        public async Task<ActionResult<OfferDTO>> GetOffer(Guid bankInquiryId)
+        {
+            var response = await _serviceManager.LoaningService.GetOfferByInquiryId(bankInquiryId);
+            if (!response.IsSuccessful) 
+            { 
+                return NotFound();
+            }
+
+            return Ok(response.Content);
+        }
+
+        [AllowAnonymous]
         [HttpPatch("{inquiryId}/chooseOffer")]
         public async Task<ActionResult> ChooseOffer(Guid inquiryId, [FromBody] ChooseOfferDTO chosenOffer)
         {

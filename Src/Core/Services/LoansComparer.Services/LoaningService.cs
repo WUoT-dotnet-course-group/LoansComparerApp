@@ -23,6 +23,45 @@ namespace LoansComparer.Services
             return await SendAsync<CreateInquiryResponse, CreateInquiryRequest>(HttpMethod.Post, "api/inquiries/add", body);
         }
 
+        public async Task<BaseResponse<GetInquiryResponse>> GetInquiry(Guid inquiryId)
+        {
+            // TODO: fetch hardcoded url from db
+            return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"api/inquiries/{inquiryId}");
+        }
+
+        public async Task<BaseResponse<GetOfferResponse>> GetOfferById(Guid offerId)
+        {
+            // TODO: fetch hardcoded url from db
+            return await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
+        }
+
+        public async Task<BaseResponse<OfferDTO>> GetOfferByInquiryId(Guid inquiryId)
+        {
+            var inquiryResponse = await GetInquiry(inquiryId);
+
+            if (!inquiryResponse.IsSuccessful || inquiryResponse.Content!.OfferId is null)
+            {
+                return new()
+                {
+                    StatusCode = inquiryResponse.StatusCode
+                };
+            }
+
+            var offerResponse = await GetOfferById(inquiryResponse.Content.OfferId.Value);
+
+            var finalResponse = new BaseResponse<OfferDTO>()
+            {
+                StatusCode = offerResponse.StatusCode,
+            };
+            if (offerResponse.IsSuccessful)
+            {
+                finalResponse.Content = offerResponse.Content!.Adapt<OfferDTO>();
+                finalResponse.IsSuccessful = true;
+            }
+
+            return finalResponse;
+        }
+
         private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class 
             => await SendRequestAsync<T>(new HttpRequestMessage(httpMethod, url));
 
