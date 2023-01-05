@@ -1,4 +1,5 @@
 ﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +26,18 @@ namespace LoansComparer.Presentation.Controllers
 
         [AllowAnonymous]
         [HttpPost("add")]
-        public async Task<ActionResult> Add([FromBody] AddInquiryDTO inquiry)
+        public async Task<ActionResult<CreateInquiryResponse>> Add([FromBody] AddInquiryDTO inquiry)
         {
             var userId = User.FindFirst("Id")?.Value;
             await _serviceManager.InquiryService.Add(inquiry, userId);
 
-            await _serviceManager.LoaningService.Inquire(inquiry);
-            return Ok();
+            var response = await _serviceManager.LoaningService.Inquire(inquiry);
+            if (response.IsSuccessful)
+            {
+                return Ok(response.Content);
+            }
+
+            return StatusCode(500);
         }
 
         [AllowAnonymous]
