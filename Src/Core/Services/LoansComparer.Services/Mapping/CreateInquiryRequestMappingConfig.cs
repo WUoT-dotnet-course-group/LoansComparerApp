@@ -7,7 +7,7 @@ namespace LoansComparer.Services.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<AddInquiryDTO, CreateInquiryRequest>()
+            config.NewConfig<CreateInquiryDTO, CreateInquiryRequest>()
                 .Map(dest => dest.PersonalData, src => new PersonalData()
                 {
                     FirstName = src.PersonalData.FirstName,

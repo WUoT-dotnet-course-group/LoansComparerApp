@@ -10,10 +10,11 @@ namespace LoansComparer.DataPersistence.Repositories
 
         public InquiryRepository(RepositoryDbContext dbContext) => _dbContext = dbContext;
 
-        public async Task Add(Inquiry inquiry)
+        public async Task<Guid> Add(Inquiry inquiry)
         {
             await _dbContext.Inquiries.AddAsync(inquiry);
             await _dbContext.SaveChangesAsync();
+            return inquiry.ID;
         }
 
         public async Task<List<Inquiry>> GetAllByUser(Guid userId) => await _dbContext.Inquiries.Where(x => x.UserID == userId).ToListAsync();

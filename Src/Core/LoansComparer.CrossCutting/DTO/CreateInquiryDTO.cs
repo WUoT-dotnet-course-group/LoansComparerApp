@@ -1,6 +1,6 @@
 ﻿namespace LoansComparer.CrossCutting.DTO
 {
-    public class AddInquiryDTO
+    public class CreateInquiryDTO
     {
         public int LoanValue { get; set; }
         public short NumberOfInstallments { get; set; }

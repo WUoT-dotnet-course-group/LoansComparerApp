@@ -16,7 +16,7 @@ namespace LoansComparer.Services
             _clientFactory = clientFactory;
         }
 
-        public async Task<BaseResponse<CreateInquiryResponse>> Inquire(AddInquiryDTO inquiryData)
+        public async Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData)
         {
             var body = inquiryData.Adapt<CreateInquiryRequest>();
             // TODO: fetch hardcoded url from db

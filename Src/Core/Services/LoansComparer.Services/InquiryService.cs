@@ -12,7 +12,7 @@ namespace LoansComparer.Services
 
         public InquiryService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
 
-        public async Task Add(AddInquiryDTO inquiry, string? userId)
+        public async Task<Guid> Add(CreateInquiryDTO inquiry, string? userId)
         {
             var inquiryToAdd = inquiry.Adapt<Inquiry>();
 
@@ -28,7 +28,7 @@ namespace LoansComparer.Services
                 inquiryToAdd.User = await _repositoryManager.UserRepository.GetUserById(Guid.Parse(userId));
             }
 
-            await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
+            return await _repositoryManager.InquiryRepository.Add(inquiryToAdd);
         }
 
         public async Task ChooseOffer(Guid inquiryId, ChooseOfferDTO chosenOffer)

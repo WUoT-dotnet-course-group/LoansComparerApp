@@ -2,7 +2,7 @@
 {
     public class CreateInquiryResponse
     {
-        public string InquiryId { get; set; } = default!;
+        public Guid InquiryId { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }
