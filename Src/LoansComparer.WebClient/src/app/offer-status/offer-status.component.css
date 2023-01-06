@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+span {
+  color: rgb(89, 0, 114);
+  padding: 15px;
+  white-space: nowrap;
+  height: 16px;
+  vertical-align: middle;
+}
+
+.header {
+  font-family: 'Lilita one', cursive;
+  font-size: 35px;
+  padding-bottom: 10px;
+}
+
+.box {
+  width: fit-content;
+  background: white;
+  border-radius: 20px;
+  padding-top: 10px;
+  padding-bottom: 14px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.keys {
+  font-family: 'Lilita one', cursive;
+  font-size: 22px;
+  margin-right: 200px;
+}
+
+.values {
+  font-family: 'Comfortaa', cursive;
+  font-size: 19px;
+  margin-top: 3px;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: greenyellow;
+}
+
+.orange {
+  color: orange
+}

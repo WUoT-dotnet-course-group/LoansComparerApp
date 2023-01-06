@@ -34,6 +34,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthInterceptorService } from './shared/services/auth/auth-interceptor.service';
 import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 import { PersonalDataComponent } from './shared/personal-data/personal-data.component';
+import { OfferStatusComponent } from './offer-status/offer-status.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { PersonalDataComponent } from './shared/personal-data/personal-data.comp
     LoadingSpinnerComponent,
     PersonalDataFormComponent,
     PersonalDataComponent,
+    OfferStatusComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 
 export interface Offer {
-  id: number;
+  id: string;
   percentage: number;
   monthlyInstallment: number;
   requestedValue: number;
@@ -18,7 +18,7 @@ export interface Offer {
   inquireId: number;
   createDate: Date;
   updateDate: Date;
-  approvedBy: string | undefined;
+  approvedBy: string | null;
   documentLink: string;
   documentLinkValidDate: Date;
   bankName: string;
@@ -40,7 +40,7 @@ export interface Offer {
 export class ReviewOffersComponent implements OnInit {
   offers: Offer[] = [
     {
-      id: 38,
+      id: '38',
       percentage: 12.58,
       monthlyInstallment: 5.08,
       requestedValue: 10,
@@ -50,14 +50,14 @@ export class ReviewOffersComponent implements OnInit {
       inquireId: 27,
       createDate: new Date('2022-12-01T23:44:12.9922698'),
       updateDate: new Date('2022-12-01T23:44:12.9922698'),
-      approvedBy: undefined,
+      approvedBy: null,
       documentLink:
         'https://mini.loanbank.api.snet.com.pl/api/v1/Offer/38/document/2bf467e7-2b7a-45f0-8852-ddfeb1ac0b3d',
       documentLinkValidDate: new Date('2023-06-01T23:44:12.9935121'),
       bankName: 'BNP',
     },
     {
-      id: 37,
+      id: '37',
       percentage: 13.58,
       monthlyInstallment: 4.08,
       requestedValue: 100,
@@ -67,7 +67,7 @@ export class ReviewOffersComponent implements OnInit {
       inquireId: 27,
       createDate: new Date('2022-12-02T23:44:12.9922698'),
       updateDate: new Date('2022-12-02T23:44:12.9922698'),
-      approvedBy: undefined,
+      approvedBy: null,
       documentLink:
         'https://mini.loanbank.api.snet.com.pl/api/v1/Offer/38/document/2bf467e7-2b7a-45f0-8852-ddfeb1ac0b3d',
       documentLinkValidDate: new Date('2023-06-02T23:44:12.9935121'),

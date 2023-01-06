@@ -4,6 +4,7 @@ import { DescriptionComponent } from './description/description.component';
 import { HomeComponent } from './home/home.component';
 import { InquiryFormComponent } from './inquiry-form/inquiry-form.component';
 import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.component';
+import { OfferStatusComponent } from './offer-status/offer-status.component';
 import { ReviewOffersComponent } from './review-offers/review-offers.component';
 import { AuthGuard } from './shared/services/auth/auth.guard';
 import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
@@ -32,6 +33,8 @@ const routes: Routes = [
     component: ReviewOffersComponent,
     canActivate: [AuthGuard],
   },
+  // { path: 'offers/:bankId/:offerId', component: OfferStatusComponent },
+  { path: 'offers/status', component: OfferStatusComponent },
   { path: '**', redirectTo: '/home' },
 ];
 
