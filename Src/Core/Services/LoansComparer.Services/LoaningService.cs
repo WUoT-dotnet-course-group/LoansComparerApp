@@ -62,7 +62,7 @@ namespace LoansComparer.Services
             return finalResponse;
         }
 
-        private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class 
+        private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class
             => await SendRequestAsync<T>(new HttpRequestMessage(httpMethod, url));
 
         private async Task<BaseResponse<T>> SendAsync<T, P>(HttpMethod httpMethod, string url, P payload) where T : class

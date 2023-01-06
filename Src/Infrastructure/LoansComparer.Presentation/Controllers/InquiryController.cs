@@ -44,8 +44,8 @@ namespace LoansComparer.Presentation.Controllers
         public async Task<ActionResult<OfferDTO>> GetOffer(Guid bankInquiryId)
         {
             var response = await _serviceManager.LoaningService.GetOfferByInquiryId(bankInquiryId);
-            if (!response.IsSuccessful) 
-            { 
+            if (!response.IsSuccessful)
+            {
                 return NotFound();
             }
 
