@@ -9,7 +9,7 @@ import {
 import {
   OfferProviderService,
   ReviewOffer,
-} from '../shared/services/providers/bank-offer.service';
+} from '../shared/services/providers/offer-provider.service';
 // import { Subscription } from 'rxjs';
 
 @Component({

@@ -13,7 +13,7 @@ import {
   LoansComparerService,
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { ErrorMessage } from '../shared/resources/error-message';
-import { OfferProviderService } from '../shared/services/providers/bank-offer.service';
+import { OfferProviderService } from '../shared/services/providers/offer-provider.service';
 
 @Component({
   selector: 'app-inquiry-form',
