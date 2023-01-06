@@ -65,7 +65,22 @@ export interface DictionaryDTO {
   description: string;
 }
 
-export interface OfferDTO {}
+export interface OfferDTO {
+  id: string;
+  percentage: number;
+  monthlyInstallment: number;
+  loanValue: number;
+  loanPeriod: number;
+  status: number;
+  statusDescription: string;
+  inquiryId: string;
+  createDate: Date;
+  updateDate: Date;
+  approvedBy: string;
+  documentLink: string;
+  documentLinkValidDate: Date;
+  bankName: string;
+}
 
 export interface ChooseOfferDTO {
   offerId: string;

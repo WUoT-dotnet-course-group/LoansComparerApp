@@ -31,7 +31,6 @@ const routes: Routes = [
   {
     path: 'offers',
     component: ReviewOffersComponent,
-    canActivate: [AuthGuard],
   },
   // { path: 'offers/:bankId/:offerId', component: OfferStatusComponent },
   { path: 'offers/status', component: OfferStatusComponent },

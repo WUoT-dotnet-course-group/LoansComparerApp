@@ -6,7 +6,19 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import { Offer } from '../review-offers/review-offers.component';
+
+export interface OfferDetails {
+  percentage: number;
+  monthlyInstallment: number;
+  requestedValue: number;
+  requestedPeriodInMonth: number;
+  statusId: number;
+  statusDescription: string;
+  createDate: Date;
+  updateDate: Date;
+  approvedBy: string | null;
+  bankName: string;
+}
 
 @Component({
   selector: 'app-offer-status',
@@ -22,21 +34,16 @@ import { Offer } from '../review-offers/review-offers.component';
   ],
 })
 export class OfferStatusComponent implements OnInit {
-  offer: Offer = {
-    id: '38',
+  offer: OfferDetails = {
     percentage: 12.58,
     monthlyInstallment: 5.08,
     requestedValue: 10,
     requestedPeriodInMonth: 2,
     statusId: 1,
     statusDescription: 'Created',
-    inquireId: 27,
     createDate: new Date('2022-12-01T23:44:12.9922698'),
     updateDate: new Date('2022-12-01T23:44:12.9922698'),
     approvedBy: null,
-    documentLink:
-      'https://mini.loanbank.api.snet.com.pl/api/v1/Offer/38/document/2bf467e7-2b7a-45f0-8852-ddfeb1ac0b3d',
-    documentLinkValidDate: new Date('2023-06-01T23:44:12.9935121'),
     bankName: 'BNP',
   };
 

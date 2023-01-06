@@ -7,14 +7,32 @@ import {
   OfferDTO,
 } from '../loans-comparer/loans-comparer.service';
 
+export interface ReviewOffer {
+  id: string;
+  percentage: number;
+  monthlyInstallment: number;
+  loanValue: number;
+  loanPeriod: number;
+  status: number;
+  statusDescription: string;
+  inquiryId: string;
+  createDate: Date;
+  updateDate: Date;
+  approvedBy: string | null;
+  documentLink: string;
+  documentLinkValidDate: Date;
+  bankName: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class OfferProviderService {
-  inquiryId: string | null = null;
-  inquiryCreated = new Subject<CreateInquiryResponseDTO>();
+  private inquiryId: string | null = null;
+  offers: ReviewOffer[] = [];
 
-  offers: OfferDTO[] = [];
+  inquiryCreated = new Subject<CreateInquiryResponseDTO>();
+  // offerCreated = new Subject<ReviewOffer>();
 
   constructor(
     private loansComparerService: LoansComparerService,
@@ -24,7 +42,8 @@ export class OfferProviderService {
       this.inquiryId = event.inquiryId;
       this.loansComparerService
         .getOffer(event.bankInquiryId)
-        .subscribe((offer) => {
+        .subscribe((offer: OfferDTO) => {
+          // this.offerCreated.next(offer);
           this.offers.push(offer);
           this.router.navigateByUrl('/offers');
         });
