@@ -23,7 +23,7 @@ namespace LoansComparer.CrossCutting.DTO.LoaningBank
         public float MonthlyInstallment { get; set; }
         public string StatusDescription { get; set; } = default!;
         public DateTime CreateDate { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public string? ApprovedBy { get; set; }
         public string DocumentLink { get; set; } = default!;
         public DateTime DocumentLinkValidDate { get; set; }
