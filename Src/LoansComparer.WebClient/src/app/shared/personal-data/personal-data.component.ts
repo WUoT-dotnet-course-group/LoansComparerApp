@@ -105,6 +105,9 @@ export class PersonalDataComponent implements OnInit {
         'email',
         new FormControl<string>('', [Validators.email, Validators.required])
       );
+    } else {
+      // just for data structure maintenance
+      this.personalDataForm.addControl('email', new FormControl<null>(null));
     }
 
     this.parentForm.addControl('personalData', this.personalDataForm);
