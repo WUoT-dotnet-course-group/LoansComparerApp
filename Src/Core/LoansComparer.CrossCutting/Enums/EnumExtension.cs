@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using LoansComparer.CrossCutting.DTO;
+using System.ComponentModel;
 
 namespace LoansComparer.CrossCutting.Enums
 {
@@ -35,5 +36,12 @@ namespace LoansComparer.CrossCutting.Enums
 
             return value is not null;
         }
+
+        public static DictionaryDTO ToDictionary<T>(this T enumValue) where T : Enum
+            => new DictionaryDTO
+            {
+                Id = (int)(object)enumValue,
+                Name = GetEnumDescription(enumValue),
+            };
     }
 }

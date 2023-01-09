@@ -17,7 +17,20 @@ namespace LoansComparer.Presentation.Controllers
             _serviceManager = serviceManager;
         }
 
-        [HttpPost("save-data")]
+        [HttpGet("data/get")]
+        public async Task<ActionResult<PersonalDataDTO>> GetData()
+        {
+            var userID = User.FindFirst("Id")?.Value!;
+
+            var userData = await _serviceManager.UserService.GetData(Guid.Parse(userID));
+
+            return userData switch
+            {
+                null => NotFound(),
+                _ => Ok(userData),
+            };
+        }
+
         [HttpPost("data/save")]
         public async Task<ActionResult> SaveData([FromBody] PersonalDataDTO userData)
         {
