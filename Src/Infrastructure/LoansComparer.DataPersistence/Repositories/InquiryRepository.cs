@@ -1,4 +1,7 @@
-﻿using LoansComparer.Domain.Entities;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.CrossCutting.Enums;
+using LoansComparer.DataPersistence.Utils;
+using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +20,17 @@ namespace LoansComparer.DataPersistence.Repositories
             return inquiry.ID;
         }
 
-        public async Task<List<Inquiry>> GetAllByUser(Guid userId) => await _dbContext.Inquiries.Where(x => x.UserID == userId).ToListAsync();
+        public async Task<PaginatedResponse<Inquiry>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader)
+        {
+            var query = _dbContext.Inquiries.Where(x => x.UserID == userId);
+
+            if (sortOrder is not SortOrder.Undefined)
+            {
+                query = query.Sort<TResult, Inquiry>(sortOrder, sortHeader);
+            }
+
+            return await query.Paginate(pageIndex, pageSize);
+        }
 
         public async Task<Inquiry> GetById(Guid id)
         {

@@ -30,11 +30,13 @@ import { DescriptionComponent } from './description/description.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SignInGoogleComponent } from './sign-in-google/sign-in-google.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './shared/services/auth/auth-interceptor.service';
 import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 import { PersonalDataComponent } from './shared/personal-data/personal-data.component';
 import { OfferStatusComponent } from './offer-status/offer-status.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { OfferStatusComponent } from './offer-status/offer-status.component';
     ReactiveFormsModule,
     HttpClientModule,
     ScrollingModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     MatDatepickerModule,

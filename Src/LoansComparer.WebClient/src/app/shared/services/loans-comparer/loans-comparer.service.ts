@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SortDirection } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -87,6 +88,18 @@ export interface ChooseOfferDTO {
   offerBankId: string;
 }
 
+export interface PagingParameter {
+  sortOrder: SortDirection;
+  sortHeader: string;
+  pageIndex: number;
+  pageSize: number;
+}
+
+export interface PaginatedResponse<T> {
+  items: T[];
+  totalNumber: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -110,8 +123,19 @@ export class LoansComparerService {
       .subscribe((_) => {});
   }
 
-  getInquiries(): Observable<GetInquiryData[]> {
-    return this.http.get<GetInquiryData[]>(this.path + 'api/inquiries');
+  getInquiries(
+    request: PagingParameter
+  ): Observable<PaginatedResponse<GetInquiryData>> {
+    return this.http.get<PaginatedResponse<GetInquiryData>>(
+      this.path + 'api/inquiries',
+      {
+        params: new HttpParams()
+          .set('sortOrder', request.sortOrder)
+          .set('sortHeader', request.sortHeader)
+          .set('pageIndex', request.pageIndex)
+          .set('pageSize', request.pageSize),
+      }
+    );
   }
 
   getOffer(bankInquiryId: string): Observable<OfferDTO> {

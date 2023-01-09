@@ -1,4 +1,5 @@
 ﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.CrossCutting.Enums;
 using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
@@ -41,10 +42,17 @@ namespace LoansComparer.Services
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
-        public async Task<List<GetInquiryDTO>> GetAllByUser(Guid userId)
+        public async Task<PaginatedResponse<GetInquiryDTO>> GetByUser(Guid userId, PagingParameter pagingParams)
         {
-            var inquiries = await _repositoryManager.InquiryRepository.GetAllByUser(userId);
-            return inquiries.Adapt<List<GetInquiryDTO>>();
+            var sortOrderDesc = pagingParams.SortOrder;
+            var sortHeader = pagingParams.SortHeader;
+
+            EnumExtension.TryGetEnumValue(sortOrderDesc, out SortOrder sortOrder);
+
+            var paginatedInquiries = await _repositoryManager.InquiryRepository
+                .GetByUser<GetInquiryDTO>(userId, pagingParams.PageIndex, pagingParams.PageSize, sortOrder, sortHeader!);
+
+            return paginatedInquiries.Adapt<PaginatedResponse<GetInquiryDTO>>();
         }
     }
 }

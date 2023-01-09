@@ -1,6 +1,5 @@
 ﻿using LoansComparer.CrossCutting.DTO;
 using LoansComparer.CrossCutting.Enums;
-using LoansComparer.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoansComparer.Presentation.Controllers

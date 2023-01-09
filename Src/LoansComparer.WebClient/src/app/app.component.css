@@ -60,6 +60,7 @@ table.mat-table {
   font-size: 16px;
 }
 
+/* mat-table both type of cells */
 .mat-header-cell,
 .mat-cell {
   text-align: center !important;
@@ -67,11 +68,27 @@ table.mat-table {
   padding: 20px 32px !important;
 }
 
+/* mat-table odd row */
 .mat-row:nth-child(odd) {
   background-color: rgba(164, 107, 230, 0.4);
 }
 
+/* mat-table row hover */
 .mat-row:hover {
   cursor: pointer;
   background-color: rgba(164, 107, 230, 0.8);
+}
+
+/* mat-table paginator */
+mat-paginator {
+  background: white !important;
+  position: sticky;
+}
+
+/* mat-table paginator container */
+.mat-paginator-outer-container {
+  background-color: rgba(164, 107, 230, 0.4) !important;
+  position: sticky;
+  font-size: 13px;
+  color: rgb(89, 0, 114);
 }

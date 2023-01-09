@@ -1,4 +1,5 @@
 using LoansComparer.DataPersistence;
+using LoansComparer.DataPersistence.Utils;
 
 namespace LoansComparer
 {

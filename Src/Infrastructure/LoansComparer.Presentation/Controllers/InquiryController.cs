@@ -15,11 +15,12 @@ namespace LoansComparer.Presentation.Controllers
         public InquiryController(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
         [HttpGet]
-        public async Task<ActionResult<List<GetInquiryDTO>>> GetAll()
+        public async Task<ActionResult<List<GetInquiryDTO>>> Get([FromQuery] PagingParameter pagingParams)
         {
             var userId = User.FindFirst("Id")?.Value!;
 
-            var inquiries = await _serviceManager.InquiryService.GetAllByUser(Guid.Parse(userId));
+            var inquiries = await _serviceManager.InquiryService.GetByUser(Guid.Parse(userId), pagingParams);
+
             return Ok(inquiries);
         }
 
