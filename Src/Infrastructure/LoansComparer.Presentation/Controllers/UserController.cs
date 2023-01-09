@@ -18,6 +18,7 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [HttpPost("save-data")]
+        [HttpPost("data/save")]
         public async Task<ActionResult> SaveData([FromBody] PersonalDataDTO userData)
         {
             var userID = User.FindFirst("Id")?.Value!;

@@ -119,7 +119,7 @@ export class LoansComparerService {
 
   saveUserData(userData: PersonalDataDTO): void {
     this.http
-      .post<any>(this.path + 'api/users/save-data', userData)
+      .post<any>(this.path + 'api/users/data/save', userData)
       .subscribe((_) => {});
   }
 
