@@ -37,11 +37,11 @@ namespace LoansComparer.CrossCutting.Enums
             return value is not null;
         }
 
-        public static DictionaryDTO ToDictionary<T>(this T enumValue) where T : Enum
+        public static DictionaryDTO ToDictionary<T>(this T enumValue, bool includeDescription = false) where T : Enum
             => new DictionaryDTO
             {
                 Id = (int)(object)enumValue,
-                Name = GetEnumDescription(enumValue),
+                Name = includeDescription ? GetEnumDescription(enumValue) : string.Empty,
             };
     }
 }
