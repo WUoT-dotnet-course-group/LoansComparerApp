@@ -24,13 +24,32 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("add")]
-        public async Task<ActionResult> Add([FromBody] AddInquiryDTO inquiry)
+        [HttpPost("create")]
+        public async Task<ActionResult<CreateInquiryResponseDTO>> Create([FromBody] CreateInquiryDTO inquiry)
         {
             var userId = User.FindFirst("Id")?.Value;
+            var inquiryId = await _serviceManager.InquiryService.Add(inquiry, userId);
 
-            await _serviceManager.InquiryService.Add(inquiry, userId);
-            return Ok();
+            var response = await _serviceManager.LoaningService.Inquire(inquiry);
+            if (response.IsSuccessful)
+            {
+                return Ok(new CreateInquiryResponseDTO() { InquiryId = inquiryId, BankInquiryId = response.Content!.InquiryId });
+            }
+
+            return StatusCode(500);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{bankInquiryId}/offer")]
+        public async Task<ActionResult<OfferDTO>> GetOffer(Guid bankInquiryId)
+        {
+            var response = await _serviceManager.LoaningService.GetOfferByInquiryId(bankInquiryId);
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+
+            return Ok(response.Content);
         }
 
         [AllowAnonymous]

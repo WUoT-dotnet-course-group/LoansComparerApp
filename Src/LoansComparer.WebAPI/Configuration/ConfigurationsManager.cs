@@ -27,6 +27,8 @@ namespace LoansComparer.WebAPI.Configuration
             }
         }
 
+        public string LoaningBankDomain => Configuration.GetValue<string>("LoaningBankDomain");
+
         public string GetGoogleAuthClientId() => _googleAuthConfig.ClientId;
         public string GetGoogleAuthSecretKey() => _googleAuthConfig.SecretKey;
     }

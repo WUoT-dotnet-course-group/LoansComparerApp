@@ -1,0 +1,34 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxFill [@animation]>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <span class="header" fxFill>Offer details</span>
+    <div class="box" fxLayout="row" fxLayoutAlign="center center">
+      <div class="keys" fxLayout="column">
+        <span>Bank name:</span>
+        <span>Loan value:</span>
+        <span>Percentage:</span>
+        <span>Monthly installment:</span>
+        <span>Installment period:</span>
+        <span>Approved by:</span>
+        <span>Create date:</span>
+        <span>Update date:</span>
+        <span>Status:</span>
+      </div>
+      <div class="values" fxLayout="column">
+        <span>{{ offer.bankName }}</span>
+        <span>{{ offer.requestedValue }} PLN</span>
+        <span>{{ offer.percentage }}</span>
+        <span>{{ offer.monthlyInstallment }} months</span>
+        <span>{{ offer.requestedPeriodInMonth }}</span>
+        <span>{{ offer.approvedBy === null ? '-' : offer.approvedBy }}</span>
+        <span>{{ offer.createDate | date:'medium'}}</span>
+        <span>{{ offer.updateDate | date:'medium'}}</span>
+        <span [ngClass]="[
+          offer.statusId == 2 ? 'orange' : '',
+          offer.statusId == 3 ? 'green' : '',
+          offer.statusId == 4 ? 'red' : '',
+        ]">
+          {{ offer.statusDescription }}</span>
+      </div>
+    </div>
+  </div>
+</div>

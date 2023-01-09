@@ -1,7 +1,6 @@
 ﻿using LoansComparer.CrossCutting.DTO;
 using LoansComparer.Domain.Entities;
 using Mapster;
-using System.Linq.Expressions;
 
 namespace LoansComparer.Services.Mapping
 {
@@ -9,7 +8,7 @@ namespace LoansComparer.Services.Mapping
     {
         private string GetBankName(Inquiry inquiry) => inquiry.Bank switch
         {
-            null => string.Empty,
+            null => "-",
             _ => inquiry.Bank.Name,
         };
 
