@@ -20,7 +20,7 @@ namespace LoansComparer.CrossCutting.Enums
         public static bool TryGetEnumValue<T>(string? description, out T enumValue) where T : Enum
         {
             enumValue = default!;
-            
+
             if (description == null)
             {
                 return false;
@@ -28,11 +28,11 @@ namespace LoansComparer.CrossCutting.Enums
 
             var enumField = typeof(T).GetFields().SingleOrDefault(x => Attribute.GetCustomAttributes(x).OfType<DescriptionAttribute>().SingleOrDefault()?.Description == description);
             var value = enumField?.GetValue(null);
-            if (value is not null) 
-            { 
+            if (value is not null)
+            {
                 enumValue = (T)value;
             }
-            
+
             return value is not null;
         }
     }

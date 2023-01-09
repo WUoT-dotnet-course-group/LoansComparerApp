@@ -9,7 +9,7 @@ namespace LoansComparer.CrossCutting.Enums
 
         [Description("")]
         Undefined = 0,
-        
+
         [Description("asc")]
         Ascending = 1,
     }
