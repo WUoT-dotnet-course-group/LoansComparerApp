@@ -3,27 +3,15 @@ import { Injectable } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { GetInquiryData } from '../providers/inquiry-history-data-source';
 
-export enum GovernmentIdType {
-  PESEL = 1,
-  Passport = 2,
-  ID = 3,
+export interface GovernmentDocumentDTO {
+  governmentIdType: DictionaryDTO;
+  governmentId: string;
 }
 
-export interface PersonalData {
-  firstName: string;
-  lastName: string;
-  birthDate: Date;
-}
-
-export interface GovernmentDocument {
-  typeId: number;
-  name: string;
-  description: string;
-  number: string;
-}
-
-export interface JobDetailsDTO extends DictionaryDTO {
+export interface JobDetailsDTO {
+  jobType: DictionaryDTO;
   jobStartDate: Date;
   jobEndDate: Date;
 }
@@ -34,36 +22,22 @@ export interface CreateInquiryDTO {
   personalData: PersonalDataDTO;
 }
 
+export interface PersonalDataDTO {
+  firstName: string;
+  lastName: string;
+  birthDate: Date;
+  governmentDocument: GovernmentDocumentDTO;
+  jobDetails: JobDetailsDTO;
+}
+
 export interface CreateInquiryResponseDTO {
   inquiryId: string;
   bankInquiryId: string;
 }
 
-export interface PersonalDataDTO {
-  firstName: string;
-  lastName: string;
-  birthDate: Date;
-  governmentId: string;
-  governmentIdType: number;
-  jobDetails: JobDetailsDTO;
-}
-
-export interface SaveUserData {
-  email: string;
-  personalData: PersonalDataDTO;
-}
-
-export interface GetInquiryData {
-  loanValue: number;
-  inquireDate: Date;
-  chosenBank: string;
-  offerStatus: string;
-}
-
 export interface DictionaryDTO {
   typeId: number;
-  name: string;
-  description: string;
+  name: string | null;
 }
 
 export interface OfferDTO {

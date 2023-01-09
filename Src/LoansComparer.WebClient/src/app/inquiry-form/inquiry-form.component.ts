@@ -49,6 +49,7 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
+    console.log(this.inquiryForm.value);
     this.loansComparerService
       .createInquiry(<CreateInquiryDTO>this.inquiryForm.value)
       .subscribe((response) => {
