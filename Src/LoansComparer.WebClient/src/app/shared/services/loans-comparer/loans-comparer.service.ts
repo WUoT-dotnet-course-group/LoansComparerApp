@@ -91,6 +91,10 @@ export class LoansComparerService {
     );
   }
 
+  getUserData(): Observable<PersonalDataDTO> {
+    return this.http.get<PersonalDataDTO>(this.path + 'api/users/data/get');
+  }
+
   saveUserData(userData: PersonalDataDTO): void {
     this.http
       .post<any>(this.path + 'api/users/data/save', userData)
