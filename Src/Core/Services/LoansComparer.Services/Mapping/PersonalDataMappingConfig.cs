@@ -21,8 +21,8 @@ namespace LoansComparer.Services.Mapping
                 .Map(dest => dest.GovernmentDocument, src => GetGovernmentDocument(src));
         }
 
-        private static JobDetailsDTO GetJobDetails(PersonalData src) 
-            => new JobDetailsDTO
+        private static JobDetailsDTO GetJobDetails(PersonalData src)
+            => new()
             {
                 JobType = src.JobType.ToDictionary(),
                 JobStartDate = src.JobStartDate,
@@ -30,7 +30,7 @@ namespace LoansComparer.Services.Mapping
             };
 
         private static GovernmentDocumentDTO GetGovernmentDocument(PersonalData src)
-            => new GovernmentDocumentDTO
+            => new()
             {
                 GovernmentIdType = src.GovernmentIdType.ToDictionary(),
                 GovernmentId = src.GovernmentId,

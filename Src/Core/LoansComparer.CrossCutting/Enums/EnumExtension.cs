@@ -38,7 +38,7 @@ namespace LoansComparer.CrossCutting.Enums
         }
 
         public static DictionaryDTO ToDictionary<T>(this T enumValue, bool includeDescription = false) where T : Enum
-            => new DictionaryDTO
+            => new()
             {
                 Id = (int)(object)enumValue,
                 Name = includeDescription ? GetEnumDescription(enumValue) : string.Empty,
