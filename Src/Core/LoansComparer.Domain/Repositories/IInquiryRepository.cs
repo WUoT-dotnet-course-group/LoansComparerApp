@@ -1,4 +1,6 @@
-﻿using LoansComparer.Domain.Entities;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.CrossCutting.Enums;
+using LoansComparer.Domain.Entities;
 
 namespace LoansComparer.Domain.Repositories
 {
@@ -6,6 +8,6 @@ namespace LoansComparer.Domain.Repositories
     {
         Task<Guid> Add(Inquiry inquiry);
         Task<Inquiry> GetById(Guid id);
-        Task<List<Inquiry>> GetAllByUser(Guid userId);
+        Task<PaginatedResponse<Inquiry>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader);
     }
 }
