@@ -26,6 +26,7 @@ export interface PersonalDataDTO {
   firstName: string;
   lastName: string;
   birthDate: Date;
+  email: string | null;
   governmentDocument: GovernmentDocumentDTO;
   jobDetails: JobDetailsDTO;
 }
