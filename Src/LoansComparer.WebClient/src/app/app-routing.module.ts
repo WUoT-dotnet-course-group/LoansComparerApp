@@ -35,7 +35,10 @@ const routes: Routes = [
   },
   // { path: 'offers/:bankId/:offerId', component: OfferStatusComponent },
   { path: 'offers/status', component: OfferStatusComponent },
-  { path: 'submit-inquiry', component: InquirySubmissionFormComponent },
+  {
+    path: 'inquire/submit/:inquiryId',
+    component: InquirySubmissionFormComponent,
+  },
   { path: '**', redirectTo: '/home' },
 ];
 
