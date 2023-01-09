@@ -14,6 +14,7 @@ import {
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { ErrorMessage } from '../shared/resources/error-message';
 import { OfferProviderService } from '../shared/services/providers/offer-provider.service';
+import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-inquiry-form',
@@ -38,7 +39,8 @@ export class InquiryFormComponent implements OnInit {
 
   constructor(
     protected loansComparerService: LoansComparerService,
-    protected offerProviderService: OfferProviderService
+    protected offerProviderService: OfferProviderService,
+    protected authService: AuthService
   ) {}
 
   ngOnInit(): void {

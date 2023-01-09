@@ -22,7 +22,7 @@
         </mat-form-field>
       </div>
 
-      <app-personal-data></app-personal-data>
+      <app-personal-data [hasEmail]="!authService.isAuthenticated"></app-personal-data>
 
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">

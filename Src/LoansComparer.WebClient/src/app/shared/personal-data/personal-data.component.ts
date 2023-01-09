@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   ControlContainer,
   FormBuilder,
@@ -24,6 +24,8 @@ import {
   ],
 })
 export class PersonalDataComponent implements OnInit {
+  @Input() hasEmail: boolean = false;
+
   parentForm!: FormGroup;
   personalDataForm!: FormGroup;
 
@@ -39,6 +41,7 @@ export class PersonalDataComponent implements OnInit {
   invalidBirthDateError: string = ErrorMessage.invalidBirthDate;
   invalidJobStartError: string = ErrorMessage.invalidJobStart;
   invalidJobEndError: string = ErrorMessage.invalidJobEnd;
+  invalidEmail: string = ErrorMessage.invalidEmail;
 
   constructor(
     private parent: FormGroupDirective,
@@ -96,6 +99,14 @@ export class PersonalDataComponent implements OnInit {
         jobEndDate: new FormControl<Date | null>(null, Validators.required),
       }),
     });
+
+    if (this.hasEmail) {
+      this.personalDataForm.addControl(
+        'email',
+        new FormControl<string>('', [Validators.email, Validators.required])
+      );
+    }
+
     this.parentForm.addControl('personalData', this.personalDataForm);
   }
 
