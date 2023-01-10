@@ -20,7 +20,7 @@ const routes: Routes = [
     component: PersonalDataFormComponent,
     canActivate: [AuthGuard],
   },
-  { path: '**', redirectTo: '/home' },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

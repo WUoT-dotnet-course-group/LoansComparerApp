@@ -19,7 +19,7 @@ export class SignOutComponent implements OnInit {
   signOut() {
     this.authService.signOut();
     this.ngZone.run(() => {
-      this.router.navigate(['/home']).then(() => window.location.reload());
+      this.router.navigate(['']).then(() => window.location.reload());
     });
   }
 }

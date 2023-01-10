@@ -7,15 +7,15 @@ import { InquiryHistoryComponent } from './inquiry-history/inquiry-history.compo
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
     children: [
-      { path: '', component: DescriptionComponent, pathMatch: 'full' },
       {
-        path: 'signed-in',
+        path: 'home',
         component: InquiryHistoryComponent,
         canActivate: [AuthGuard],
       },
+      { path: '', component: DescriptionComponent, pathMatch: 'full' },
     ],
   },
 ];

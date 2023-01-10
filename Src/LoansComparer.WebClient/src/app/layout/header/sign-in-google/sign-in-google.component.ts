@@ -43,7 +43,7 @@ export class SignInGoogleComponent implements OnInit {
     this.authService.signIn(response.credential).subscribe({
       next: (_) => {
         this.ngZone.run(() => {
-          this.router.navigate(['/home/signed-in']);
+          this.router.navigate(['/home']);
         });
       },
       error: (error: any) => {
