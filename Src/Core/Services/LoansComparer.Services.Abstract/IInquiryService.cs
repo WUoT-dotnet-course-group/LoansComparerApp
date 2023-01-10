@@ -9,5 +9,7 @@ namespace LoansComparer.Services.Abstract
         Task ChooseOffer(Guid inquiryId, ChooseOfferDTO chosenOffer);
 
         Task<PaginatedResponse<GetInquiryDTO>> GetByUser(Guid userId, PagingParameter pagingParams);
+
+        Task<int> GetInquiriesAmount();
     }
 }

@@ -60,5 +60,12 @@ namespace LoansComparer.Presentation.Controllers
             await _serviceManager.InquiryService.ChooseOffer(inquiryId, chosenOffer);
             return Ok();
         }
+
+        [AllowAnonymous]
+        [HttpGet("total")]
+        public async Task<ActionResult<int>> GetInquiriesAmount()
+        {
+            return Ok(await _serviceManager.InquiryService.GetInquiriesAmount());
+        }
     }
 }

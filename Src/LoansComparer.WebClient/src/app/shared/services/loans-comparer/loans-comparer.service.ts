@@ -144,4 +144,8 @@ export class LoansComparerService {
       this.path + 'api/dictionary/government-id-types'
     );
   }
+
+  getInquiriesAmount(): Observable<number> {
+    return this.http.get<number>(this.path + 'api/inquiries/total');
+  }
 }

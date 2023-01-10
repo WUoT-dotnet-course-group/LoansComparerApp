@@ -56,5 +56,7 @@ namespace LoansComparer.Services
 
             return paginatedInquiries.Adapt<PaginatedResponse<GetInquiryDTO>>();
         }
+
+        public async Task<int> GetInquiriesAmount() => await _repositoryManager.InquiryRepository.Count();
     }
 }
