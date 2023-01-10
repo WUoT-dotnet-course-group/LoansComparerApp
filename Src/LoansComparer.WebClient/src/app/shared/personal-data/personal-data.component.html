@@ -49,8 +49,19 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
-      <input matInput>
+    <mat-form-field [style.visibility]="hasEmail ? 'visible' : 'hidden'" class="field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="!personalDataForm.get('email')?.valid">
+        <div *ngIf="personalDataForm.get('email')?.hasError('required'); else elseError">
+          {{requiredFieldError}}
+        </div>
+        <ng-template #elseError>
+          <div>
+            {{invalidEmail}}
+          </div>
+        </ng-template>
+      </mat-error>
     </mat-form-field>
   </div>
 

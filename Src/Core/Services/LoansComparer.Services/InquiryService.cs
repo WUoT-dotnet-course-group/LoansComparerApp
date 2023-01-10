@@ -17,11 +17,12 @@ namespace LoansComparer.Services
         {
             var inquiryToAdd = inquiry.Adapt<Inquiry>();
 
-            if (userId is null)
+            if (userId is null) // anonymous user
             {
                 inquiryToAdd.User = new User()
                 {
                     PersonalData = inquiry.PersonalData.Adapt<PersonalData>(),
+                    Email = inquiry.PersonalData.Email,
                 };
             }
             else

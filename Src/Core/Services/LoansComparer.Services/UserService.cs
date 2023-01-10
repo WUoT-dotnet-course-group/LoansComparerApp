@@ -29,6 +29,17 @@ namespace LoansComparer.Services
             });
         }
 
+        public async Task<PersonalDataDTO?> GetData(Guid userId)
+        {
+            var user = await _repositoryManager.UserRepository.GetUserById(userId);
+
+            return user.PersonalData switch
+            {
+                null => null,
+                _ => user.PersonalData.Adapt<PersonalDataDTO>(),
+            };
+        }
+
         public async Task SaveData(Guid userId, PersonalDataDTO userData)
         {
             var user = await _repositoryManager.UserRepository.GetUserById(userId);
