@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CredentialResponse } from 'google-one-tap';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({

@@ -7,13 +7,13 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { ErrorMessage } from '../resources/error-message';
-import { AuthService } from '../services/auth/auth.service';
+import { ErrorMessage } from '../../resources/error-message';
+import { AuthService } from '../../services/auth/auth.service';
 import {
   DictionaryDTO,
   LoansComparerService,
   PersonalDataDTO,
-} from '../services/loans-comparer/loans-comparer.service';
+} from '../../services/loans-comparer/loans-comparer.service';
 
 @Component({
   selector: 'app-personal-data',

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { GetInquiryData } from '../providers/inquiry-history-data-source';
+import { GetInquiryData } from '../../../home/inquiry-history/inquiry-history-data-source';
 
 export interface GovernmentDocumentDTO {
   governmentIdType: DictionaryDTO;

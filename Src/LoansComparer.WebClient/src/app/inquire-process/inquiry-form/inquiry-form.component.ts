@@ -10,10 +10,10 @@ import {
 import {
   CreateInquiryDTO,
   LoansComparerService,
-} from '../shared/services/loans-comparer/loans-comparer.service';
-import { ErrorMessage } from '../shared/resources/error-message';
-import { OfferProviderService } from '../shared/services/providers/offer-provider.service';
-import { AuthService } from '../shared/services/auth/auth.service';
+} from '../../shared/services/loans-comparer/loans-comparer.service';
+import { ErrorMessage } from '../../shared/resources/error-message';
+import { OfferProviderService } from '../services/offer-provider.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-inquiry-form',

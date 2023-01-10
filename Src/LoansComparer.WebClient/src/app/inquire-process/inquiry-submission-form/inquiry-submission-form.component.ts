@@ -7,9 +7,9 @@ import {
   transition,
 } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
-import { SuccessMessageComponent } from '../success-message/success-message.component';
+import { SuccessMessageComponent } from './success-message/success-message.component';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 import { FormGroup } from '@angular/forms';
 
 export interface InquiryDetails {

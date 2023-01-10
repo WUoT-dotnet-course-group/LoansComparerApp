@@ -5,7 +5,7 @@ import {
   CreateInquiryResponseDTO,
   LoansComparerService,
   OfferDTO,
-} from '../loans-comparer/loans-comparer.service';
+} from '../../shared/services/loans-comparer/loans-comparer.service';
 
 export interface ReviewOffer {
   id: string;
@@ -25,9 +25,7 @@ export interface ReviewOffer {
   bankId: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class OfferProviderService {
   private _inquiryId: string | null = null;
 
@@ -46,7 +44,7 @@ export class OfferProviderService {
         .subscribe((offer: OfferDTO) => {
           // this.offerCreated.next(offer);
           this.offers.push(offer);
-          this.router.navigateByUrl('/offers');
+          this.router.navigateByUrl('/inquire/offers');
         });
     });
   }

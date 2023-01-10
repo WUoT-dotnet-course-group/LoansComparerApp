@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoansComparerService } from '../loans-comparer/loans-comparer.service';
+import { LoansComparerService } from './loans-comparer.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 
 export class BaseDataSource<T> implements DataSource<T> {

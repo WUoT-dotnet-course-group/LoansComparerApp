@@ -9,8 +9,8 @@ import {
 import {
   OfferProviderService,
   ReviewOffer,
-} from '../shared/services/providers/offer-provider.service';
-import { LoansComparerService } from '../shared/services/loans-comparer/loans-comparer.service';
+} from '../services/offer-provider.service';
+import { LoansComparerService } from '../../shared/services/loans-comparer/loans-comparer.service';
 // import { Subscription } from 'rxjs';
 
 @Component({
