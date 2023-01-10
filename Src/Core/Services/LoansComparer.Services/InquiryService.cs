@@ -37,8 +37,8 @@ namespace LoansComparer.Services
         {
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 
-            inquiry.Bank = await _repositoryManager.BankRepository.GetById(chosenOffer.OfferBankId);
-            inquiry.ChosenBankInquiryId = chosenOffer.OfferId;
+            inquiry.Bank = await _repositoryManager.BankRepository.GetById(chosenOffer.BankId);
+            inquiry.ChosenOfferId = chosenOffer.OfferId;
 
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }

@@ -60,7 +60,7 @@ export interface OfferDTO {
 
 export interface ChooseOfferDTO {
   offerId: string;
-  offerBankId: string;
+  bankId: string;
 }
 
 export interface PagingParameter {
