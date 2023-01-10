@@ -22,15 +22,16 @@ export interface ReviewOffer {
   documentLink: string;
   documentLinkValidDate: Date;
   bankName: string;
+  bankId: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class OfferProviderService {
-  private inquiryId: string | null = null;
-  offers: ReviewOffer[] = [];
+  private _inquiryId: string | null = null;
 
+  offers: ReviewOffer[] = [];
   inquiryCreated = new Subject<CreateInquiryResponseDTO>();
   // offerCreated = new Subject<ReviewOffer>();
 
@@ -39,7 +40,7 @@ export class OfferProviderService {
     private router: Router
   ) {
     this.inquiryCreated.subscribe((event: CreateInquiryResponseDTO) => {
-      this.inquiryId = event.inquiryId;
+      this._inquiryId = event.inquiryId;
       this.loansComparerService
         .getOffer(event.bankInquiryId)
         .subscribe((offer: OfferDTO) => {
@@ -48,5 +49,9 @@ export class OfferProviderService {
           this.router.navigateByUrl('/offers');
         });
     });
+  }
+
+  get inquiryId(): string | null {
+    return this._inquiryId;
   }
 }

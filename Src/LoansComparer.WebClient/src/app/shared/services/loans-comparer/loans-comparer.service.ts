@@ -55,6 +55,7 @@ export interface OfferDTO {
   approvedBy: string;
   documentLink: string;
   documentLinkValidDate: Date;
+  bankId: string;
   bankName: string;
 }
 

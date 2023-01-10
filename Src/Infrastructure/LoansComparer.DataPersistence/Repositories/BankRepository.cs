@@ -12,7 +12,8 @@ namespace LoansComparer.DataPersistence.Repositories
 
         public async Task<Bank> GetById(Guid id)
         {
-            return await _dbContext.Banks.SingleAsync(x => x.ID == id);
+            //return await _dbContext.Banks.SingleAsync(x => x.ID == id);
+            return await _dbContext.Banks.FirstAsync(); // as long as service handles only one bank
         }
     }
 }

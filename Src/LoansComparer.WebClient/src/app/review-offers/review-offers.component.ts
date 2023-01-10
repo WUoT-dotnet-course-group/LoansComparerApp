@@ -10,6 +10,7 @@ import {
   OfferProviderService,
   ReviewOffer,
 } from '../shared/services/providers/offer-provider.service';
+import { LoansComparerService } from '../shared/services/loans-comparer/loans-comparer.service';
 // import { Subscription } from 'rxjs';
 
 @Component({
@@ -39,7 +40,10 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
 
   // offersSubscription!: Subscription;
 
-  constructor(protected offerProviderService: OfferProviderService) {}
+  constructor(
+    protected offerProviderService: OfferProviderService,
+    protected loansComparerService: LoansComparerService
+  ) {}
 
   ngOnInit(): void {
     this.offers = this.offerProviderService.offers;
@@ -53,6 +57,13 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
 
   onRowSelected(offer: ReviewOffer): void {
     this.selectedOffer = offer;
+    this.loansComparerService.chooseOffer(
+      this.offerProviderService.inquiryId!,
+      {
+        offerId: offer.id,
+        bankId: offer.bankId,
+      }
+    );
   }
 
   ngOnDestroy(): void {

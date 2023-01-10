@@ -54,7 +54,7 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPatch("{inquiryId}/chooseOffer")]
+        [HttpPatch("{inquiryId}/choose-offer")]
         public async Task<ActionResult> ChooseOffer(Guid inquiryId, [FromBody] ChooseOfferDTO chosenOffer)
         {
             await _serviceManager.InquiryService.ChooseOffer(inquiryId, chosenOffer);

@@ -7,7 +7,6 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import { Router } from '@angular/router';
 import {
   CreateInquiryDTO,
   LoansComparerService,
