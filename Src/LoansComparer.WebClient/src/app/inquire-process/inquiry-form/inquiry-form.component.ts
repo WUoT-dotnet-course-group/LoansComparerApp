@@ -7,14 +7,18 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import { Router } from '@angular/router';
 import {
   CreateInquiryDTO,
   LoansComparerService,
-} from '../shared/services/loans-comparer/loans-comparer.service';
-import { ErrorMessage } from '../shared/resources/error-message';
-import { OfferProviderService } from '../shared/services/providers/offer-provider.service';
-import { AuthService } from '../shared/services/auth/auth.service';
+  PersonalDataDTO,
+} from '../../shared/services/loans-comparer/loans-comparer.service';
+import { ErrorMessage } from '../../shared/resources/error-message';
+import { OfferProviderService } from '../services/offer-provider.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
+import {
+  InquireDataStorageService,
+  PersonalData,
+} from '../services/inquire-data-storage.service';
 
 @Component({
   selector: 'app-inquiry-form',
@@ -30,8 +34,6 @@ import { AuthService } from '../shared/services/auth/auth.service';
   ],
 })
 export class InquiryFormComponent implements OnInit {
-  currencySuffix: string = 'zł';
-
   inquiryForm!: FormGroup;
   personalDataForm!: FormGroup;
 
@@ -40,6 +42,7 @@ export class InquiryFormComponent implements OnInit {
   constructor(
     protected loansComparerService: LoansComparerService,
     protected offerProviderService: OfferProviderService,
+    protected inquireDataStorageService: InquireDataStorageService,
     protected authService: AuthService
   ) {}
 
@@ -48,13 +51,25 @@ export class InquiryFormComponent implements OnInit {
       loanValue: new FormControl(null, Validators.required),
       numberOfInstallments: new FormControl(null, Validators.required),
     });
+
+    this.offerProviderService.cleanOffers();
   }
 
   onFormSubmit(): void {
     this.loansComparerService
       .createInquiry(<CreateInquiryDTO>this.inquiryForm.value)
       .subscribe((response) => {
-        this.offerProviderService.inquiryCreated.next(response);
+        this.offerProviderService.fetchOffers(response);
       });
+
+    const personalData = <PersonalDataDTO>(
+      (<unknown>this.inquiryForm.get('personalData')!.value)
+    );
+    this.inquireDataStorageService.personalData = <PersonalData>{
+      firstName: personalData.firstName,
+      lastName: personalData.lastName,
+      governmentId: personalData.governmentDocument.governmentId,
+      governmentIdType: personalData.governmentDocument.governmentIdType.name,
+    };
   }
 }

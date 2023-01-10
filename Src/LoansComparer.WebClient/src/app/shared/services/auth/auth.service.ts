@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 
 export interface AuthData {
   encryptedToken: string;

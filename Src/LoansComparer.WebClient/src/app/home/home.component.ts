@@ -6,6 +6,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { LoansComparerService } from '../shared/services/loans-comparer/loans-comparer.service';
 
 @Component({
   selector: 'app-home',
@@ -21,9 +22,13 @@ import {
   ],
 })
 export class HomeComponent implements OnInit {
-  currentInquiresMade: number = 102;
+  currentInquiresMade!: number;
 
-  constructor() {}
+  constructor(private loansComparerService: LoansComparerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loansComparerService
+      .getInquiriesAmount()
+      .subscribe((amount: number) => (this.currentInquiresMade = amount));
+  }
 }

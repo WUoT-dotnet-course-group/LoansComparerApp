@@ -41,6 +41,6 @@ export class PersonalDataFormComponent implements OnInit {
       <PersonalDataDTO>this.form.value.personalData
     );
 
-    this.router.navigateByUrl('/home');
+    this.router.navigate(['/home']);
   }
 }

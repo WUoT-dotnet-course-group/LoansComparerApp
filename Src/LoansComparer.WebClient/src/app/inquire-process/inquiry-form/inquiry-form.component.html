@@ -11,7 +11,7 @@
         <mat-form-field class="field" appearance="fill">
           <mat-label>Loan value</mat-label>
           <input matInput formControlName="loanValue" type="number" class="text-right-align">
-          <span matSuffix [ngStyle]="{'padding-left':'10px', 'padding-right':'8px'}">{{currencySuffix}}</span>
+          <span matSuffix [ngStyle]="{'padding-left':'10px', 'padding-right':'8px'}">PLN</span>
           <mat-error *ngIf="!inquiryForm.get('loanValue')?.valid">{{requiredFieldError}}</mat-error>
         </mat-form-field>
 
@@ -29,7 +29,7 @@
           <input matInput>
         </mat-form-field>
 
-        <button mat-button class="prim-button" type="submit" [disabled]="inquiryForm.invalid">Submit</button>
+        <button mat-button class="prim-button" type="submit" [disabled]="inquiryForm.invalid">Create</button>
       </div>
     </div>
   </form>

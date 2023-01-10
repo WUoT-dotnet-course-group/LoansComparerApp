@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, exhaustMap, map } from 'rxjs/operators';
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 import { AuthService } from './auth.service';
 
 @Injectable({

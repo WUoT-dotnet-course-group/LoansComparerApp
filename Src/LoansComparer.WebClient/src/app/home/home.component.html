@@ -4,7 +4,7 @@
   </div>
 
   <div fxFlex fxLayout="column" fxLayoutAlign="center center" [@animation]>
-    <div class="header" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="currentInquiresMade > 0" class="header" fxLayout="column" fxLayoutAlign="center center">
       <span>{{ currentInquiresMade }}</span>
       <span class="content">loaners have already trusted us!</span>
     </div>

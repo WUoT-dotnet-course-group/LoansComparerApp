@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-out',
@@ -19,7 +19,7 @@ export class SignOutComponent implements OnInit {
   signOut() {
     this.authService.signOut();
     this.ngZone.run(() => {
-      this.router.navigate(['/home']).then(() => window.location.reload());
+      this.router.navigate(['']).then(() => window.location.reload());
     });
   }
 }

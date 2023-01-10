@@ -9,10 +9,10 @@ import {
 import {
   LoansComparerService,
   PagingParameter,
-} from '../shared/services/loans-comparer/loans-comparer.service';
+} from '../../shared/services/loans-comparer/loans-comparer.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { InquiryHistoryDataSource } from '../shared/services/providers/inquiry-history-data-source';
+import { InquiryHistoryDataSource } from './inquiry-history-data-source';
 import { mergeAll, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 

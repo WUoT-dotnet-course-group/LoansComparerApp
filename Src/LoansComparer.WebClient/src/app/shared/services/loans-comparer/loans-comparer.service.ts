@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { GetInquiryData } from '../providers/inquiry-history-data-source';
+import { GetInquiryData } from '../../../home/inquiry-history/inquiry-history-data-source';
 
 export interface GovernmentDocumentDTO {
   governmentIdType: DictionaryDTO;
@@ -55,12 +55,13 @@ export interface OfferDTO {
   approvedBy: string;
   documentLink: string;
   documentLinkValidDate: Date;
+  bankId: string;
   bankName: string;
 }
 
 export interface ChooseOfferDTO {
   offerId: string;
-  offerBankId: string;
+  bankId: string;
 }
 
 export interface PagingParameter {
@@ -142,5 +143,9 @@ export class LoansComparerService {
     return this.http.get<DictionaryDTO[]>(
       this.path + 'api/dictionary/government-id-types'
     );
+  }
+
+  getInquiriesAmount(): Observable<number> {
+    return this.http.get<number>(this.path + 'api/inquiries/total');
   }
 }

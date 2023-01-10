@@ -9,7 +9,9 @@ import {
 import {
   OfferProviderService,
   ReviewOffer,
-} from '../shared/services/providers/offer-provider.service';
+} from '../services/offer-provider.service';
+import { LoansComparerService } from '../../shared/services/loans-comparer/loans-comparer.service';
+import { InquireDataStorageService } from '../services/inquire-data-storage.service';
 // import { Subscription } from 'rxjs';
 
 @Component({
@@ -39,7 +41,11 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
 
   // offersSubscription!: Subscription;
 
-  constructor(protected offerProviderService: OfferProviderService) {}
+  constructor(
+    protected offerProviderService: OfferProviderService,
+    protected inquireDataStorageService: InquireDataStorageService,
+    protected loansComparerService: LoansComparerService
+  ) {}
 
   ngOnInit(): void {
     this.offers = this.offerProviderService.offers;
@@ -49,6 +55,19 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
     //     this.offers.push(offer);
     //   }
     // );
+  }
+
+  onRowSelected(offer: ReviewOffer): void {
+    this.selectedOffer = offer;
+    this.inquireDataStorageService.selectedOffer = offer;
+
+    this.loansComparerService.chooseOffer(
+      this.offerProviderService.inquiryId!,
+      {
+        offerId: offer.id,
+        bankId: offer.bankId,
+      }
+    );
   }
 
   ngOnDestroy(): void {

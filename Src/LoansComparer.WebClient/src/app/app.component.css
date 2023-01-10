@@ -79,6 +79,10 @@ table.mat-table {
   background-color: rgba(164, 107, 230, 0.8);
 }
 
+.mat-dialog-container {
+  background: rgba(89, 0, 114);
+}
+
 /* mat-table paginator */
 mat-paginator {
   background: white !important;

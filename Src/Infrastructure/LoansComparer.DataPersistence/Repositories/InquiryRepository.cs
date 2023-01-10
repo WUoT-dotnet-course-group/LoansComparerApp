@@ -37,5 +37,7 @@ namespace LoansComparer.DataPersistence.Repositories
             // TODO: do validation in advance
             return await _dbContext.Inquiries.SingleAsync(x => x.ID == id);
         }
+
+        public async Task<int> Count() => await _dbContext.Inquiries.CountAsync();
     }
 }
