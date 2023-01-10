@@ -1,19 +1,88 @@
-<div class="main" fxLayout="row" fxLayoutAlign="center" fxFill [@displayForm]>
+<div class="main" fxLayoutAlign="center" fxFill [@displayForm]>
   <form [formGroup]="form" class="form" fxLayout="column" (ngSubmit)="onFormSubmit()"
     (keydown.enter)="$event.preventDefault()">
     <div class="header">
-      <span class="header">Submit inquiry</span>
+      <span>Submit inquiry</span>
       <hr>
     </div>
 
-    <app-personal-data [hasEmail]="!authService.isAuthenticated"></app-personal-data>
+    <div fxFlex fxLayout="column" fxLayoutAlign="space-between">
+      <div class="sub-header">
+        <span>Offer details</span>
+        <hr>
+      </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-around center">
-      <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
-        <input matInput>
-      </mat-form-field>
+      <div fxLayout="row">
+        <div fxFlexOffset="5" fxFlex="40" fxLayout="row" fxLayoutAlign="space-between">
+          <span>Loan value: </span>
+          <!-- <span>{{ inquiry.loanValue }}</span> -->
+        </div>
 
-      <button mat-button class="prim-button" type="submit" [disabled]="form.invalid">Submit</button>
+        <div fxFlexOffset="5" fxFlex="50" fxLayout="row">
+          <span>Installments number: </span>
+          <!-- <span>{{ inquiry.numberOfInstallments }}</span> -->
+        </div>
+      </div>
+
+      <div fxLayout="row">
+        <div fxFlexOffset="5" fxFlex="40" fxLayout="row">
+          <span>Loan percentage: </span>
+          <!-- <span>{{ inquiry.offerPercentage }}</span> -->
+        </div>
+
+        <div fxFlexOffset="5" fxFlex="50" fxLayout="row">
+          <span>Monthly installment: </span>
+          <!-- <span>{{ inquiry.offerMonthlyInstallment }}</span> -->
+        </div>
+      </div>
+
+      <div fxLayout="row">
+        <div fxFlexOffset="5" fxFlex="40" fxLayout="row">
+          <span>Loaning bank: </span>
+          <!-- <span>{{ inquiry.offerBank }}</span> -->
+        </div>
+      </div>
+
+      <div class="sub-header">
+        <span>Personal details</span>
+        <hr>
+      </div>
+
+      <div fxLayout="row">
+        <div fxFlexOffset="5" fxFlex="40" fxLayout="row">
+          <span>First name: </span>
+          <!-- <span>{{ inquiry.firstName }}</span> -->
+        </div>
+
+        <div fxFlexOffset="5" fxFlex="50" fxLayout="row">
+          <span>Last name: </span>
+          <!-- <span>{{ inquiry.lastName }}</span> -->
+        </div>
+      </div>
+
+      <div fxLayout="row">
+        <div fxFlexOffset="5" fxFlex="40" fxLayout="row">
+          <span>Government ID: </span>
+          <!-- <span>{{ inquiry.governmentId }}</span> -->
+        </div>
+
+        <div fxFlexOffset="5" fxFlex="50" fxLayout="row">
+          <span>Government ID type: </span>
+          <!-- <span>{{ inquiry.governmentIdType }}</span> -->
+        </div>
+      </div>
+
+      <div class="sub-header">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <span>Document attachment</span>
+          <!-- <a href={{ inquiry.offerDocumentLink }}>{{ inquiry.offerDocumentLink }}</a> -->
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    <div fxFlexOffset="5" fxLayout="row">
+      <button mat-button fxFlexOffset="70" class="prim-button" type="submit" [disabled]="form.invalid">Submit</button>
     </div>
   </form>
 </div>

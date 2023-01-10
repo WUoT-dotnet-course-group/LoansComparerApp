@@ -9,13 +9,20 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessMessageComponent } from '../success-message/success-message.component';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { AuthService } from '../shared/services/auth/auth.service';
+import { FormGroup } from '@angular/forms';
 
-export interface SelectType {
-  id: number;
-  name: string;
-  description: string;
+export interface InquiryDetails {
+  loanValue: number;
+  numberOfInstallments: number;
+  firstName: string;
+  lastName: string;
+  governmentIdType: string;
+  governmentId: string;
+  offerDocumentLink: string;
+  offerPercentage: number;
+  offerMonthlyInstallment: number;
+  offerBank: string;
 }
 
 @Component({
@@ -33,6 +40,7 @@ export interface SelectType {
 })
 export class InquirySubmissionFormComponent implements OnInit {
   form = new FormGroup({});
+  inquiry!: InquiryDetails;
 
   constructor(
     protected authService: AuthService,
