@@ -47,13 +47,15 @@ export class InquiryFormComponent implements OnInit {
       loanValue: new FormControl(null, Validators.required),
       numberOfInstallments: new FormControl(null, Validators.required),
     });
+
+    this.offerProviderService.cleanOffers();
   }
 
   onFormSubmit(): void {
     this.loansComparerService
       .createInquiry(<CreateInquiryDTO>this.inquiryForm.value)
       .subscribe((response) => {
-        this.offerProviderService.inquiryCreated.next(response);
+        this.offerProviderService.fetchOffers(response);
       });
   }
 }

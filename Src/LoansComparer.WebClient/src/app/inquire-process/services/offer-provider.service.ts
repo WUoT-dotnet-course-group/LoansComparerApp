@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import {
   CreateInquiryResponseDTO,
   LoansComparerService,
@@ -28,28 +27,35 @@ export interface ReviewOffer {
 @Injectable()
 export class OfferProviderService {
   private _inquiryId: string | null = null;
+  private _offers: ReviewOffer[] = [];
 
-  offers: ReviewOffer[] = [];
-  inquiryCreated = new Subject<CreateInquiryResponseDTO>();
   // offerCreated = new Subject<ReviewOffer>();
 
   constructor(
     private loansComparerService: LoansComparerService,
     private router: Router
-  ) {
-    this.inquiryCreated.subscribe((event: CreateInquiryResponseDTO) => {
-      this._inquiryId = event.inquiryId;
-      this.loansComparerService
-        .getOffer(event.bankInquiryId)
-        .subscribe((offer: OfferDTO) => {
-          // this.offerCreated.next(offer);
-          this.offers.push(offer);
-          this.router.navigateByUrl('/inquire/offers');
-        });
-    });
-  }
+  ) {}
 
   get inquiryId(): string | null {
     return this._inquiryId;
+  }
+
+  get offers(): ReviewOffer[] {
+    return this._offers;
+  }
+
+  fetchOffers(forInquiry: CreateInquiryResponseDTO): void {
+    this._inquiryId = forInquiry.inquiryId;
+    this.loansComparerService
+      .getOffer(forInquiry.bankInquiryId)
+      .subscribe((offer: OfferDTO) => {
+        // this.offerCreated.next(offer);
+        this._offers.push(offer);
+        this.router.navigateByUrl('/inquire/offers');
+      });
+  }
+
+  cleanOffers(): void {
+    this._offers = [];
   }
 }
