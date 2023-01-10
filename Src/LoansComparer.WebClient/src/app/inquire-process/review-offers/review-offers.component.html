@@ -15,7 +15,7 @@
     <!-- MonthlyInstallment Column -->
     <ng-container matColumnDef="monthlyInstallment">
       <th mat-header-cell *matHeaderCellDef> Monthly installment </th>
-      <td mat-cell *matCellDef="let element"> {{element.monthlyInstallment}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.monthlyInstallment}} PLN</td>
     </ng-container>
 
     <!-- LoanPeriod Column -->
@@ -27,7 +27,7 @@
     <!-- LoanValue Column -->
     <ng-container matColumnDef="loanValue">
       <th mat-header-cell *matHeaderCellDef> Loan value </th>
-      <td mat-cell *matCellDef="let element"> {{element.loanValue}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.loanValue}} PLN</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

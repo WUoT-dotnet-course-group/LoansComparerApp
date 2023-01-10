@@ -34,8 +34,6 @@ import {
   ],
 })
 export class InquiryFormComponent implements OnInit {
-  currencySuffix: string = 'zł';
-
   inquiryForm!: FormGroup;
   personalDataForm!: FormGroup;
 
