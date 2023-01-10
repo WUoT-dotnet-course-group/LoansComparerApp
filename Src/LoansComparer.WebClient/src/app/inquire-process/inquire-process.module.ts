@@ -7,6 +7,7 @@ import { ReviewOffersComponent } from './review-offers/review-offers.component';
 import { InquirySubmissionFormComponent } from './inquiry-submission-form/inquiry-submission-form.component';
 import { SuccessMessageComponent } from './inquiry-submission-form/success-message/success-message.component';
 import { InquireProcessComponent } from './inquire-process.component';
+import { InquireDataStorageService } from './services/inquire-data-storage.service';
 
 @NgModule({
   declarations: [
@@ -17,5 +18,6 @@ import { InquireProcessComponent } from './inquire-process.component';
     InquireProcessComponent,
   ],
   imports: [SharedModule, InquiryProcessRoutingModule],
+  providers: [InquireDataStorageService],
 })
 export class InquiryProcessModule {}

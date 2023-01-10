@@ -11,6 +11,7 @@ import {
   ReviewOffer,
 } from '../services/offer-provider.service';
 import { LoansComparerService } from '../../shared/services/loans-comparer/loans-comparer.service';
+import { InquireDataStorageService } from '../services/inquire-data-storage.service';
 // import { Subscription } from 'rxjs';
 
 @Component({
@@ -42,6 +43,7 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
 
   constructor(
     protected offerProviderService: OfferProviderService,
+    protected inquireDataStorageService: InquireDataStorageService,
     protected loansComparerService: LoansComparerService
   ) {}
 
@@ -57,6 +59,8 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
 
   onRowSelected(offer: ReviewOffer): void {
     this.selectedOffer = offer;
+    this.inquireDataStorageService.selectedOffer = offer;
+
     this.loansComparerService.chooseOffer(
       this.offerProviderService.inquiryId!,
       {

@@ -11,19 +11,11 @@ import { SuccessMessageComponent } from './success-message/success-message.compo
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { FormGroup } from '@angular/forms';
-
-export interface InquiryDetails {
-  loanValue: number;
-  numberOfInstallments: number;
-  firstName: string;
-  lastName: string;
-  governmentIdType: string;
-  governmentId: string;
-  offerDocumentLink: string;
-  offerPercentage: number;
-  offerMonthlyInstallment: number;
-  offerBank: string;
-}
+import { LoansComparerService } from 'src/app/shared/services/loans-comparer/loans-comparer.service';
+import {
+  InquireDataStorageService,
+  InquiryDetails,
+} from '../services/inquire-data-storage.service';
 
 @Component({
   selector: 'app-inquiry-submission-form',
@@ -45,10 +37,18 @@ export class InquirySubmissionFormComponent implements OnInit {
   constructor(
     protected authService: AuthService,
     protected router: Router,
-    protected popup: MatDialog
+    protected popup: MatDialog,
+    protected inquireDataStorageService: InquireDataStorageService,
+    protected loansComparerService: LoansComparerService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.inquireDataStorageService.hasAllData) {
+      this.inquiry = this.inquireDataStorageService.getInquiryDetails();
+    } else {
+      this.router.navigate(['/inquire']);
+    }
+  }
 
   onFormSubmit(): void {
     this.openSuccessfulPopup();

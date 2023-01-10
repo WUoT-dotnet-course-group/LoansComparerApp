@@ -10,10 +10,15 @@ import {
 import {
   CreateInquiryDTO,
   LoansComparerService,
+  PersonalDataDTO,
 } from '../../shared/services/loans-comparer/loans-comparer.service';
 import { ErrorMessage } from '../../shared/resources/error-message';
 import { OfferProviderService } from '../services/offer-provider.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
+import {
+  InquireDataStorageService,
+  PersonalData,
+} from '../services/inquire-data-storage.service';
 
 @Component({
   selector: 'app-inquiry-form',
@@ -39,6 +44,7 @@ export class InquiryFormComponent implements OnInit {
   constructor(
     protected loansComparerService: LoansComparerService,
     protected offerProviderService: OfferProviderService,
+    protected inquireDataStorageService: InquireDataStorageService,
     protected authService: AuthService
   ) {}
 
@@ -57,5 +63,15 @@ export class InquiryFormComponent implements OnInit {
       .subscribe((response) => {
         this.offerProviderService.fetchOffers(response);
       });
+
+    const personalData = <PersonalDataDTO>(
+      (<unknown>this.inquiryForm.get('personalData')!.value)
+    );
+    this.inquireDataStorageService.personalData = <PersonalData>{
+      firstName: personalData.firstName,
+      lastName: personalData.lastName,
+      governmentId: personalData.governmentDocument.governmentId,
+      governmentIdType: personalData.governmentDocument.governmentIdType.name,
+    };
   }
 }
