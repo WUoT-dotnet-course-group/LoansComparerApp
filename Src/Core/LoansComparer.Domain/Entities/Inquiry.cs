@@ -6,7 +6,7 @@
         public int LoanValue { get; set; }
         public short NumberOfInstallments { get; set; }
         public DateTime InquireDate { get; set; }
-        public Guid ChosenBankInquiryId { get; set; }
+        public Guid ChosenOfferId { get; set; }
 
         public Guid UserID { get; set; }
         public User User { get; set; } = default!;

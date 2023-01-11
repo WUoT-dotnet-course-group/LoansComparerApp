@@ -1,6 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
 
+.app-main {
+  display: grid;
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+.app-layer {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.app-spinner {
+  background-color: rgba(39, 34, 41, 0.13);
+  z-index: 500;
+}
+
 .transparent {
   background-color: transparent;
 }
@@ -77,6 +93,10 @@ table.mat-table {
 .mat-row:hover {
   cursor: pointer;
   background-color: rgba(164, 107, 230, 0.8);
+}
+
+.mat-dialog-container {
+  background: rgba(89, 0, 114);
 }
 
 /* mat-table paginator */

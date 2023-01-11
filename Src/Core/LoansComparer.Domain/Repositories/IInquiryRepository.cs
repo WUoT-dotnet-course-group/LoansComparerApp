@@ -9,5 +9,6 @@ namespace LoansComparer.Domain.Repositories
         Task<Guid> Add(Inquiry inquiry);
         Task<Inquiry> GetById(Guid id);
         Task<PaginatedResponse<Inquiry>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader);
+        Task<int> Count();
     }
 }

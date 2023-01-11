@@ -74,7 +74,7 @@ namespace LoansComparer.DataPersistence.Migrations
                     b.Property<Guid?>("BankID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ChosenBankInquiryId")
+                    b.Property<Guid>("ChosenOfferId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("InquireDate")
@@ -165,7 +165,7 @@ namespace LoansComparer.DataPersistence.Migrations
                                 .HasColumnType("int")
                                 .HasColumnName("GovernmentIdType");
 
-                            b1.Property<DateTime>("JobEndDate")
+                            b1.Property<DateTime?>("JobEndDate")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("JobEndDate");
 

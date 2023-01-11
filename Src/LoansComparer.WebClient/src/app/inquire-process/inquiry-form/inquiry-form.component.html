@@ -1,0 +1,37 @@
+<div fxLayoutAlign="center center" fxFill [@displayForm]>
+  <form [formGroup]="inquiryForm" class="form" fxLayout="column" (ngSubmit)="onFormSubmit()"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="header">
+      <span class="header">Create inquiry</span>
+      <hr>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="center" fxFill>
+      <div class="content" fxLayoutAlign="space-evenly center">
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Loan value</mat-label>
+          <input matInput formControlName="loanValue" type="number" class="text-right-align">
+          <span matSuffix [ngStyle]="{'padding-left':'10px', 'padding-right':'8px'}">PLN</span>
+          <mat-error *ngIf="!inquiryForm.get('loanValue')?.valid">{{requiredFieldError}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="fill">
+          <mat-label>Installments number</mat-label>
+          <input matInput formControlName="numberOfInstallments" type="number">
+          <mat-error *ngIf="!inquiryForm.get('numberOfInstallments')?.valid">{{requiredFieldError}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <app-personal-data [hasEmail]="!authService.isAuthenticated"></app-personal-data>
+
+      <div class="last-row" fxLayoutAlign="none center">
+        <button mat-button fxFlexOffset="80" class=" prim-button" type="submit"
+          [disabled]="inquiryForm.invalid">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
