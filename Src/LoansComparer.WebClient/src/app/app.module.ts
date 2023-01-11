@@ -12,6 +12,7 @@ import { HomeModule } from './home/home.module';
 import { AppLayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadingInterceptor } from './shared/services/loading/loading-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent, PersonalDataFormComponent, OfferStatusComponent],
@@ -29,6 +30,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true,
     },
   ],

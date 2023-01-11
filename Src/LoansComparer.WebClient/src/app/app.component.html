@@ -1,1 +1,9 @@
-<app-layout></app-layout>
+<div class="content app-main" fxFlex>
+  <div class="app-layer">
+    <app-layout></app-layout>
+  </div>
+  <div *ngIf="this.loadingService.isLoading" class="app-layer app-spinner" fxFlex fxLayout="row"
+    fxLayoutAlign="center center">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+</div>
