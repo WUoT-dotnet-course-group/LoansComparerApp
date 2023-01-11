@@ -82,7 +82,11 @@
     </div>
 
     <div class="last-row" fxLayoutAlign="none center">
-      <button mat-button fxFlexOffset="75" class="prim-button" type="submit" [disabled]="form.invalid">Submit</button>
+      <div fxFlexOffset="5" fxFlex="45">
+        <app-document-upload></app-document-upload>
+      </div>
+
+      <button mat-button fxFlexOffset="25" class="prim-button" type="submit" [disabled]="form.invalid">Submit</button>
     </div>
   </form>
 </div>

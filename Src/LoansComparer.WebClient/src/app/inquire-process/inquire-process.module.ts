@@ -8,6 +8,7 @@ import { InquirySubmissionFormComponent } from './inquiry-submission-form/inquir
 import { SuccessMessageComponent } from './inquiry-submission-form/success-message/success-message.component';
 import { InquireProcessComponent } from './inquire-process.component';
 import { InquireDataStorageService } from './services/inquire-data-storage.service';
+import { DocumentUploadComponent } from './inquiry-submission-form/document-upload/document-upload.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { InquireDataStorageService } from './services/inquire-data-storage.servi
     InquirySubmissionFormComponent,
     SuccessMessageComponent,
     InquireProcessComponent,
+    DocumentUploadComponent,
   ],
   imports: [SharedModule, InquiryProcessRoutingModule],
   providers: [InquireDataStorageService],
