@@ -1,5 +1,5 @@
 <div formGroupName="personalData">
-  <div fxLayout="row" fxLayoutAlign="space-around center">
+  <div fxLayout="row" fxLayoutAlign="space-evenly center">
     <mat-form-field class="field" appearance="fill">
       <mat-label>First name</mat-label>
       <input matInput formControlName="firstName">
@@ -29,9 +29,7 @@
         </ng-template>
       </mat-error>
     </mat-form-field>
-  </div>
 
-  <div fxLayout="row" fxLayoutAlign="space-around center">
     <mat-form-field class="field" appearance="fill">
       <mat-label>Birth date</mat-label>
       <input matInput formControlName="birthDate" [max]="dateEighteenYearsBefore" [matDatepicker]="birthPicker">
@@ -48,8 +46,17 @@
         </ng-template>
       </mat-error>
     </mat-form-field>
+  </div>
 
-    <mat-form-field [style.visibility]="hasEmail ? 'visible' : 'hidden'" class="field" appearance="fill">
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="hasEmail">
+    <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field class="field" appearance="fill">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email">
       <mat-error *ngIf="!personalDataForm.get('email')?.valid">
@@ -65,82 +72,76 @@
     </mat-form-field>
   </div>
 
-  <div formGroupName="governmentDocument">
-    <div fxLayout="row" fxLayoutAlign="space-around center">
-      <mat-form-field class="field" appearance="fill">
-        <mat-label>Government id number</mat-label>
-        <input matInput formControlName="governmentId">
-        <mat-error *ngIf="!personalDataForm.get('governmentDocument.governmentId')?.valid">{{requiredFieldError}}
-        </mat-error>
-      </mat-form-field>
+  <div formGroupName="governmentDocument" fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Government id number</mat-label>
+      <input matInput formControlName="governmentId">
+      <mat-error *ngIf="!personalDataForm.get('governmentDocument.governmentId')?.valid">{{requiredFieldError}}
+      </mat-error>
+    </mat-form-field>
 
-      <mat-form-field class="field" appearance="fill">
-        <mat-label>Government type</mat-label>
-        <mat-select formControlName="governmentIdType" panelClass="select-panel">
-          <mat-option *ngFor="let govType of governmentIdTypes" [value]="govType">
-            {{govType.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="!personalDataForm.get('governmentDocument.governmentIdType')?.valid">{{requiredFieldError}}
-        </mat-error>
-      </mat-form-field>
-    </div>
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Government type</mat-label>
+      <mat-select formControlName="governmentIdType" panelClass="select-panel">
+        <mat-option *ngFor="let govType of governmentIdTypes" [value]="govType">
+          {{govType.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!personalDataForm.get('governmentDocument.governmentIdType')?.valid">{{requiredFieldError}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
+      <input matInput>
+    </mat-form-field>
   </div>
 
-  <div formGroupName="jobDetails">
-    <div fxLayout="row" fxLayoutAlign="space-around center">
-      <mat-form-field class="field" appearance="fill">
-        <mat-label>Job type</mat-label>
-        <mat-select formControlName="jobType" panelClass="select-panel">
-          <mat-option *ngFor="let jobType of jobTypes" [value]="jobType">
-            {{jobType.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="!personalDataForm.get('jobDetails.jobType')?.valid">{{requiredFieldError}}</mat-error>
-      </mat-form-field>
+  <div formGroupName="jobDetails" fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Job type</mat-label>
+      <mat-select formControlName="jobType" panelClass="select-panel">
+        <mat-option *ngFor="let jobType of jobTypes" [value]="jobType">
+          {{jobType.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!personalDataForm.get('jobDetails.jobType')?.valid">{{requiredFieldError}}</mat-error>
+    </mat-form-field>
 
-      <mat-form-field [ngStyle]="{'visibility': 'hidden'}" class="field">
-        <input matInput>
-      </mat-form-field>
-    </div>
-
-    <div fxLayout="row" fxLayoutAlign="space-around center">
-      <mat-form-field class="field" appearance="fill">
-        <mat-label>Job start date</mat-label>
-        <input matInput formControlName="jobStartDate"
-          [max]="jobEndDate === null || dateNow < jobEndDate ? dateNow : jobEndDate" [matDatepicker]="jobStartPicker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="jobStartPicker"></mat-datepicker-toggle>
-        <mat-datepicker #jobStartPicker></mat-datepicker>
-        <mat-error *ngIf="!personalDataForm.get('jobDetails.jobStartDate')?.valid">
-          <div *ngIf="personalDataForm.get('jobDetails.jobStartDate')?.hasError('required'); else elseError">
-            {{requiredFieldError}}
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Job start date</mat-label>
+      <input matInput formControlName="jobStartDate"
+        [max]="jobEndDate === null || dateNow < jobEndDate ? dateNow : jobEndDate" [matDatepicker]="jobStartPicker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="jobStartPicker"></mat-datepicker-toggle>
+      <mat-datepicker #jobStartPicker></mat-datepicker>
+      <mat-error *ngIf="!personalDataForm.get('jobDetails.jobStartDate')?.valid">
+        <div *ngIf="personalDataForm.get('jobDetails.jobStartDate')?.hasError('required'); else elseError">
+          {{requiredFieldError}}
+        </div>
+        <ng-template #elseError>
+          <div>
+            {{invalidJobStartError}}
           </div>
-          <ng-template #elseError>
-            <div>
-              {{invalidJobStartError}}
-            </div>
-          </ng-template>
-        </mat-error>
-      </mat-form-field>
+        </ng-template>
+      </mat-error>
+    </mat-form-field>
 
-      <mat-form-field class="field" appearance="fill">
-        <mat-label>Job end date</mat-label>
-        <input matInput formControlName="jobEndDate" [min]="jobStartDate" [matDatepicker]="jobEndPicker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="jobEndPicker"></mat-datepicker-toggle>
-        <mat-datepicker #jobEndPicker></mat-datepicker>
-        <mat-error *ngIf="!personalDataForm.get('jobDetails.jobEndDate')?.valid">
-          <div *ngIf="personalDataForm.get('jobDetails.jobEndDate')?.hasError('required'); else elseError">
-            {{requiredFieldError}}
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Job end date</mat-label>
+      <input matInput formControlName="jobEndDate" [min]="jobStartDate" [matDatepicker]="jobEndPicker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="jobEndPicker"></mat-datepicker-toggle>
+      <mat-datepicker #jobEndPicker></mat-datepicker>
+      <mat-error *ngIf="!personalDataForm.get('jobDetails.jobEndDate')?.valid">
+        <div *ngIf="personalDataForm.get('jobDetails.jobEndDate')?.hasError('required'); else elseError">
+          {{requiredFieldError}}
+        </div>
+        <ng-template #elseError>
+          <div>
+            {{invalidJobEndError}}
           </div>
-          <ng-template #elseError>
-            <div>
-              {{invalidJobEndError}}
-            </div>
-          </ng-template>
-        </mat-error>
-      </mat-form-field>
-    </div>
+        </ng-template>
+      </mat-error>
+    </mat-form-field>
   </div>
 </div>

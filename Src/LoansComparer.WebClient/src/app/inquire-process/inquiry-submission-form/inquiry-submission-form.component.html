@@ -1,43 +1,43 @@
-<div class="main" fxLayoutAlign="center" fxFill [@displayForm]>
-  <form [formGroup]="form" class="form" fxLayout="column" (ngSubmit)="onFormSubmit()"
+<div fxLayoutAlign="center center" fxFill [@displayForm]>
+  <form [formGroup]="form" class="form" fxLayout="column" fxLayoutAlign="center" (ngSubmit)="onFormSubmit()"
     (keydown.enter)="$event.preventDefault()">
     <div class="header">
       <span>Submit inquiry</span>
       <hr>
     </div>
 
-    <div fxFlex fxLayout="column" fxLayoutAlign="space-between">
+    <div fxFlex fxLayout="column" fxLayoutAlign="space-between space-between">
       <div class="sub-header">
         <span>Offer details</span>
         <hr>
       </div>
 
-      <div class="dataRow" fxLayout="row">
-        <div fxFlex="40" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="data-row" fxLayout="row">
+        <div fxFlex="40" fxLayoutAlign="space-between">
           <span>Loaning bank: </span>
           <span>{{ inquiry.bankName }}</span>
         </div>
       </div>
 
-      <div class="dataRow" fxLayout="row" fxLayoutAlign="space-between">
-        <div fxFlex="40" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="data-row" fxLayoutAlign="space-between">
+        <div fxFlex="40" fxLayoutAlign="space-between">
           <span>Value: </span>
           <span>{{ inquiry.loanValue }} PLN</span>
         </div>
 
-        <div fxFlexOffset="5" fxFlex="45" fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlexOffset="5" fxFlex="45" fxLayoutAlign="space-between">
           <span>Period (in months): </span>
           <span>{{ inquiry.loanPeriod }}</span>
         </div>
       </div>
 
-      <div class="dataRow" fxLayout="row" fxLayoutAlign="space-between">
-        <div fxFlex="40" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="data-row" fxLayoutAlign="space-between">
+        <div fxFlex="40" fxLayoutAlign="space-between">
           <span>Percentage: </span>
           <span>{{ inquiry.percentage }}</span>
         </div>
 
-        <div fxFlexOffset="5" fxFlex="45" fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlexOffset="5" fxFlex="45" fxLayoutAlign="space-between">
           <span>Monthly installment: </span>
           <span>{{ inquiry.monthlyInstallment }} PLN</span>
         </div>
@@ -48,32 +48,32 @@
         <hr>
       </div>
 
-      <div class="dataRow" fxLayout="row" fxLayoutAlign="space-between">
-        <div fxFlex="40" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="data-row" fxLayoutAlign="space-between">
+        <div fxFlex="40" fxLayoutAlign="space-between">
           <span>First name: </span>
           <span>{{ inquiry.firstName }}</span>
         </div>
 
-        <div fxFlexOffset="5" fxFlex="45" fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlexOffset="5" fxFlex="45" fxLayoutAlign="space-between">
           <span>Last name: </span>
           <span>{{ inquiry.lastName }}</span>
         </div>
       </div>
 
-      <div class="dataRow" fxLayout="row" fxLayoutAlign="space-between">
-        <div fxFlex="40" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="data-row" fxLayoutAlign="space-between">
+        <div fxFlex="40" fxLayoutAlign="space-between">
           <span>Government ID: </span>
           <span>{{ inquiry.governmentId }}</span>
         </div>
 
-        <div fxFlexOffset="5" fxFlex="45" fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlexOffset="5" fxFlex="45" fxLayoutAlign="space-between">
           <span>Government ID type: </span>
           <span>{{ inquiry.governmentIdType }}</span>
         </div>
       </div>
 
       <div class="sub-header">
-        <div fxLayout="row" fxLayoutAlign="space-between">
+        <div fxLayoutAlign="space-between">
           <span>Document attachment</span>
           <!-- <a href={{ inquiry.offerDocumentLink }}>{{ inquiry.offerDocumentLink }}</a> -->
         </div>
@@ -81,8 +81,8 @@
       </div>
     </div>
 
-    <div fxFlexOffset="5" fxLayout="row">
-      <button mat-button fxFlexOffset="70" class="prim-button" type="submit" [disabled]="form.invalid">Submit</button>
+    <div class="last-row" fxLayoutAlign="none center">
+      <button mat-button fxFlexOffset="75" class="prim-button" type="submit" [disabled]="form.invalid">Submit</button>
     </div>
   </form>
 </div>

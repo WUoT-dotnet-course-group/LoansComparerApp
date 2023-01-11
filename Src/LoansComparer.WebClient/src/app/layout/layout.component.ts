@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
         position: absolute;
         top: 0;
         left: 0;
-        bottom: 180px;
+        bottom: 120px;
         width: 100%;
       }
 
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
         position: fixed;
         bottom: 0;
         width: 100%;
-        height: 180px;
+        height: 120px;
         margin: 0px;
         background-image: url('../shared/resources/footer.png');
         background-repeat: no-repeat;
