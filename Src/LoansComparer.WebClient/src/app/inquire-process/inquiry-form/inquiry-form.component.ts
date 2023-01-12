@@ -19,6 +19,7 @@ import {
   InquireDataStorageService,
   PersonalData,
 } from '../services/inquire-data-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inquiry-form',
@@ -43,7 +44,8 @@ export class InquiryFormComponent implements OnInit {
     protected loansComparerService: LoansComparerService,
     protected offerProviderService: OfferProviderService,
     protected inquireDataStorageService: InquireDataStorageService,
-    protected authService: AuthService
+    protected authService: AuthService,
+    protected router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,10 @@ export class InquiryFormComponent implements OnInit {
     });
 
     this.offerProviderService.cleanOffers();
+  }
+
+  onReturn(event: any): void {
+    this.router.navigate(['/home']);
   }
 
   onFormSubmit(): void {
