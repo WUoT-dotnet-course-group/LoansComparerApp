@@ -100,7 +100,7 @@ export class LoansComparerService {
   saveUserData(userData: PersonalDataDTO): void {
     this.http
       .post<any>(this.path + 'api/users/data/save', userData)
-      .subscribe((_) => {});
+      .subscribe();
   }
 
   getInquiries(
@@ -118,7 +118,7 @@ export class LoansComparerService {
     );
   }
 
-  getOffer(bankInquiryId: string): Observable<OfferDTO> {
+  fetchOffer(bankInquiryId: string): Observable<OfferDTO> {
     return this.http.get<OfferDTO>(
       this.path + `api/inquiries/${bankInquiryId}/offer`
     );
@@ -130,7 +130,13 @@ export class LoansComparerService {
         this.path + `api/inquiries/${inquiryId}/choose-offer`,
         chooseOfferData
       )
-      .subscribe((_) => {});
+      .subscribe();
+  }
+
+  uploadDocument(inquiryId: string, document: FormData): void {
+    this.http
+      .post<any>(this.path + `api/inquiries/${inquiryId}/upload`, document)
+      .subscribe();
   }
 
   getJobTypes(): Observable<DictionaryDTO[]> {

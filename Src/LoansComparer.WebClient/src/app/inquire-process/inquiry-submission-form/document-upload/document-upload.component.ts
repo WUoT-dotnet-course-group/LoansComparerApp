@@ -6,7 +6,6 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { LoansComparerService } from 'src/app/shared/services/loans-comparer/loans-comparer.service';
 
 @Component({
   selector: 'app-document-upload',
@@ -19,10 +18,7 @@ import { LoansComparerService } from 'src/app/shared/services/loans-comparer/loa
 export class DocumentUploadComponent implements OnInit {
   parentForm!: FormGroup;
 
-  constructor(
-    private parent: FormGroupDirective,
-    private loansComparerService: LoansComparerService
-  ) {}
+  constructor(private parent: FormGroupDirective) {}
 
   ngOnInit(): void {
     this.parentForm = this.parent.form;

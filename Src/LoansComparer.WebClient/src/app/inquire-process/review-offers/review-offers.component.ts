@@ -62,7 +62,7 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
     this.inquireDataStorageService.selectedOffer = offer;
 
     this.loansComparerService.chooseOffer(
-      this.offerProviderService.inquiryId!,
+      this.inquireDataStorageService.inquiryId!,
       {
         offerId: offer.id,
         bankId: offer.bankId,
