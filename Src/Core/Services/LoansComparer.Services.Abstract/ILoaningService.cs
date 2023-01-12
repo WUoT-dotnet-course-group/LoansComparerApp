@@ -9,5 +9,6 @@ namespace LoansComparer.Services.Abstract
         Task<BaseResponse<GetInquiryResponse>> GetInquiry(Guid inquiryId);
         Task<BaseResponse<GetOfferResponse>> GetOfferById(Guid offerId);
         Task<BaseResponse<OfferDTO>> GetOfferByInquiryId(Guid inquiryId);
+        Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename);
     }
 }

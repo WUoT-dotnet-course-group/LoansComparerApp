@@ -2,6 +2,8 @@
 using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
 using Mapster;
+using System.Net.Http;
+using System;
 using System.Text;
 using System.Text.Json;
 
@@ -60,6 +62,31 @@ namespace LoansComparer.Services
             }
 
             return finalResponse;
+        }
+
+        public async Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename)
+        {
+            using var formData = new MultipartFormDataContent
+            {
+                { new StreamContent(fileStream), "file", filename }
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, $"api/offers/{offerId}/upload")
+            {
+                Content = formData
+            };
+            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
+
+            var baseResponse = new BaseResponse
+            {
+                StatusCode = response.StatusCode
+            };
+            if (response.IsSuccessStatusCode)
+            {
+                baseResponse.IsSuccessful = true;
+            }
+
+            return baseResponse;
         }
 
         private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class

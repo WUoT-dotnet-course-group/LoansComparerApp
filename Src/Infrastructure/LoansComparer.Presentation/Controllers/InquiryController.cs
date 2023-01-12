@@ -41,8 +41,16 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPatch("{inquiryId}/choose-offer")]
+        public async Task<ActionResult> ChooseOffer(Guid inquiryId, [FromBody] ChooseOfferDTO chosenOffer)
+        {
+            await _serviceManager.InquiryService.ChooseOffer(inquiryId, chosenOffer);
+            return Ok();
+        }
+
+        [AllowAnonymous]
         [HttpGet("{bankInquiryId}/offer")]
-        public async Task<ActionResult<OfferDTO>> GetOffer(Guid bankInquiryId)
+        public async Task<ActionResult<OfferDTO>> FetchOffer(Guid bankInquiryId)
         {
             var response = await _serviceManager.LoaningService.GetOfferByInquiryId(bankInquiryId);
             if (!response.IsSuccessful)
@@ -54,10 +62,18 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPatch("{inquiryId}/choose-offer")]
-        public async Task<ActionResult> ChooseOffer(Guid inquiryId, [FromBody] ChooseOfferDTO chosenOffer)
+        [HttpPost("{inquiryId}/upload")]
+        public async Task<ActionResult> UploadFile(Guid inquiryId)
         {
-            await _serviceManager.InquiryService.ChooseOffer(inquiryId, chosenOffer);
+            var offerId = await _serviceManager.InquiryService.GetOfferId(inquiryId);
+
+            var file = Request.Form.Files[0];
+            var response = await _serviceManager.LoaningService.UploadFile(offerId, file.OpenReadStream(), file.FileName);
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+
             return Ok();
         }
 
