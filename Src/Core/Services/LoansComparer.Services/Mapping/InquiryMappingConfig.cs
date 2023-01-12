@@ -12,6 +12,6 @@ namespace LoansComparer.Services.Mapping
                 .Map(dest => dest.ChosenBank, src => GetBankName(src));
         }
 
-        private string GetBankName(InquirySearch inquiry) => inquiry.BankName ??  "-";
+        private string GetBankName(InquirySearch inquiry) => inquiry.BankName ?? "-";
     }
 }
