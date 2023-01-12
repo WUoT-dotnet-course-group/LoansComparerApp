@@ -68,11 +68,7 @@ export class InquirySubmissionFormComponent implements OnInit {
     });
 
     popupRef.afterClosed().subscribe(() => {
-      if (this.authService.isAuthenticated) {
-        this.router.navigate(['/home']);
-      } else {
-        this.router.navigate(['']);
-      }
+      this.router.navigate(['/home']);
     });
   }
 }
