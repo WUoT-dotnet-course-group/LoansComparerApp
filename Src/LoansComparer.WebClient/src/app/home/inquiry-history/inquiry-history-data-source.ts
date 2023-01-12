@@ -8,9 +8,9 @@ import { BaseDataSource } from '../../shared/services/loans-comparer/base-data-s
 
 export interface GetInquiryData {
   loanValue: number;
+  numberOfInstallments: number;
   inquireDate: Date;
   chosenBank: string;
-  offerStatus: string;
 }
 
 export class InquiryHistoryDataSource extends BaseDataSource<GetInquiryData> {

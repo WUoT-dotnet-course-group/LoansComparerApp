@@ -22,10 +22,10 @@
         <td mat-cell *matCellDef="let element"> {{element.inquireDate | date:'medium'}} </td>
       </ng-container>
 
-      <!-- OfferStatus Column -->
-      <ng-container matColumnDef="offerStatus">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Offer status </th>
-        <td mat-cell *matCellDef="let element"> {{element.offerStatus}} </td>
+      <!-- Installments Column -->
+      <ng-container matColumnDef="installments">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Installments </th>
+        <td mat-cell *matCellDef="let element"> {{element.numberOfInstallments}} </td>
       </ng-container>
 
       <!-- ChosenBank Column -->

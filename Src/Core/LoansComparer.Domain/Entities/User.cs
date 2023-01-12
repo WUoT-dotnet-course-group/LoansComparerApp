@@ -7,8 +7,8 @@
         public PersonalData? PersonalData { get; set; }
 
         public Guid? BankID { get; set; }
-        public Bank? Bank { get; set; }
+        public virtual Bank? Bank { get; set; }
 
-        public ICollection<Inquiry> Inquiries { get; set; } = default!;
+        public virtual ICollection<Inquiry> Inquiries { get; set; } = default!;
     }
 }

@@ -8,10 +8,13 @@ public class GetInquiryDTO
     [EntityPropertyName("LoanValue")]
     public int LoanValue { get; set; }
 
+    [SortHeader("installments")]
+    [EntityPropertyName("NumberOfInstallments")]
+    public short NumberOfInstallments { get; set; }
+
     [SortHeader("inquireDate")]
     [EntityPropertyName("InquireDate")]
     public DateTime InquireDate { get; set; }
 
-    public string OfferStatus { get; set; } = default!;
     public string ChosenBank { get; set; } = default!;
 }

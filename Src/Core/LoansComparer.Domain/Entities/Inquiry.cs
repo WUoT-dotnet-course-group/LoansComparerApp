@@ -9,9 +9,9 @@
         public Guid ChosenOfferId { get; set; }
 
         public Guid UserID { get; set; }
-        public User User { get; set; } = default!;
+        public virtual User User { get; set; } = default!;
 
         public Guid? BankID { get; set; }
-        public Bank? Bank { get; set; } = default!;
+        public virtual Bank? Bank { get; set; }
     }
 }
