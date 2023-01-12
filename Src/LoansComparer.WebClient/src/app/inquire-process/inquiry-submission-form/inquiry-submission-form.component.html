@@ -75,7 +75,9 @@
       <div class="sub-header">
         <div fxLayoutAlign="space-between">
           <span>Document attachment</span>
-          <!-- <a href={{ inquiry.offerDocumentLink }}>{{ inquiry.offerDocumentLink }}</a> -->
+          <a href="{{ inquiry.documentLink || null }}">
+            <mat-icon>get_app</mat-icon>
+          </a>
         </div>
         <hr>
       </div>
@@ -86,7 +88,8 @@
         <app-document-upload></app-document-upload>
       </div>
 
-      <button mat-button fxFlexOffset="25" class="prim-button" type="submit" [disabled]="form.invalid">Submit</button>
+      <button mat-button fxFlexOffset="25" class="prim-button submit-button" type="submit"
+        [disabled]="form.invalid">Submit</button>
     </div>
   </form>
 </div>

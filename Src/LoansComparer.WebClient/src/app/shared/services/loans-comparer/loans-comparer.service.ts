@@ -53,8 +53,8 @@ export interface OfferDTO {
   createDate: Date;
   updateDate: Date;
   approvedBy: string;
-  documentLink: string;
-  documentLinkValidDate: Date;
+  documentLink: string | null;
+  documentLinkValidDate: Date | null;
   bankId: string;
   bankName: string;
 }

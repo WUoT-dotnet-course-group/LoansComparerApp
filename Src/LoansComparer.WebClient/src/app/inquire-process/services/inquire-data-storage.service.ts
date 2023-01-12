@@ -16,7 +16,7 @@ export interface InquiryDetails {
   lastName: string;
   governmentIdType: string;
   governmentId: string;
-  documentLink: string;
+  documentLink: string | null;
   percentage: number;
   monthlyInstallment: number;
   bankName: string;

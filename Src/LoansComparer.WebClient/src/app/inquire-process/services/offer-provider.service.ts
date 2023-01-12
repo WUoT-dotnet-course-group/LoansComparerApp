@@ -19,8 +19,8 @@ export interface ReviewOffer {
   createDate: Date;
   updateDate: Date;
   approvedBy: string | null;
-  documentLink: string;
-  documentLinkValidDate: Date;
+  documentLink: string | null;
+  documentLinkValidDate: Date | null;
   bankName: string;
   bankId: string;
 }
