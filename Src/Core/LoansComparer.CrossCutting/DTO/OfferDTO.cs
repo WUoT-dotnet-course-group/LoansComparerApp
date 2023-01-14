@@ -15,8 +15,8 @@ namespace LoansComparer.CrossCutting.DTO
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public string? ApprovedBy { get; set; }
-        public string DocumentLink { get; set; } = default!;
-        public DateTime DocumentLinkValidDate { get; set; }
+        public string? DocumentLink { get; set; }
+        public DateTime? DocumentLinkValidDate { get; set; }
         public Guid? BankId { get; set; } = null; // not used as long as service handles only one bank
         public string BankName { get; set; } = "JDJ SA";
     }

@@ -1,0 +1,10 @@
+<div class="root">
+  <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+  <div fxLayoutAlign="space-between center">
+    <span class="file-upload">{{fileName || "No file uploaded yet."}}</span>
+    <button mat-mini-fab type="button" color="primary" (click)="fileUpload.click()">
+      <mat-icon class="upload-icon">attach_file</mat-icon>
+    </button>
+  </div>
+</div>

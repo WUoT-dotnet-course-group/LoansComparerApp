@@ -7,9 +7,14 @@ import { MaterialModule } from './material/material.module';
 
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
+import { ReturnButtonComponent } from './components/return-button/return-button.component';
 
 @NgModule({
-  declarations: [PersonalDataComponent, LoadingSpinnerComponent],
+  declarations: [
+    PersonalDataComponent,
+    LoadingSpinnerComponent,
+    ReturnButtonComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -25,6 +30,7 @@ import { PersonalDataComponent } from './components/personal-data/personal-data.
     MaterialModule,
     PersonalDataComponent,
     LoadingSpinnerComponent,
+    ReturnButtonComponent,
   ],
 })
 export class SharedModule {}

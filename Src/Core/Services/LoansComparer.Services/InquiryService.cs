@@ -57,6 +57,13 @@ namespace LoansComparer.Services
             return paginatedInquiries.Adapt<PaginatedResponse<GetInquiryDTO>>();
         }
 
+        public async Task<Guid> GetOfferId(Guid inquiryId)
+        {
+            var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
+
+            return inquiry.ChosenOfferId;
+        }
+
         public async Task<int> GetInquiriesAmount() => await _repositoryManager.InquiryRepository.Count();
     }
 }

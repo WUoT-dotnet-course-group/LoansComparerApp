@@ -25,7 +25,7 @@ namespace LoansComparer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RepositoryDbContext>(conf =>
-                conf.UseSqlServer(ConfigurationsManager.DbConnectionString));
+                conf.UseLazyLoadingProxies().UseSqlServer(ConfigurationsManager.DbConnectionString));
 
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();

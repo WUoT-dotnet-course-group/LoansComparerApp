@@ -5,6 +5,7 @@ import {
   LoansComparerService,
   OfferDTO,
 } from '../../shared/services/loans-comparer/loans-comparer.service';
+import { InquireDataStorageService } from './inquire-data-storage.service';
 
 export interface ReviewOffer {
   id: string;
@@ -18,36 +19,32 @@ export interface ReviewOffer {
   createDate: Date;
   updateDate: Date;
   approvedBy: string | null;
-  documentLink: string;
-  documentLinkValidDate: Date;
+  documentLink: string | null;
+  documentLinkValidDate: Date | null;
   bankName: string;
   bankId: string;
 }
 
 @Injectable()
 export class OfferProviderService {
-  private _inquiryId: string | null = null;
   private _offers: ReviewOffer[] = [];
 
   // offerCreated = new Subject<ReviewOffer>();
 
   constructor(
+    private inquireDataStorageService: InquireDataStorageService,
     private loansComparerService: LoansComparerService,
     private router: Router
   ) {}
-
-  get inquiryId(): string | null {
-    return this._inquiryId;
-  }
 
   get offers(): ReviewOffer[] {
     return this._offers;
   }
 
-  fetchOffers(forInquiry: CreateInquiryResponseDTO): void {
-    this._inquiryId = forInquiry.inquiryId;
+  fetchOffers(inquiryCreateResponse: CreateInquiryResponseDTO): void {
+    this.inquireDataStorageService.inquiryId = inquiryCreateResponse.inquiryId;
     this.loansComparerService
-      .getOffer(forInquiry.bankInquiryId)
+      .fetchOffer(inquiryCreateResponse.bankInquiryId)
       .subscribe((offer: OfferDTO) => {
         // this.offerCreated.next(offer);
         this._offers.push(offer);

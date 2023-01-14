@@ -1,8 +1,13 @@
 <mat-toolbar class="transparent" fxLayout="row" fxLayoutAlign="space-between center">
   <span>LoansComparer</span>
-  <app-sign-in-google *ngIf="!isAuthenticated"></app-sign-in-google>
-  <div fxLayout="row" *ngIf="isAuthenticated">
-    <button mat-button class="sec-button" color="primary" (click)="onPersonalDataClick()">Personal data</button>
-    <app-sign-out></app-sign-out>
+  <div fxLayout="row" fxLayoutAlign="none center">
+    <app-sign-in-google *ngIf="!isAuthenticated"></app-sign-in-google>
+    <div fxLayout="row" *ngIf="isAuthenticated">
+      <button mat-button class="sec-button" color="primary" (click)="onPersonalDataClick()">Personal data</button>
+      <app-sign-out></app-sign-out>
+    </div>
+    <button mat-mini-fab color="primary" fxLayoutAlign="center center" routerLink="/home">
+      <mat-icon fxFlexOffset="1">home</mat-icon>
+    </button>
   </div>
 </mat-toolbar>

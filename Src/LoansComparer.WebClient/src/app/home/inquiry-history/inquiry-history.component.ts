@@ -35,8 +35,8 @@ export class InquiryHistoryComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'indexer',
     'loanValue',
+    'installments',
     'inquireDate',
-    'offerStatus',
     'chosenBank',
   ];
 

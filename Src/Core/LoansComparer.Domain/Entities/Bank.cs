@@ -15,7 +15,7 @@
         public string PostOfferDocumentRoute { get; set; } = default!;
         public string GetOfferDocumentRoute { get; set; } = default!;
 
-        public ICollection<Inquiry> Inquiries { get; set; } = default!;
-        public ICollection<User> Employees { get; set; } = default!;
+        public virtual ICollection<Inquiry> Inquiries { get; set; } = default!;
+        public virtual ICollection<User> Employees { get; set; } = default!;
     }
 }

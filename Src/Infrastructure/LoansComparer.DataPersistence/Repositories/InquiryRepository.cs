@@ -20,13 +20,13 @@ namespace LoansComparer.DataPersistence.Repositories
             return inquiry.ID;
         }
 
-        public async Task<PaginatedResponse<Inquiry>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader)
+        public async Task<PaginatedResponse<InquirySearch>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader)
         {
-            var query = _dbContext.Inquiries.Where(x => x.UserID == userId);
+            var query = _dbContext.InquirySearch.Where(x => x.UserID == userId);
 
             if (sortOrder is not SortOrder.Undefined)
             {
-                query = query.Sort<TResult, Inquiry>(sortOrder, sortHeader);
+                query = query.Sort<TResult, InquirySearch>(sortOrder, sortHeader);
             }
 
             return await query.Paginate(pageIndex, pageSize);

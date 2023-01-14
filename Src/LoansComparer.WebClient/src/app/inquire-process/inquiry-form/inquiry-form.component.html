@@ -29,8 +29,10 @@
       <app-personal-data [hasEmail]="!authService.isAuthenticated"></app-personal-data>
 
       <div class="last-row" fxLayoutAlign="none center">
-        <button mat-button fxFlexOffset="80" class=" prim-button" type="submit"
-          [disabled]="inquiryForm.invalid">Create</button>
+        <app-return-button fxFlexOffset="5" fxFlex="10" (click)="onReturn($event)"></app-return-button>
+        <div fxFlexOffset="65" fxFlex="15" fxLayoutAlign="center">
+          <button mat-button class="prim-button" type="submit" [disabled]="inquiryForm.invalid">Create</button>
+        </div>
       </div>
     </div>
   </form>

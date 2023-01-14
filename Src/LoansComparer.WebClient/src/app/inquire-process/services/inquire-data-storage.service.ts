@@ -9,13 +9,14 @@ export interface PersonalData {
 }
 
 export interface InquiryDetails {
+  id: string;
   loanValue: number;
   loanPeriod: number;
   firstName: string;
   lastName: string;
   governmentIdType: string;
   governmentId: string;
-  documentLink: string;
+  documentLink: string | null;
   percentage: number;
   monthlyInstallment: number;
   bankName: string;
@@ -23,17 +24,19 @@ export interface InquiryDetails {
 
 @Injectable()
 export class InquireDataStorageService {
+  inquiryId: string | null = null;
   personalData: PersonalData | null = null;
   selectedOffer: ReviewOffer | null = null;
 
   constructor() {}
 
   get hasAllData(): boolean {
-    return !!this.personalData && !!this.selectedOffer;
+    return !!this.inquiryId && !!this.personalData && !!this.selectedOffer;
   }
 
   getInquiryDetails(): InquiryDetails {
     return {
+      id: this.inquiryId!,
       bankName: this.selectedOffer!.bankName,
       firstName: this.personalData!.firstName,
       lastName: this.personalData!.lastName,

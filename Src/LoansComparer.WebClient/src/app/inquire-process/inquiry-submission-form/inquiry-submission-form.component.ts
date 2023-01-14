@@ -51,6 +51,13 @@ export class InquirySubmissionFormComponent implements OnInit {
   }
 
   onFormSubmit(): void {
+    const file = <File>this.form.get('document')!.value;
+
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    this.loansComparerService.uploadDocument(this.inquiry.id, formData);
+
     this.openSuccessfulPopup();
   }
 
@@ -61,11 +68,7 @@ export class InquirySubmissionFormComponent implements OnInit {
     });
 
     popupRef.afterClosed().subscribe(() => {
-      if (this.authService.isAuthenticated) {
-        this.router.navigate(['/home']);
-      } else {
-        this.router.navigate(['']);
-      }
+      this.router.navigate(['/home']);
     });
   }
 }

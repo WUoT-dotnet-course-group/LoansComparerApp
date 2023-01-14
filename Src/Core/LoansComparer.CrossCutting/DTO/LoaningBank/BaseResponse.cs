@@ -10,4 +10,11 @@ namespace LoansComparer.CrossCutting.DTO.LoaningBank
 
         public HttpStatusCode StatusCode { get; set; }
     }
+
+    public class BaseResponse
+    {
+        public bool IsSuccessful { get; set; }
+
+        public HttpStatusCode StatusCode { get; set; }
+    }
 }

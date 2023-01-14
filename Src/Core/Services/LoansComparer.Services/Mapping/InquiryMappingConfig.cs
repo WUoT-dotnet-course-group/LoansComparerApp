@@ -8,14 +8,10 @@ namespace LoansComparer.Services.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<Inquiry, GetInquiryDTO>()
+            config.NewConfig<InquirySearch, GetInquiryDTO>()
                 .Map(dest => dest.ChosenBank, src => GetBankName(src));
         }
 
-        private string GetBankName(Inquiry inquiry) => inquiry.Bank switch
-        {
-            null => "-",
-            _ => inquiry.Bank.Name,
-        };
+        private string GetBankName(InquirySearch inquiry) => inquiry.BankName ?? "-";
     }
 }
