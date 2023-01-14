@@ -15,7 +15,7 @@ namespace LoansComparer.Presentation.Controllers
         public InquiryController(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
         [HttpGet]
-        public async Task<ActionResult<List<GetInquiryDTO>>> Get([FromQuery] PagingParameter pagingParams)
+        public async Task<ActionResult<PaginatedResponse<GetInquiryDTO>>> Get([FromQuery] PagingParameter pagingParams)
         {
             var userId = User.FindFirst("Id")?.Value!;
 
