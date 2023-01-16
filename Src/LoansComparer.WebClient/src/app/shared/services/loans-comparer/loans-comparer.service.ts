@@ -120,7 +120,13 @@ export class LoansComparerService {
 
   fetchOffer(bankInquiryId: string): Observable<OfferDTO> {
     return this.http.get<OfferDTO>(
-      this.path + `api/inquiries/${bankInquiryId}/offer`
+      this.path + `api/inquiries/fetch-offer/${bankInquiryId}`
+    );
+  }
+
+  getInquiryOffer(inquiryId: string): Observable<OfferDTO> {
+    return this.http.get<OfferDTO>(
+      this.path + `api/inquiries/${inquiryId}/offer`
     );
   }
 

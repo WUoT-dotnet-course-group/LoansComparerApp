@@ -12,7 +12,6 @@ import {
   PersonalDataDTO,
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-personal-data-form',
@@ -32,8 +31,7 @@ export class PersonalDataFormComponent implements OnInit {
 
   constructor(
     private loansComparerService: LoansComparerService,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {}
 
   ngOnInit(): void {}

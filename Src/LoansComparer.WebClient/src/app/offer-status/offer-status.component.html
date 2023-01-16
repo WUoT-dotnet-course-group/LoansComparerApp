@@ -15,17 +15,17 @@
       </div>
       <div class="values" fxLayout="column">
         <span>{{ offer.bankName }}</span>
-        <span>{{ offer.requestedValue }} PLN</span>
+        <span>{{ offer.loanValue }} PLN</span>
         <span>{{ offer.percentage }}</span>
-        <span>{{ offer.monthlyInstallment }} months</span>
-        <span>{{ offer.requestedPeriodInMonth }}</span>
+        <span>{{ offer.monthlyInstallment }}</span>
+        <span>{{ offer.loanPeriod }} months</span>
         <span>{{ offer.approvedBy === null ? '-' : offer.approvedBy }}</span>
         <span>{{ offer.createDate | date:'medium'}}</span>
         <span>{{ offer.updateDate | date:'medium'}}</span>
         <span [ngClass]="[
-          offer.statusId == 2 ? 'orange' : '',
-          offer.statusId == 3 ? 'green' : '',
-          offer.statusId == 4 ? 'red' : '',
+          offer.status == 2 ? 'orange' : '',
+          offer.status == 3 ? 'green' : '',
+          offer.status == 4 ? 'red' : '',
         ]">
           {{ offer.statusDescription }}</span>
       </div>

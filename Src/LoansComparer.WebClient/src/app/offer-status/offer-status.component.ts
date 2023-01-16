@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -6,13 +6,19 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import {
+  LoansComparerService,
+  OfferDTO,
+} from '../shared/services/loans-comparer/loans-comparer.service';
 
 export interface OfferDetails {
   percentage: number;
   monthlyInstallment: number;
-  requestedValue: number;
-  requestedPeriodInMonth: number;
-  statusId: number;
+  loanValue: number;
+  loanPeriod: number;
+  status: number;
   statusDescription: string;
   createDate: Date;
   updateDate: Date;
@@ -33,21 +39,28 @@ export interface OfferDetails {
     ]),
   ],
 })
-export class OfferStatusComponent implements OnInit {
-  offer: OfferDetails = {
-    percentage: 12.58,
-    monthlyInstallment: 5.08,
-    requestedValue: 10,
-    requestedPeriodInMonth: 2,
-    statusId: 1,
-    statusDescription: 'Created',
-    createDate: new Date('2022-12-01T23:44:12.9922698'),
-    updateDate: new Date('2022-12-01T23:44:12.9922698'),
-    approvedBy: null,
-    bankName: 'BNP',
-  };
+export class OfferStatusComponent implements OnInit, OnDestroy {
+  private routeSub!: Subscription;
 
-  constructor() {}
+  offer!: OfferDetails;
 
-  ngOnInit(): void {}
+  constructor(
+    private route: ActivatedRoute,
+    private loansComparerService: LoansComparerService
+  ) {}
+
+  ngOnInit(): void {
+    this.routeSub = this.route.params.subscribe((params) => {
+      this.loansComparerService
+        .getInquiryOffer(params['inquiryId'])
+        .subscribe(
+          (response: OfferDTO) =>
+            (this.offer = <OfferDetails>(<unknown>response))
+        );
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe();
+  }
 }
