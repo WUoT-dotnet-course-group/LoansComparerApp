@@ -67,7 +67,7 @@ namespace LoansComparer.Presentation.Controllers
         {
             var offer = await _serviceManager.InquiryService.GetOfferByInquiry(inquiryId);
 
-            if (offer is null) 
+            if (offer is null)
             {
                 return NotFound();
             }
