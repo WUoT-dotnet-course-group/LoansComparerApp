@@ -44,5 +44,9 @@ namespace LoansComparer.WebAPI.Configuration
         public string GoogleAuthClientId => _googleAuthConfig.ClientId;
 
         public string GoogleAuthSecretKey => _googleAuthConfig.SecretKey;
+
+        public string WebClientDomain => Configuration.GetValue<string>("WebClientDomain");
+
+        public string GetWebClientInquiryDetailsPath(Guid inquiryId) => WebClientDomain + $"inquiries/{inquiryId}";
     }
 }
