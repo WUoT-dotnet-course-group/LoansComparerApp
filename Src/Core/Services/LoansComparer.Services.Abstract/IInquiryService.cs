@@ -15,5 +15,7 @@ namespace LoansComparer.Services.Abstract
         Task<int> GetInquiriesAmount();
 
         Task SendAfterSubmissionEmail(Guid inquiryId);
+
+        Task<OfferDTO?> GetOfferByInquiry(Guid inquiryId);
     }
 }

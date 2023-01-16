@@ -49,7 +49,7 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{bankInquiryId}/offer")]
+        [HttpGet("fetch-offer/{bankInquiryId}")]
         public async Task<ActionResult<OfferDTO>> FetchOffer(Guid bankInquiryId)
         {
             var response = await _serviceManager.LoaningService.GetOfferByInquiryId(bankInquiryId);
@@ -59,6 +59,20 @@ namespace LoansComparer.Presentation.Controllers
             }
 
             return Ok(response.Content);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{inquiryId}/offer")]
+        public async Task<ActionResult<OfferDTO>> GetOffer(Guid inquiryId)
+        {
+            var offer = await _serviceManager.InquiryService.GetOfferByInquiry(inquiryId);
+
+            if (offer is null) 
+            {
+                return NotFound();
+            }
+
+            return Ok(offer);
         }
 
         [AllowAnonymous]

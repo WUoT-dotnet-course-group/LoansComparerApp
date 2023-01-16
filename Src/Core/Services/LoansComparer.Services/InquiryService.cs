@@ -83,5 +83,18 @@ namespace LoansComparer.Services
 
             await _serviceManager.EmailService.SendEmailAsync(Resources.InquirySubmittedEmailSubject, emailBody, inquiry.User.Email!);
         }
+
+        public async Task<OfferDTO?> GetOfferByInquiry(Guid inquiryId)
+        {
+            var offerId = await GetOfferId(inquiryId);
+
+            var response = await _serviceManager.LoaningService.GetOfferById(offerId);
+            if (!response.IsSuccessful)
+            {
+                return null;
+            }
+
+            return response.Content!.Adapt<OfferDTO>();
+        }
     }
 }
