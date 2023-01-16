@@ -57,7 +57,7 @@ namespace LoansComparer.Services
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("Id", userId.ToString()) }),
                 Expires = DateTime.UtcNow.AddMinutes(5),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetGoogleAuthSecretKey())), SecurityAlgorithms.HmacSha512Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GoogleAuthSecretKey)), SecurityAlgorithms.HmacSha512Signature)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

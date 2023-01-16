@@ -6,6 +6,7 @@ namespace LoansComparer.WebAPI.Configuration
     {
         private readonly DatabaseConfig _databaseConfig;
         private readonly GoogleAuthConfig _googleAuthConfig;
+        private readonly EmailServiceConfig _emailServiceConfig;
 
         public readonly IConfiguration Configuration;
 
@@ -14,6 +15,7 @@ namespace LoansComparer.WebAPI.Configuration
             Configuration = configuration;
             _databaseConfig = Configuration.GetRequiredSection(DatabaseConfig.SectionName).Get<DatabaseConfig>();
             _googleAuthConfig = Configuration.GetRequiredSection(GoogleAuthConfig.SectionName).Get<GoogleAuthConfig>();
+            _emailServiceConfig = Configuration.GetRequiredSection(EmailServiceConfig.SectionName).Get<EmailServiceConfig>();
         }
 
         public string DbConnectionString
@@ -27,9 +29,20 @@ namespace LoansComparer.WebAPI.Configuration
             }
         }
 
+        public string EmailClientConnectionString
+        {
+            get
+            {
+                return $"endpoint={_emailServiceConfig.Endpoint};accesskey={_emailServiceConfig.AccessKey}";
+            }
+        }
+
+        public string EmailClientDomain => _emailServiceConfig.Domain;
+
         public string LoaningBankDomain => Configuration.GetValue<string>("LoaningBankDomain");
 
-        public string GetGoogleAuthClientId() => _googleAuthConfig.ClientId;
-        public string GetGoogleAuthSecretKey() => _googleAuthConfig.SecretKey;
+        public string GoogleAuthClientId => _googleAuthConfig.ClientId;
+
+        public string GoogleAuthSecretKey => _googleAuthConfig.SecretKey;
     }
 }

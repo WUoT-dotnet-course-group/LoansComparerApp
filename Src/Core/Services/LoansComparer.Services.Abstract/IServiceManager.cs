@@ -5,5 +5,6 @@
         ILoaningService LoaningService { get; }
         IInquiryService InquiryService { get; }
         IUserService UserService { get; }
+        IEmailService EmailService { get; }
     }
 }

@@ -2,7 +2,9 @@
 {
     public interface IServicesConfiguration
     {
-        string GetGoogleAuthClientId();
-        string GetGoogleAuthSecretKey();
+        string GoogleAuthClientId { get; }
+        string GoogleAuthSecretKey { get; }
+        string EmailClientConnectionString { get; }
+        string EmailClientDomain { get; }
     }
 }
