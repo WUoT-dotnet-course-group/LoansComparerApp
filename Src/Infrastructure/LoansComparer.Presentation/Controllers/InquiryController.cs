@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace LoansComparer.Presentation.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Debtor")]
     [Route("api/inquiries")]
     public class InquiryController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<CreateInquiryResponseDTO>> Create([FromBody] CreateInquiryDTO inquiry)
         {
-            var userId = User.FindFirst("Id")?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
             var inquiryId = await _serviceManager.InquiryService.Add(inquiry, userId);
 
             var response = await _serviceManager.LoaningService.Inquire(inquiry);

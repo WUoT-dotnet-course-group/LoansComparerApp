@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace LoansComparer.Presentation.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Debtor")]
     [Route("api/users")]
     public class UserController : ControllerBase
     {
