@@ -1,4 +1,4 @@
-<div fxLayout="row" fxFill>
+<div fxLayout="row" fxFill *ngIf="!isBankEmployee; else bankEmployeeHomePage">
   <div fxFlex="70" fxLayout="column" fxLayoutAlign="center">
     <router-outlet></router-outlet>
   </div>
@@ -12,3 +12,9 @@
       inquiry</button>
   </div>
 </div>
+
+<ng-template #bankEmployeeHomePage>
+  <div fxLayout="row" fxFill fxLayoutAlign="center center">
+    <app-bank-offers></app-bank-offers>
+  </div>
+</ng-template>

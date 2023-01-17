@@ -19,11 +19,15 @@ export class AuthService {
   private _path = environment.apiUrl;
 
   user$ = new BehaviorSubject<User | null>(null);
-  isAuthenticated!: boolean;
+  isAuthenticated: boolean = false;
+  isBankEmployee: boolean = false;
 
   constructor(private httpClient: HttpClient) {
     this.user$.subscribe((value: User | null) => {
-      this.isAuthenticated = !!value;
+      if (!!value) {
+        this.isAuthenticated = true;
+        this.isBankEmployee = value.isBankEmployee;
+      }
     });
   }
 
