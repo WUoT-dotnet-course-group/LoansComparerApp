@@ -2,8 +2,6 @@
 using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
 using Mapster;
-using System.Net.Http;
-using System;
 using System.Text;
 using System.Text.Json;
 
@@ -51,17 +49,7 @@ namespace LoansComparer.Services
 
             var offerResponse = await GetOfferById(inquiryResponse.Content.OfferId.Value);
 
-            var finalResponse = new BaseResponse<OfferDTO>()
-            {
-                StatusCode = offerResponse.StatusCode,
-            };
-            if (offerResponse.IsSuccessful)
-            {
-                finalResponse.Content = offerResponse.Content!.Adapt<OfferDTO>();
-                finalResponse.IsSuccessful = true;
-            }
-
-            return finalResponse;
+            return offerResponse.Adapt<BaseResponse<OfferDTO>>();
         }
 
         public async Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename)
@@ -87,6 +75,14 @@ namespace LoansComparer.Services
             }
 
             return baseResponse;
+        }
+
+        public async Task<BaseResponse<PaginatedResponse<OfferDTO>>> GetBankOffers(PagingParameter pagingParams)
+        {
+            var response = await SendAsync<PaginatedResponse<GetOfferDetailsResponse>>(HttpMethod.Get, 
+                $"api/inquiries?sortOrder={pagingParams.SortOrder}&sortHeader={pagingParams.SortHeader}&pageIndex={pagingParams.PageIndex}&pageSize={pagingParams.PageSize}");
+
+            return response.Adapt<BaseResponse<PaginatedResponse<OfferDTO>>>();
         }
 
         private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class
