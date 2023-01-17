@@ -18,11 +18,7 @@ namespace LoansComparer.DataPersistence.Repositories
 
         public async Task<User> GetUserById(Guid userId) => await _dbContext.Users.SingleAsync(x => x.ID == userId);
 
-        public async Task<Guid> GetUserIdByEmail(string email)
-        {
-            var user = await _dbContext.Users.SingleAsync(x => x.Email == email);
-            return user.ID;
-        }
+        public async Task<User> GetUserByEmail(string email) => await _dbContext.Users.SingleAsync(x => x.Email == email);
 
         public async Task<bool> UserExistsById(Guid userId) => await _dbContext.Users.AnyAsync(x => x.ID == userId);
 

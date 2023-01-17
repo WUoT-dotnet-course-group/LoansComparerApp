@@ -2,6 +2,7 @@
 using LoansComparer.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LoansComparer.Presentation.Controllers
 {
@@ -17,7 +18,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<PaginatedResponse<GetInquiryDTO>>> Get([FromQuery] PagingParameter pagingParams)
         {
-            var userId = User.FindFirst("Id")?.Value!;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
 
             var inquiries = await _serviceManager.InquiryService.GetByUser(Guid.Parse(userId), pagingParams);
 
