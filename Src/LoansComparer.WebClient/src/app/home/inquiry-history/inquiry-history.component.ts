@@ -73,4 +73,8 @@ export class InquiryHistoryComponent implements AfterViewInit, OnInit {
       pageSize: this.paginator.pageSize,
     });
   }
+
+  get isAnyInquiry(): boolean {
+    return this.dataSource.totalNumberOfInquiries > 0;
+  }
 }

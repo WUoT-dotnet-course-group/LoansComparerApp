@@ -36,7 +36,11 @@ export class HomeComponent implements OnInit {
       .subscribe((amount: number) => (this.currentInquiresMade = amount));
   }
 
-  get isBankEmployee() {
-    return this.authService.isBankEmployee;
+  get isAuthenticated() {
+    return this.authService.isAuthenticated;
+  }
+
+  get isDebtor() {
+    return !this.authService.isBankEmployee;
   }
 }
