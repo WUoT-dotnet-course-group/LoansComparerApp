@@ -145,6 +145,21 @@ export class LoansComparerService {
       .subscribe();
   }
 
+  getBankOffers(
+    request: PagingParameter
+  ): Observable<PaginatedResponse<OfferDTO>> {
+    return this.http.get<PaginatedResponse<OfferDTO>>(
+      this.path + 'api/offers',
+      {
+        params: new HttpParams()
+          .set('sortOrder', request.sortOrder)
+          .set('sortHeader', request.sortHeader)
+          .set('pageIndex', request.pageIndex)
+          .set('pageSize', request.pageSize),
+      }
+    );
+  }
+
   getJobTypes(): Observable<DictionaryDTO[]> {
     return this.http.get<DictionaryDTO[]>(
       this.path + 'api/dictionary/job-types'
