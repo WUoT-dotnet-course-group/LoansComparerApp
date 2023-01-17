@@ -13,7 +13,7 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { InquiryHistoryDataSource } from './inquiry-history-data-source';
-import { mergeAll, tap } from 'rxjs/operators';
+import { mergeAll } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({

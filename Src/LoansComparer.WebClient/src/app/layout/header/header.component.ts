@@ -19,4 +19,8 @@ export class HeaderComponent implements OnInit {
   get isAuthenticated() {
     return this.authService.isAuthenticated;
   }
+
+  get isDebtor() {
+    return !this.authService.isBankEmployee;
+  }
 }

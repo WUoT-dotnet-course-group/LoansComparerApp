@@ -3,7 +3,8 @@
   <div fxLayout="row" fxLayoutAlign="none center">
     <app-sign-in-google *ngIf="!isAuthenticated"></app-sign-in-google>
     <div fxLayout="row" *ngIf="isAuthenticated">
-      <button mat-button class="sec-button" color="primary" (click)="onPersonalDataClick()">Personal data</button>
+      <button *ngIf="isDebtor" mat-button class="sec-button" color="primary" (click)="onPersonalDataClick()">Personal
+        data</button>
       <app-sign-out></app-sign-out>
     </div>
     <button mat-mini-fab color="primary" fxLayoutAlign="center center" routerLink="/home">
