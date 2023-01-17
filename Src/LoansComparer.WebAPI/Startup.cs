@@ -62,7 +62,7 @@ namespace LoansComparer
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationsManager.GetGoogleAuthSecretKey())),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationsManager.GoogleAuthSecretKey)),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };

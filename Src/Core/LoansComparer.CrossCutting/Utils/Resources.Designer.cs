@@ -61,6 +61,34 @@ namespace LoansComparer.CrossCutting.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Congratulations {0}!
+        ///
+        ///
+        ///Your submitted inquiry request is now waiting for a bank employee action. 
+        ///
+        ///You can still track its status here: {1}
+        ///
+        ///
+        ///Thank you for loaning with us!
+        ///
+        ///LoansComparer Team.
+        /// </summary>
+        public static string InquirySubmittedEmailBody {
+            get {
+                return ResourceManager.GetString("InquirySubmittedEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully submitted inquiry request.
+        /// </summary>
+        public static string InquirySubmittedEmailSubject {
+            get {
+                return ResourceManager.GetString("InquirySubmittedEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid sorted column header name.
         /// </summary>
         public static string InvalidSortedColumnHeaderName {

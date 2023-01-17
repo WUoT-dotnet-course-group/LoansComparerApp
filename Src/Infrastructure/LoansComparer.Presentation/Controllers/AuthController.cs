@@ -21,9 +21,10 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPost("signIn")]
         public async Task<ActionResult<AuthDTO>> SignInWithGoogle([FromBody] string credentials)
         {
+
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
-                Audience = new List<string> { _configuration.GetGoogleAuthClientId() }
+                Audience = new List<string> { _configuration.GoogleAuthClientId }
             };
 
             var payload = await GoogleJsonWebSignature.ValidateAsync(credentials, settings);

@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Azure.Communication.Email" Version="1.0.0-beta.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\LoansComparer.Domain\LoansComparer.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\Services\LoansComparer.Services.Abstract\LoansComparer.Services.Abstract.csproj" />
+  </ItemGroup>
+
 </Project>

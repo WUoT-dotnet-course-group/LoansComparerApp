@@ -13,8 +13,7 @@ const routes: Routes = [
         (m) => m.InquiryProcessModule
       ),
   },
-  // { path: 'offers/:bankId/:offerId', component: OfferStatusComponent },
-  { path: 'offers/status', component: OfferStatusComponent },
+  { path: 'inquiries/:inquiryId', component: OfferStatusComponent },
   {
     path: 'personal-data',
     component: PersonalDataFormComponent,
