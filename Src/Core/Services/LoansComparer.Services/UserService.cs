@@ -64,7 +64,12 @@ namespace LoansComparer.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new AuthDTO { EncryptedToken = tokenHandler.WriteToken(token), UserEmail = userEmail };
+            return new AuthDTO 
+            { 
+                EncryptedToken = tokenHandler.WriteToken(token), 
+                UserEmail = userEmail, 
+                IsBankEmployee = user.Role is UserRole.BankEmployee
+            };
         }
 
         public async Task<bool> UserExistsByEmail(string userEmail) => await _repositoryManager.UserRepository.UserExistsByEmail(userEmail);
