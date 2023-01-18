@@ -47,6 +47,6 @@ namespace LoansComparer.WebAPI.Configuration
 
         public string WebClientDomain => Configuration.GetValue<string>("WebClientDomain");
 
-        public string GetWebClientInquiryDetailsPath(Guid inquiryId) => WebClientDomain + $"inquiries/{inquiryId}";
+        public string GetWebClientOfferDetailsPath(Guid offerId) => WebClientDomain + $"offers/{offerId}";
     }
 }

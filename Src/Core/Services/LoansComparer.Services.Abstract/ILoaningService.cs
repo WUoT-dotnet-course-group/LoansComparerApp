@@ -7,8 +7,8 @@ namespace LoansComparer.Services.Abstract
     {
         Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData);
         Task<BaseResponse<GetInquiryResponse>> GetInquiry(Guid inquiryId);
-        Task<BaseResponse<GetOfferResponse>> GetOfferById(Guid offerId);
-        Task<BaseResponse<OfferDTO>> GetOfferByInquiryId(Guid inquiryId);
+        Task<BaseResponse<OfferDTO>> GetOfferById(Guid offerId);
+        Task<BaseResponse<OfferDTO>> FetchOffer(Guid inquiryId);
         Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename);
         Task<BaseResponse<PaginatedResponse<OfferDTO>>> GetBankOffers(PagingParameter pagingParams);
     }

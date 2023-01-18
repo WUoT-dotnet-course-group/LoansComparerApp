@@ -29,13 +29,14 @@ namespace LoansComparer.Services
             return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"api/inquiries/{inquiryId}");
         }
 
-        public async Task<BaseResponse<GetOfferResponse>> GetOfferById(Guid offerId)
+        public async Task<BaseResponse<OfferDTO>> GetOfferById(Guid offerId)
         {
             // TODO: fetch hardcoded url from db
-            return await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
+            var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
+            return response.Adapt<BaseResponse<OfferDTO>>();
         }
 
-        public async Task<BaseResponse<OfferDTO>> GetOfferByInquiryId(Guid inquiryId)
+        public async Task<BaseResponse<OfferDTO>> FetchOffer(Guid inquiryId)
         {
             var inquiryResponse = await GetInquiry(inquiryId);
 
@@ -47,9 +48,7 @@ namespace LoansComparer.Services
                 };
             }
 
-            var offerResponse = await GetOfferById(inquiryResponse.Content.OfferId.Value);
-
-            return offerResponse.Adapt<BaseResponse<OfferDTO>>();
+            return await GetOfferById(inquiryResponse.Content.OfferId.Value);
         }
 
         public async Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename)

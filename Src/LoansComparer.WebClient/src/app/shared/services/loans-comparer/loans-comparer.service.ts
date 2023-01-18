@@ -124,10 +124,8 @@ export class LoansComparerService {
     );
   }
 
-  getInquiryOffer(inquiryId: string): Observable<OfferDTO> {
-    return this.http.get<OfferDTO>(
-      this.path + `api/inquiries/${inquiryId}/offer`
-    );
+  getInquiryOffer(offerId: string): Observable<OfferDTO> {
+    return this.http.get<OfferDTO>(this.path + `api/offers/${offerId}`);
   }
 
   chooseOffer(inquiryId: string, chooseOfferData: ChooseOfferDTO): void {

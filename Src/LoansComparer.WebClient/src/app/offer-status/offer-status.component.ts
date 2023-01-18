@@ -52,7 +52,7 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
       this.loansComparerService
-        .getInquiryOffer(params['inquiryId'])
+        .getInquiryOffer(params['offerId'])
         .subscribe(
           (response: OfferDTO) =>
             (this.offer = <OfferDetails>(<unknown>response))

@@ -27,5 +27,19 @@ namespace LoansComparer.Presentation.Controllers
 
             return Ok(response.Content);
         }
+
+        [AllowAnonymous]
+        [HttpGet("{offerId}")]
+        public async Task<ActionResult<OfferDTO>> GetOffer(Guid offerId)
+        {
+            var offer = await _serviceManager.LoaningService.GetOfferById(offerId);
+
+            if (!offer.IsSuccessful)
+            {
+                return NotFound();
+            }
+
+            return Ok(offer.Content);
+        }
     }
 }
