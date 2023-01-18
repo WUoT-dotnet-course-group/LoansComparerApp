@@ -32,7 +32,8 @@
         </div>
       </div>
 
-      <div *ngIf="isBankEmployee" fxFlexOffset="2" fxFill fxLayoutAlign="space-evenly center">
+      <div *ngIf="isBankEmployee && !(offer.status == 3 || offer.status == 4)" fxFlexOffset="2" fxFill
+        fxLayoutAlign="space-evenly center">
         <button mat-button class="sec-button" color="primary" (click)="reject()">Reject</button>
         <button mat-button class="prim-button" (click)="accept()">Accept</button>
       </div>

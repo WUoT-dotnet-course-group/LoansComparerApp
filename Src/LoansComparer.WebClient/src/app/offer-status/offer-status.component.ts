@@ -56,13 +56,16 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.loansComparerService
-        .getInquiryOffer(params['offerId'])
-        .subscribe(
-          (response: OfferDTO) =>
-            (this.offer = <OfferDetails>(<unknown>response))
-        );
+      this.loadOffer(params['offerId']);
     });
+  }
+
+  loadOffer(offerId: string): void {
+    this.loansComparerService
+      .getInquiryOffer(offerId)
+      .subscribe(
+        (response: OfferDTO) => (this.offer = <OfferDetails>(<unknown>response))
+      );
   }
 
   ngOnDestroy(): void {
@@ -74,10 +77,14 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
   }
 
   reject(): void {
-    this.loansComparerService.rejectOffer(this.offer.id);
+    this.loansComparerService
+      .rejectOffer(this.offer.id)
+      .subscribe((_) => this.loadOffer(this.offer.id));
   }
 
   accept(): void {
-    this.loansComparerService.acceptOffer(this.offer.id);
+    this.loansComparerService
+      .acceptOffer(this.offer.id)
+      .subscribe((_) => this.loadOffer(this.offer.id));
   }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CredentialResponse } from 'google-one-tap';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { environment } from 'src/environments/environment';
+import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-sign-in-google',
@@ -15,7 +16,8 @@ export class SignInGoogleComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +42,7 @@ export class SignInGoogleComponent implements OnInit {
   }
 
   handleCredentialResponse(response: CredentialResponse) {
+    this.loadingService.isLoading = true;
     this.authService.signIn(response.credential).subscribe({
       next: (_) => {
         this.ngZone.run(() => {
