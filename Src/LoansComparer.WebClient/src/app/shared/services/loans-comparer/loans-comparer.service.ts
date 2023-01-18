@@ -158,6 +158,18 @@ export class LoansComparerService {
     );
   }
 
+  acceptOffer(offerId: string): void {
+    this.http
+      .patch<any>(this.path + `api/offers/${offerId}/accept`, {})
+      .subscribe();
+  }
+
+  rejectOffer(offerId: string): void {
+    this.http
+      .patch<any>(this.path + `api/offers/${offerId}/reject`, {})
+      .subscribe();
+  }
+
   getJobTypes(): Observable<DictionaryDTO[]> {
     return this.http.get<DictionaryDTO[]>(
       this.path + 'api/dictionary/job-types'

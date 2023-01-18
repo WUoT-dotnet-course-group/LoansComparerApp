@@ -13,8 +13,10 @@ import {
   OfferDTO,
 } from '../shared/services/loans-comparer/loans-comparer.service';
 import { AuthService } from '../shared/services/auth/auth.service';
+import { LoadingService } from '../shared/services/loading/loading.service';
 
 export interface OfferDetails {
+  id: string;
   percentage: number;
   monthlyInstallment: number;
   loanValue: number;
@@ -48,7 +50,8 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
-    private loansComparerService: LoansComparerService
+    private loansComparerService: LoansComparerService,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +73,11 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
     return this.authService.isBankEmployee;
   }
 
-  reject(): void {}
+  reject(): void {
+    this.loansComparerService.rejectOffer(this.offer.id);
+  }
 
-  accept(): void {}
+  accept(): void {
+    this.loansComparerService.acceptOffer(this.offer.id);
+  }
 }

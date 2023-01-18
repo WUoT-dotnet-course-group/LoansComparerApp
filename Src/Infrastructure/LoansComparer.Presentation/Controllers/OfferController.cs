@@ -1,5 +1,4 @@
 ﻿using LoansComparer.CrossCutting.DTO;
-using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,14 +31,40 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet("{offerId}")]
         public async Task<ActionResult<OfferDTO>> GetOffer(Guid offerId)
         {
-            var offer = await _serviceManager.LoaningService.GetOfferById(offerId);
+            var response = await _serviceManager.LoaningService.GetOfferById(offerId);
 
-            if (!offer.IsSuccessful)
+            if (!response.IsSuccessful)
             {
                 return NotFound();
             }
 
-            return Ok(offer.Content);
+            return Ok(response.Content);
+        }
+
+        [HttpPatch("{offerId}/accept")]
+        public async Task<ActionResult> AcceptOffer(Guid offerId)
+        {
+            var response = await _serviceManager.LoaningService.AcceptOffer(offerId);
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpPatch("{offerId}/reject")]
+        public async Task<ActionResult> RejectOffer(Guid offerId)
+        {
+            var response = await _serviceManager.LoaningService.RejectOffer(offerId);
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 }
