@@ -1,6 +1,5 @@
 ﻿using LoansComparer.CrossCutting.DTO;
 using LoansComparer.CrossCutting.Enums;
-using LoansComparer.CrossCutting.Utils;
 using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
@@ -11,14 +10,10 @@ namespace LoansComparer.Services
     internal sealed class InquiryService : IInquiryService
     {
         private readonly IRepositoryManager _repositoryManager;
-        private readonly IServiceManager _serviceManager;
-        private readonly IServicesConfiguration _configuration;
 
-        public InquiryService(IRepositoryManager repositoryManager, IServiceManager serviceManager, IServicesConfiguration configuration)
+        public InquiryService(IRepositoryManager repositoryManager)
         {
             _repositoryManager = repositoryManager;
-            _serviceManager = serviceManager;
-            _configuration = configuration;
         }
 
         public async Task<Guid> Add(CreateInquiryDTO inquiry, string? userId)
@@ -74,14 +69,5 @@ namespace LoansComparer.Services
         }
 
         public async Task<int> GetInquiriesAmount() => await _repositoryManager.InquiryRepository.Count();
-
-        public async Task SendAfterSubmissionEmail(Guid inquiryId)
-        {
-            var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
-
-            var emailBody = string.Format(Resources.InquirySubmittedEmailBody, inquiry.User.PersonalData!.FirstName, _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenOfferId));
-
-            await _serviceManager.EmailService.SendEmailAsync(Resources.InquirySubmittedEmailSubject, emailBody, inquiry.User.Email!);
-        }
     }
 }

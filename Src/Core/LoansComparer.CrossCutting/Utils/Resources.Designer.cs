@@ -96,5 +96,32 @@ namespace LoansComparer.CrossCutting.Utils {
                 return ResourceManager.GetString("InvalidSortedColumnHeaderName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi {0}!
+        ///
+        ///
+        ///Status of your inquiry has changed.
+        ///For details click here: {1}
+        ///
+        ///
+        ///Thank you for loaning with us!
+        ///
+        ///LoansComparer Team.
+        /// </summary>
+        public static string OfferStatusChangedEmailBody {
+            get {
+                return ResourceManager.GetString("OfferStatusChangedEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status of your inquiry has changed.
+        /// </summary>
+        public static string OfferStatusChangedEmailSubject {
+            get {
+                return ResourceManager.GetString("OfferStatusChangedEmailSubject", resourceCulture);
+            }
+        }
     }
 }

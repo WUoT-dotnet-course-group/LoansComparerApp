@@ -51,6 +51,8 @@ namespace LoansComparer.Presentation.Controllers
                 return NotFound();
             }
 
+            await _serviceManager.EmailService.SendAfterDecisionEmail(offerId);
+
             return Ok();
         }
 
@@ -63,6 +65,8 @@ namespace LoansComparer.Presentation.Controllers
             {
                 return NotFound();
             }
+
+            await _serviceManager.EmailService.SendAfterDecisionEmail(offerId);
 
             return Ok();
         }

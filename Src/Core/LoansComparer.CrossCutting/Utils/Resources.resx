@@ -136,4 +136,19 @@ LoansComparer Team</value>
   <data name="InvalidSortedColumnHeaderName" xml:space="preserve">
     <value>Invalid sorted column header name</value>
   </data>
+  <data name="OfferStatusChangedEmailBody" xml:space="preserve">
+    <value>Hi {0}!
+
+
+Status of your inquiry has changed.
+For details click here: {1}
+
+
+Thank you for loaning with us!
+
+LoansComparer Team</value>
+  </data>
+  <data name="OfferStatusChangedEmailSubject" xml:space="preserve">
+    <value>Status of your inquiry has changed</value>
+  </data>
 </root>

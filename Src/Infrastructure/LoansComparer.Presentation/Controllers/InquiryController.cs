@@ -75,7 +75,7 @@ namespace LoansComparer.Presentation.Controllers
                 return NotFound();
             }
 
-            await _serviceManager.InquiryService.SendAfterSubmissionEmail(inquiryId);
+            await _serviceManager.EmailService.SendAfterSubmissionEmail(inquiryId);
 
             return Ok();
         }

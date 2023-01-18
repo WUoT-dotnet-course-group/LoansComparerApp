@@ -39,5 +39,11 @@ namespace LoansComparer.DataPersistence.Repositories
         }
 
         public async Task<int> Count() => await _dbContext.Inquiries.CountAsync();
+
+        public async Task<User> GetDebtorByOffer(Guid offerId)
+        {
+            var userData = await _dbContext.Inquiries.Select(x => new { x.ChosenOfferId, x.User }).SingleAsync(x => x.ChosenOfferId == offerId);
+            return userData.User;
+        }
     }
 }

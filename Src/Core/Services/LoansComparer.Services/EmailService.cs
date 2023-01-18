@@ -1,5 +1,7 @@
 ﻿using Azure.Communication.Email;
 using Azure.Communication.Email.Models;
+using LoansComparer.CrossCutting.Utils;
+using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
 
 namespace LoansComparer.Services
@@ -8,11 +10,15 @@ namespace LoansComparer.Services
     {
         private readonly EmailClient _emailClient;
         private readonly string _sendOutEmailAddress;
+        private readonly IRepositoryManager _repositoryManager;
+        private readonly IServicesConfiguration _configuration;
 
-        public EmailService(string connectionString, string sendOutEmail)
+        public EmailService(string connectionString, string sendOutEmail, IRepositoryManager repositoryManager, IServicesConfiguration configuration)
         {
             _emailClient = new EmailClient(connectionString);
             _sendOutEmailAddress = sendOutEmail;
+            _repositoryManager = repositoryManager;
+            _configuration = configuration;
         }
 
         public async Task SendEmailAsync(string emailSubject, string emailBody, string emailAddress)
@@ -30,6 +36,26 @@ namespace LoansComparer.Services
             var emailMessage = new EmailMessage(_sendOutEmailAddress, emailContent, emailRecipients);
 
             await _emailClient.SendAsync(emailMessage);
+        }
+
+        public async Task SendAfterSubmissionEmail(Guid inquiryId)
+        {
+            var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
+
+            var emailBody = string.Format(Resources.InquirySubmittedEmailBody, inquiry.User.PersonalData!.FirstName, 
+                _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenOfferId));
+
+            await SendEmailAsync(Resources.InquirySubmittedEmailSubject, emailBody, inquiry.User.Email!);
+        }
+
+        public async Task SendAfterDecisionEmail(Guid offerId)
+        {
+            var debtor = await _repositoryManager.InquiryRepository.GetDebtorByOffer(offerId);
+
+            var emailBody = string.Format(Resources.OfferStatusChangedEmailBody, debtor.PersonalData!.FirstName,
+                _configuration.GetWebClientOfferDetailsPath(offerId));
+
+            await SendEmailAsync(Resources.OfferStatusChangedEmailSubject, emailBody, debtor.Email!);
         }
     }
 }
