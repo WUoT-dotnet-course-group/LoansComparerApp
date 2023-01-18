@@ -9,6 +9,14 @@ span {
   vertical-align: middle;
 }
 
+button {
+  font-size: 17.5px;
+  font-family: 'Lilita One', cursive;
+  border-radius: 25px;
+  height: 42px;
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 10%), 0px 6px 10px 0px rgb(0 0 0 / 8%), 0px 1px 18px 0px rgb(0 0 0 / 6%);
+}
+
 .header {
   font-family: 'Lilita one', cursive;
   font-size: 35px;
@@ -47,4 +55,16 @@ span {
 
 .orange {
   color: orange
+}
+
+.prim-button {
+  width: 120px;
+  color: white;
+  background-color: rgb(119, 46, 158);
+  align-self: center;
+}
+
+.sec-button {
+  width: 120px;
+  background-color: white;
 }

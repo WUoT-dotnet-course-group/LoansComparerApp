@@ -1,33 +1,40 @@
 <div fxLayout="row" fxLayoutAlign="center center" fxFill [@animation]>
   <div fxLayout="column" fxLayoutAlign="center center">
     <span class="header" fxFill>Offer details</span>
-    <div class="box" fxLayout="row" fxLayoutAlign="center center">
-      <div class="keys" fxLayout="column">
-        <span>Bank name:</span>
-        <span>Loan value:</span>
-        <span>Percentage:</span>
-        <span>Monthly installment:</span>
-        <span>Installment period:</span>
-        <span>Approved by:</span>
-        <span>Create date:</span>
-        <span>Update date:</span>
-        <span>Status:</span>
-      </div>
-      <div class="values" fxLayout="column">
-        <span>{{ offer.bankName }}</span>
-        <span>{{ offer.loanValue }} PLN</span>
-        <span>{{ offer.percentage }}</span>
-        <span>{{ offer.monthlyInstallment }}</span>
-        <span>{{ offer.loanPeriod }} months</span>
-        <span>{{ offer.approvedBy === null ? '-' : offer.approvedBy }}</span>
-        <span>{{ offer.createDate | date:'medium'}}</span>
-        <span>{{ offer.updateDate | date:'medium'}}</span>
-        <span [ngClass]="[
+    <div class="box" fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="keys" fxLayout="column">
+          <span>Bank name:</span>
+          <span>Loan value:</span>
+          <span>Percentage:</span>
+          <span>Monthly installment:</span>
+          <span>Installment period:</span>
+          <span>Approved by:</span>
+          <span>Create date:</span>
+          <span>Update date:</span>
+          <span>Status:</span>
+        </div>
+        <div class="values" fxLayout="column">
+          <span>{{ offer.bankName }}</span>
+          <span>{{ offer.loanValue }} PLN</span>
+          <span>{{ offer.percentage }}</span>
+          <span>{{ offer.monthlyInstallment }}</span>
+          <span>{{ offer.loanPeriod }} months</span>
+          <span>{{ offer.approvedBy === null ? '-' : offer.approvedBy }}</span>
+          <span>{{ offer.createDate | date:'medium'}}</span>
+          <span>{{ offer.updateDate | date:'medium'}}</span>
+          <span [ngClass]="[
           offer.status == 2 ? 'orange' : '',
           offer.status == 3 ? 'green' : '',
           offer.status == 4 ? 'red' : '',
         ]">
-          {{ offer.statusDescription }}</span>
+            {{ offer.statusDescription }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="isBankEmployee" fxFlexOffset="2" fxFill fxLayoutAlign="space-evenly center">
+        <button mat-button class="sec-button" color="primary" (click)="reject()">Reject</button>
+        <button mat-button class="prim-button" (click)="accept()">Accept</button>
       </div>
     </div>
   </div>

@@ -12,6 +12,7 @@ import {
   LoansComparerService,
   OfferDTO,
 } from '../shared/services/loans-comparer/loans-comparer.service';
+import { AuthService } from '../shared/services/auth/auth.service';
 
 export interface OfferDetails {
   percentage: number;
@@ -45,6 +46,7 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
   offer!: OfferDetails;
 
   constructor(
+    private authService: AuthService,
     private route: ActivatedRoute,
     private loansComparerService: LoansComparerService
   ) {}
@@ -63,4 +65,12 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeSub.unsubscribe();
   }
+
+  get isBankEmployee(): boolean {
+    return this.authService.isBankEmployee;
+  }
+
+  reject(): void {}
+
+  accept(): void {}
 }
