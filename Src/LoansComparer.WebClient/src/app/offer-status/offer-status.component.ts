@@ -7,7 +7,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   LoansComparerService,
   OfferDTO,
@@ -51,6 +51,7 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private route: ActivatedRoute,
     private loansComparerService: LoansComparerService,
+    private router: Router,
     public loadingService: LoadingService
   ) {}
 
@@ -76,15 +77,19 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
     return this.authService.isBankEmployee;
   }
 
-  reject(): void {
+  onReject(): void {
     this.loansComparerService
       .rejectOffer(this.offer.id)
       .subscribe((_) => this.loadOffer(this.offer.id));
   }
 
-  accept(): void {
+  onAccept(): void {
     this.loansComparerService
       .acceptOffer(this.offer.id)
       .subscribe((_) => this.loadOffer(this.offer.id));
+  }
+
+  onReturn(): void {
+    this.router.navigateByUrl('/home');
   }
 }

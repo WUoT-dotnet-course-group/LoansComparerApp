@@ -32,10 +32,13 @@
         </div>
       </div>
 
-      <div *ngIf="isBankEmployee && !(offer.status == 3 || offer.status == 4)" fxFlexOffset="2" fxFill
-        fxLayoutAlign="space-evenly center">
-        <button mat-button class="sec-button" color="primary" (click)="reject()">Reject</button>
-        <button mat-button class="prim-button" (click)="accept()">Accept</button>
+      <div fxLayout="row" fxFlexOffset="2" fxFill>
+        <app-return-button (click)="onReturn()"></app-return-button>
+        <div *ngIf="isBankEmployee && !(offer.status == 3 || offer.status == 4)" fxFill
+          fxLayoutAlign="space-evenly center">
+          <button mat-button class="sec-button" color="primary" (click)="onReject()">Reject</button>
+          <button mat-button class="prim-button" (click)="onAccept()">Accept</button>
+        </div>
       </div>
     </div>
   </div>
