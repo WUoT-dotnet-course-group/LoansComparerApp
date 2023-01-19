@@ -1,4 +1,5 @@
-﻿using LoansComparer.Domain.Entities;
+﻿using LoansComparer.CrossCutting.Enums;
+using LoansComparer.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoansComparer.DataPersistence
@@ -31,6 +32,10 @@ namespace LoansComparer.DataPersistence
                     pd.Property(y => y.JobStartDate).HasColumnName("JobStartDate");
                     pd.Property(y => y.JobEndDate).HasColumnName("JobEndDate");
                 });
+
+            modelBuilder.Entity<User>()
+                .Property(x => x.Role)
+                .HasDefaultValue(UserRole.Debtor);
 
             modelBuilder.Entity<Inquiry>()
                 .Property(x => x.InquireDate)

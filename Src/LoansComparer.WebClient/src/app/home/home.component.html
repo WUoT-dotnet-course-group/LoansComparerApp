@@ -1,4 +1,4 @@
-<div fxLayout="row" fxFill>
+<div fxLayout="row" fxFill *ngIf="isDebtor; else bankEmployeeHomePage">
   <div fxFlex="70" fxLayout="column" fxLayoutAlign="center">
     <router-outlet></router-outlet>
   </div>
@@ -8,7 +8,13 @@
       <span>{{ currentInquiresMade }}</span>
       <span class="content">loaners have already trusted us!</span>
     </div>
-    <button mat-button class="prim-button" routerLink="/inquire">Create your first
-      inquiry</button>
+    <button mat-button class="prim-button"
+      routerLink="/inquire">{{ isAuthenticated ? "Create new inquiry" : "Create your first inquiry" }}</button>
   </div>
 </div>
+
+<ng-template #bankEmployeeHomePage>
+  <div fxLayout="row" fxFill fxLayoutAlign="center center">
+    <app-bank-offers></app-bank-offers>
+  </div>
+</ng-template>

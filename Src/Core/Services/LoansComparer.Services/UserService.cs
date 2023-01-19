@@ -1,4 +1,5 @@
 ﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.CrossCutting.Enums;
 using LoansComparer.Domain.Entities;
 using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
@@ -51,19 +52,24 @@ namespace LoansComparer.Services
 
         public async Task<AuthDTO> Authenticate(string userEmail)
         {
-            var userId = await _repositoryManager.UserRepository.GetUserIdByEmail(userEmail);
+            var user = await _repositoryManager.UserRepository.GetUserByEmail(userEmail);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("Id", userId.ToString()) }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()), new Claim(ClaimTypes.Role, user.Role.GetEnumDescription()) }),
+                Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GoogleAuthSecretKey)), SecurityAlgorithms.HmacSha512Signature)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new AuthDTO { EncryptedToken = tokenHandler.WriteToken(token), UserEmail = userEmail };
+            return new AuthDTO
+            {
+                EncryptedToken = tokenHandler.WriteToken(token),
+                UserEmail = userEmail,
+                IsBankEmployee = user.Role is UserRole.BankEmployee
+            };
         }
 
         public async Task<bool> UserExistsByEmail(string userEmail) => await _repositoryManager.UserRepository.UserExistsByEmail(userEmail);

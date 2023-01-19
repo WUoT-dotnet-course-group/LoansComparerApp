@@ -12,14 +12,14 @@ import {
 } from '../../shared/services/loans-comparer/loans-comparer.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { InquiryHistoryDataSource } from './inquiry-history-data-source';
 import { mergeAll } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { BankOffersDataSource } from './bank-offers-data-source';
 
 @Component({
-  selector: 'app-inquiry-history',
-  templateUrl: './inquiry-history.component.html',
-  styleUrls: ['./inquiry-history.component.less'],
+  selector: 'app-bank-offers',
+  templateUrl: './bank-offers.component.html',
+  styleUrls: ['./bank-offers.component.less'],
   animations: [
     trigger('enterAndLeave', [
       state('*', style({ opacity: 1 })),
@@ -29,18 +29,21 @@ import { of } from 'rxjs';
     ]),
   ],
 })
-export class InquiryHistoryComponent implements AfterViewInit, OnInit {
-  defaultPageSize = 4;
+export class BankOffersComponent implements AfterViewInit, OnInit {
+  defaultPageSize = 10;
 
   displayedColumns: string[] = [
     'indexer',
     'loanValue',
-    'installments',
-    'inquireDate',
-    'chosenBank',
+    'numberOfInstallments',
+    'status',
+    'percentage',
+    'offerCreateDate',
+    'offerUpdateDate',
+    'approvedBy',
   ];
 
-  dataSource!: InquiryHistoryDataSource;
+  dataSource!: BankOffersDataSource;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -48,7 +51,7 @@ export class InquiryHistoryComponent implements AfterViewInit, OnInit {
   constructor(private loansComparerService: LoansComparerService) {}
 
   ngOnInit(): void {
-    this.dataSource = new InquiryHistoryDataSource(this.loansComparerService);
+    this.dataSource = new BankOffersDataSource(this.loansComparerService);
     this.dataSource.loadInquiries(<PagingParameter>{
       sortOrder: '',
       sortHeader: '',
@@ -72,9 +75,5 @@ export class InquiryHistoryComponent implements AfterViewInit, OnInit {
       pageIndex: this.paginator.pageIndex,
       pageSize: this.paginator.pageSize,
     });
-  }
-
-  get isAnyInquiry(): boolean {
-    return this.dataSource.totalNumberOfInquiries > 0;
   }
 }

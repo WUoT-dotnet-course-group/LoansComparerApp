@@ -9,7 +9,7 @@ import { User } from '../../models/user.model';
 export interface AuthData {
   encryptedToken: string;
   userEmail: string;
-  userId: string;
+  isBankEmployee: boolean;
 }
 
 @Injectable({
@@ -19,11 +19,15 @@ export class AuthService {
   private _path = environment.apiUrl;
 
   user$ = new BehaviorSubject<User | null>(null);
-  isAuthenticated!: boolean;
+  isAuthenticated: boolean = false;
+  isBankEmployee: boolean = false;
 
   constructor(private httpClient: HttpClient) {
     this.user$.subscribe((value: User | null) => {
-      this.isAuthenticated = !!value;
+      if (!!value) {
+        this.isAuthenticated = true;
+        this.isBankEmployee = value.isBankEmployee;
+      }
     });
   }
 
@@ -39,7 +43,11 @@ export class AuthService {
       .pipe(
         tap((response: AuthData) => {
           this.user$.next(
-            new User(response.userEmail, response.encryptedToken)
+            new User(
+              response.userEmail,
+              response.isBankEmployee,
+              response.encryptedToken
+            )
           );
         })
       );

@@ -2,11 +2,12 @@
 using LoansComparer.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LoansComparer.Presentation.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Debtor")]
     [Route("api/inquiries")]
     public class InquiryController : ControllerBase
     {
@@ -17,7 +18,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<PaginatedResponse<GetInquiryDTO>>> Get([FromQuery] PagingParameter pagingParams)
         {
-            var userId = User.FindFirst("Id")?.Value!;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
 
             var inquiries = await _serviceManager.InquiryService.GetByUser(Guid.Parse(userId), pagingParams);
 
@@ -28,7 +29,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<CreateInquiryResponseDTO>> Create([FromBody] CreateInquiryDTO inquiry)
         {
-            var userId = User.FindFirst("Id")?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
             var inquiryId = await _serviceManager.InquiryService.Add(inquiry, userId);
 
             var response = await _serviceManager.LoaningService.Inquire(inquiry);

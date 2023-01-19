@@ -4,9 +4,6 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 
 export class BaseDataSource<T> implements DataSource<T> {
   protected data = new BehaviorSubject<T[]>([]);
-  protected loading = new BehaviorSubject<boolean>(false);
-
-  public loading$ = this.loading.asObservable();
 
   constructor(protected loansComparerService: LoansComparerService) {}
 
@@ -16,6 +13,5 @@ export class BaseDataSource<T> implements DataSource<T> {
 
   disconnect(collectionViewer: CollectionViewer): void {
     this.data.complete();
-    this.loading.complete();
   }
 }
