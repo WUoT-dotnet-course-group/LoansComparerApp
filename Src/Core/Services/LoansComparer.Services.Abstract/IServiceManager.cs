@@ -1,8 +1,11 @@
-﻿namespace LoansComparer.Services.Abstract
+﻿using LoansComparer.Services.Abstract.LoaningServices;
+
+namespace LoansComparer.Services.Abstract
 {
     public interface IServiceManager
     {
-        ILoaningService LoaningService { get; }
+        ILoaningBank LoaningBankService { get; }
+        IBankApi LecturerBankService { get; }
         IInquiryService InquiryService { get; }
         IUserService UserService { get; }
         IEmailService EmailService { get; }

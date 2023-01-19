@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Mapster;
 using MapsterMapper;
+using LoansComparer.Domain.Options;
 
 namespace LoansComparer
 {
@@ -31,6 +32,9 @@ namespace LoansComparer
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServicesConfiguration, ConfigurationsManager>();
 
+            services.Configure<LoaningBankConfig>(ConfigurationsManager.Configuration.GetSection(LoaningBankConfig.SectionName));
+            services.Configure<LecturerBankConfig>(ConfigurationsManager.Configuration.GetSection(LecturerBankConfig.SectionName));
+
             var mappingConfig = TypeAdapterConfig.GlobalSettings;
             mappingConfig.Scan(typeof(Services.Mapping.AssemblyReference).Assembly);
             services.AddSingleton(mappingConfig);
@@ -39,6 +43,12 @@ namespace LoansComparer
             services.AddHttpClient("LoaningBank", client =>
             {
                 client.BaseAddress = new Uri(ConfigurationsManager.LoaningBankDomain);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
+            services.AddHttpClient("LecturerBank", client =>
+            {
+                client.BaseAddress = new Uri(ConfigurationsManager.LecturerBankDomain);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 

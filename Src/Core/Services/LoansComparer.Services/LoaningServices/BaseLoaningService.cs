@@ -1,5 +1,4 @@
 ﻿using LoansComparer.CrossCutting.DTO.LoaningBank;
-using LoansComparer.Services.Abstract;
 using System.Text.Json;
 using System.Text;
 
@@ -8,12 +7,10 @@ namespace LoansComparer.Services.LoaningServices
     internal abstract class BaseLoaningService
     {
         protected readonly IHttpClientFactory _clientFactory;
-        protected readonly IServicesConfiguration _configuration;
 
-        protected BaseLoaningService(IHttpClientFactory clientFactory, IServicesConfiguration configuration)
+        protected BaseLoaningService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-            _configuration = configuration;
         }
 
         protected abstract Task AuthorizeRequest(HttpRequestMessage request);

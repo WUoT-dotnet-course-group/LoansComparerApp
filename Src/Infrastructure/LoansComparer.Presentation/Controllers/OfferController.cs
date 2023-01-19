@@ -17,7 +17,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<PaginatedResponse<OfferDTO>>> Get([FromQuery] PagingParameter pagingParams)
         {
-            var response = await _serviceManager.LoaningService.GetBankOffers(pagingParams);
+            var response = await _serviceManager.LoaningBankService.GetBankOffers(pagingParams);
 
             if (!response.IsSuccessful)
             {
@@ -31,7 +31,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet("{offerId}")]
         public async Task<ActionResult<OfferDTO>> GetOffer(Guid offerId)
         {
-            var response = await _serviceManager.LoaningService.GetOffer(offerId);
+            var response = await _serviceManager.LoaningBankService.GetOffer(offerId);
 
             if (!response.IsSuccessful)
             {
@@ -44,7 +44,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPatch("{offerId}/accept")]
         public async Task<ActionResult> AcceptOffer(Guid offerId)
         {
-            var response = await _serviceManager.LoaningService.AcceptOffer(offerId);
+            var response = await _serviceManager.LoaningBankService.AcceptOffer(offerId);
 
             if (!response.IsSuccessful)
             {
@@ -59,7 +59,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPatch("{offerId}/reject")]
         public async Task<ActionResult> RejectOffer(Guid offerId)
         {
-            var response = await _serviceManager.LoaningService.RejectOffer(offerId);
+            var response = await _serviceManager.LoaningBankService.RejectOffer(offerId);
 
             if (!response.IsSuccessful)
             {

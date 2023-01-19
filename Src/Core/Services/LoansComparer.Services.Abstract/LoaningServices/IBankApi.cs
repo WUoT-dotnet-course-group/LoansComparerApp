@@ -1,7 +1,7 @@
 ﻿using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.CrossCutting.DTO;
 
-namespace LoansComparer.Services.Abstract
+namespace LoansComparer.Services.Abstract.LoaningServices
 {
     public interface IBankApi
     {

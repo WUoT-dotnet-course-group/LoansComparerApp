@@ -8,8 +8,6 @@
         string EmailClientConnectionString { get; }
         string EmailClientDomain { get; }
 
-        KeyValuePair<string, string> LoaningBankClientCredentials { get; }
-
         string GetWebClientOfferDetailsPath(Guid offerId);
     }
 }

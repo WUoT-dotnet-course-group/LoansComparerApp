@@ -1,18 +1,22 @@
 ﻿using LoansComparer.CrossCutting.DTO;
 using LoansComparer.CrossCutting.DTO.LoaningBank;
-using LoansComparer.Services.Abstract;
+using LoansComparer.Domain.Options;
+using LoansComparer.Services.Abstract.LoaningServices;
 using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 
 namespace LoansComparer.Services.LoaningServices
 {
-    internal sealed class LoaningBankService : BaseLoaningService, ILoaningService
+    internal sealed class LoaningBankService : BaseLoaningService, ILoaningBank
     {
         private string? Token { get; set; }
+        private readonly LoaningBankConfig _configuration;
 
-        public LoaningBankService(IHttpClientFactory clientFactory, IServicesConfiguration configuration) : base(clientFactory, configuration)
+        public LoaningBankService(IHttpClientFactory clientFactory, IOptions<LoaningBankConfig> configuration) : base(clientFactory)
         {
+            _configuration = configuration.Value;
         }
 
         protected override async Task AuthorizeRequest(HttpRequestMessage request)
@@ -25,8 +29,8 @@ namespace LoansComparer.Services.LoaningServices
                 {
                     Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
                     {
-                        new("ClientId", _configuration.LoaningBankClientCredentials.Key),
-                        new("ClientSecret", _configuration.LoaningBankClientCredentials.Value)
+                        new("ClientId", _configuration.ClientId),
+                        new("ClientSecret", _configuration.ClientSecret)
                     })
                 };
 
