@@ -3,6 +3,9 @@ using LoansComparer.CrossCutting.DTO;
 using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
 using Mapster;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
@@ -11,10 +14,38 @@ namespace LoansComparer.Services
     internal sealed class LoaningService : ILoaningService
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IServicesConfiguration _configuration;
 
-        public LoaningService(IHttpClientFactory clientFactory)
+        private string? Token { get; set; }
+
+        public LoaningService(IHttpClientFactory clientFactory, IServicesConfiguration configuration)
         {
             _clientFactory = clientFactory;
+            _configuration = configuration;
+        }
+
+        public async Task AuthorizeRequest(HttpRequestMessage request)
+        {
+            if (Token is null)
+            {
+                var client = _clientFactory.CreateClient("LoaningBank");
+
+                var authRequest = new HttpRequestMessage(HttpMethod.Post, "api/auth/token")
+                {
+                    Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
+                    {
+                        new("ClientId", _configuration.LoaningBankClientCredentials.Key),
+                        new("ClientSecret", _configuration.LoaningBankClientCredentials.Value)
+                    })
+                };
+
+                var authResponse = await client.SendAsync(authRequest);
+
+                var token = await authResponse.Content.ReadAsStringAsync();
+                Token = token.Trim(' ', '\"');
+            }
+
+            request.Headers.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, Token);
         }
 
         public async Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData)
@@ -61,20 +92,10 @@ namespace LoansComparer.Services
 
             var request = new HttpRequestMessage(HttpMethod.Post, $"api/offers/{offerId}/upload")
             {
-                Content = formData
+                Content = formData,
             };
-            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
 
-            var baseResponse = new BaseResponse
-            {
-                StatusCode = response.StatusCode
-            };
-            if (response.IsSuccessStatusCode)
-            {
-                baseResponse.IsSuccessful = true;
-            }
-
-            return baseResponse;
+            return await SendRequestAsync(request);
         }
 
         public async Task<BaseResponse<PaginatedResponse<OfferDTO>>> GetBankOffers(PagingParameter pagingParams)
@@ -86,22 +107,10 @@ namespace LoansComparer.Services
         }
 
         public async Task<BaseResponse> AcceptOffer(Guid offerId)
-            => await SendAsync(HttpMethod.Patch, $"api/offers/{offerId}/accept");
+            => await SendRequestAsync(new HttpRequestMessage(HttpMethod.Patch, $"api/offers/{offerId}/accept"));
 
         public async Task<BaseResponse> RejectOffer(Guid offerId)
-            => await SendAsync(HttpMethod.Patch, $"api/offers/{offerId}/reject");
-
-        private async Task<BaseResponse> SendAsync(HttpMethod httpMethod, string url)
-        {
-            var request = new HttpRequestMessage(httpMethod, url);
-            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
-
-            return new BaseResponse()
-            {
-                StatusCode = response.StatusCode,
-                IsSuccessful = response.IsSuccessStatusCode
-            };
-        }
+            => await SendRequestAsync(new HttpRequestMessage(HttpMethod.Patch, $"api/offers/{offerId}/reject"));
 
         private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class
             => await SendRequestAsync<T>(new HttpRequestMessage(httpMethod, url));
@@ -116,8 +125,23 @@ namespace LoansComparer.Services
             return await SendRequestAsync<T>(request);
         }
 
+        private async Task<BaseResponse> SendRequestAsync(HttpRequestMessage request)
+        {
+            await AuthorizeRequest(request);
+
+            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
+
+            return new BaseResponse()
+            {
+                StatusCode = response.StatusCode,
+                IsSuccessful = response.IsSuccessStatusCode
+            };
+        }
+
         private async Task<BaseResponse<T>> SendRequestAsync<T>(HttpRequestMessage request) where T : class
         {
+            await AuthorizeRequest(request);
+
             var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
             var content = await response.Content.ReadAsStreamAsync();
 

@@ -42,7 +42,7 @@ namespace LoansComparer.Services
         {
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 
-            var emailBody = string.Format(Resources.InquirySubmittedEmailBody, inquiry.User.PersonalData!.FirstName, 
+            var emailBody = string.Format(Resources.InquirySubmittedEmailBody, inquiry.User.PersonalData!.FirstName,
                 _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenOfferId));
 
             await SendEmailAsync(Resources.InquirySubmittedEmailSubject, emailBody, inquiry.User.Email!);
