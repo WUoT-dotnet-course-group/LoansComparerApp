@@ -13,9 +13,9 @@ namespace LoansComparer.Services
         public ServiceManager(IRepositoryManager repositoryManager, IServicesConfiguration configuration, IHttpClientFactory clientFactory)
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager, configuration));
-            _lazyInquiryService = new Lazy<IInquiryService>(() => new InquiryService(repositoryManager, this, configuration));
+            _lazyInquiryService = new Lazy<IInquiryService>(() => new InquiryService(repositoryManager));
             _lazyLoaningService = new Lazy<ILoaningService>(() => new LoaningService(clientFactory));
-            _lazyEmailService = new Lazy<IEmailService>(() => new EmailService(configuration.EmailClientConnectionString, configuration.EmailClientDomain));
+            _lazyEmailService = new Lazy<IEmailService>(() => new EmailService(configuration.EmailClientConnectionString, configuration.EmailClientDomain, repositoryManager, configuration));
         }
 
         public IUserService UserService => _lazyUserService.Value;

@@ -7,13 +7,16 @@ import {
   transition,
 } from '@angular/animations';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   LoansComparerService,
   OfferDTO,
 } from '../shared/services/loans-comparer/loans-comparer.service';
+import { AuthService } from '../shared/services/auth/auth.service';
+import { LoadingService } from '../shared/services/loading/loading.service';
 
 export interface OfferDetails {
+  id: string;
   percentage: number;
   monthlyInstallment: number;
   loanValue: number;
@@ -45,22 +48,48 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
   offer!: OfferDetails;
 
   constructor(
+    private authService: AuthService,
     private route: ActivatedRoute,
-    private loansComparerService: LoansComparerService
+    private loansComparerService: LoansComparerService,
+    private router: Router,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.loansComparerService
-        .getInquiryOffer(params['inquiryId'])
-        .subscribe(
-          (response: OfferDTO) =>
-            (this.offer = <OfferDetails>(<unknown>response))
-        );
+      this.loadOffer(params['offerId']);
     });
+  }
+
+  loadOffer(offerId: string): void {
+    this.loansComparerService
+      .getInquiryOffer(offerId)
+      .subscribe(
+        (response: OfferDTO) => (this.offer = <OfferDetails>(<unknown>response))
+      );
   }
 
   ngOnDestroy(): void {
     this.routeSub.unsubscribe();
+  }
+
+  get isBankEmployee(): boolean {
+    return this.authService.isBankEmployee;
+  }
+
+  onReject(): void {
+    this.loansComparerService
+      .rejectOffer(this.offer.id)
+      .subscribe((_) => this.loadOffer(this.offer.id));
+  }
+
+  onAccept(): void {
+    this.loansComparerService
+      .acceptOffer(this.offer.id)
+      .subscribe((_) => this.loadOffer(this.offer.id));
+  }
+
+  onReturn(): void {
+    this.router.navigateByUrl('/home');
   }
 }

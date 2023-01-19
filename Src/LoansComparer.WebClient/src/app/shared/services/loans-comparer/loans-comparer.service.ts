@@ -124,10 +124,8 @@ export class LoansComparerService {
     );
   }
 
-  getInquiryOffer(inquiryId: string): Observable<OfferDTO> {
-    return this.http.get<OfferDTO>(
-      this.path + `api/inquiries/${inquiryId}/offer`
-    );
+  getInquiryOffer(offerId: string): Observable<OfferDTO> {
+    return this.http.get<OfferDTO>(this.path + `api/offers/${offerId}`);
   }
 
   chooseOffer(inquiryId: string, chooseOfferData: ChooseOfferDTO): void {
@@ -158,6 +156,14 @@ export class LoansComparerService {
           .set('pageSize', request.pageSize),
       }
     );
+  }
+
+  acceptOffer(offerId: string): Observable<any> {
+    return this.http.patch<any>(this.path + `api/offers/${offerId}/accept`, {});
+  }
+
+  rejectOffer(offerId: string): Observable<any> {
+    return this.http.patch<any>(this.path + `api/offers/${offerId}/reject`, {});
   }
 
   getJobTypes(): Observable<DictionaryDTO[]> {

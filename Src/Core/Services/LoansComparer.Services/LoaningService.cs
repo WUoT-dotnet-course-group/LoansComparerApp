@@ -1,4 +1,5 @@
-﻿using LoansComparer.CrossCutting.DTO;
+﻿using Azure.Core;
+using LoansComparer.CrossCutting.DTO;
 using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
 using Mapster;
@@ -29,13 +30,14 @@ namespace LoansComparer.Services
             return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"api/inquiries/{inquiryId}");
         }
 
-        public async Task<BaseResponse<GetOfferResponse>> GetOfferById(Guid offerId)
+        public async Task<BaseResponse<OfferDTO>> GetOfferById(Guid offerId)
         {
             // TODO: fetch hardcoded url from db
-            return await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
+            var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
+            return response.Adapt<BaseResponse<OfferDTO>>();
         }
 
-        public async Task<BaseResponse<OfferDTO>> GetOfferByInquiryId(Guid inquiryId)
+        public async Task<BaseResponse<OfferDTO>> FetchOffer(Guid inquiryId)
         {
             var inquiryResponse = await GetInquiry(inquiryId);
 
@@ -47,9 +49,7 @@ namespace LoansComparer.Services
                 };
             }
 
-            var offerResponse = await GetOfferById(inquiryResponse.Content.OfferId.Value);
-
-            return offerResponse.Adapt<BaseResponse<OfferDTO>>();
+            return await GetOfferById(inquiryResponse.Content.OfferId.Value);
         }
 
         public async Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename)
@@ -83,6 +83,24 @@ namespace LoansComparer.Services
                 $"api/inquiries?sortOrder={pagingParams.SortOrder}&sortHeader={pagingParams.SortHeader}&pageIndex={pagingParams.PageIndex}&pageSize={pagingParams.PageSize}");
 
             return response.Adapt<BaseResponse<PaginatedResponse<OfferDTO>>>();
+        }
+
+        public async Task<BaseResponse> AcceptOffer(Guid offerId)
+            => await SendAsync(HttpMethod.Patch, $"api/offers/{offerId}/accept");
+
+        public async Task<BaseResponse> RejectOffer(Guid offerId)
+            => await SendAsync(HttpMethod.Patch, $"api/offers/{offerId}/reject");
+
+        private async Task<BaseResponse> SendAsync(HttpMethod httpMethod, string url)
+        {
+            var request = new HttpRequestMessage(httpMethod, url);
+            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
+
+            return new BaseResponse()
+            {
+                StatusCode = response.StatusCode,
+                IsSuccessful = response.IsSuccessStatusCode
+            };
         }
 
         private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class

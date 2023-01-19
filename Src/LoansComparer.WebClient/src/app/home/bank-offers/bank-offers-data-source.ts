@@ -24,7 +24,6 @@ export class BankOffersDataSource extends BaseDataSource<OfferDTO> {
     this.loansComparerService
       .getBankOffers(pagingParams)
       .subscribe((response: PaginatedResponse<OfferDTO>) => {
-        console.log(response.items);
         this.totalNumberOfInquiries = response.totalNumber;
         this.data.next(response.items);
       });

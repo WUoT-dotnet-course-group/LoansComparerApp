@@ -7,6 +7,6 @@
         string EmailClientConnectionString { get; }
         string EmailClientDomain { get; }
 
-        string GetWebClientInquiryDetailsPath(Guid inquiryId);
+        string GetWebClientOfferDetailsPath(Guid offerId);
     }
 }
