@@ -125,7 +125,7 @@ namespace LoansComparer.Services
             return await SendRequestAsync<T>(request);
         }
 
-        private async Task<BaseResponse> SendRequestAsync(HttpRequestMessage request) 
+        private async Task<BaseResponse> SendRequestAsync(HttpRequestMessage request)
         {
             await AuthorizeRequest(request);
 
