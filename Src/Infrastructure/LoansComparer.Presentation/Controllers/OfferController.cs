@@ -31,7 +31,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpGet("{offerId}")]
         public async Task<ActionResult<OfferDTO>> GetOffer(Guid offerId)
         {
-            var response = await _serviceManager.LoaningService.GetOfferById(offerId);
+            var response = await _serviceManager.LoaningService.GetOffer(offerId);
 
             if (!response.IsSuccessful)
             {

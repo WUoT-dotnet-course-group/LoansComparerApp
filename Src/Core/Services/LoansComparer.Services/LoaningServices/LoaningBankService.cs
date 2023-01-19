@@ -1,30 +1,21 @@
-﻿using Azure.Core;
-using LoansComparer.CrossCutting.DTO;
+﻿using LoansComparer.CrossCutting.DTO;
 using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.Services.Abstract;
 using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
 
-namespace LoansComparer.Services
+namespace LoansComparer.Services.LoaningServices
 {
-    internal sealed class LoaningService : ILoaningService
+    internal sealed class LoaningBankService : BaseLoaningService, ILoaningService
     {
-        private readonly IHttpClientFactory _clientFactory;
-        private readonly IServicesConfiguration _configuration;
-
         private string? Token { get; set; }
 
-        public LoaningService(IHttpClientFactory clientFactory, IServicesConfiguration configuration)
+        public LoaningBankService(IHttpClientFactory clientFactory, IServicesConfiguration configuration) : base(clientFactory, configuration)
         {
-            _clientFactory = clientFactory;
-            _configuration = configuration;
         }
 
-        public async Task AuthorizeRequest(HttpRequestMessage request)
+        protected override async Task AuthorizeRequest(HttpRequestMessage request)
         {
             if (Token is null)
             {
@@ -61,26 +52,11 @@ namespace LoansComparer.Services
             return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"api/inquiries/{inquiryId}");
         }
 
-        public async Task<BaseResponse<OfferDTO>> GetOfferById(Guid offerId)
+        public async Task<BaseResponse<OfferDTO>> GetOffer(Guid offerId)
         {
             // TODO: fetch hardcoded url from db
             var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
             return response.Adapt<BaseResponse<OfferDTO>>();
-        }
-
-        public async Task<BaseResponse<OfferDTO>> FetchOffer(Guid inquiryId)
-        {
-            var inquiryResponse = await GetInquiry(inquiryId);
-
-            if (!inquiryResponse.IsSuccessful || inquiryResponse.Content!.OfferId is null)
-            {
-                return new()
-                {
-                    StatusCode = inquiryResponse.StatusCode
-                };
-            }
-
-            return await GetOfferById(inquiryResponse.Content.OfferId.Value);
         }
 
         public async Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename)
@@ -111,54 +87,5 @@ namespace LoansComparer.Services
 
         public async Task<BaseResponse> RejectOffer(Guid offerId)
             => await SendRequestAsync(new HttpRequestMessage(HttpMethod.Patch, $"api/offers/{offerId}/reject"));
-
-        private async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class
-            => await SendRequestAsync<T>(new HttpRequestMessage(httpMethod, url));
-
-        private async Task<BaseResponse<T>> SendAsync<T, P>(HttpMethod httpMethod, string url, P payload) where T : class
-        {
-            var request = new HttpRequestMessage(httpMethod, url)
-            {
-                Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"),
-            };
-
-            return await SendRequestAsync<T>(request);
-        }
-
-        private async Task<BaseResponse> SendRequestAsync(HttpRequestMessage request)
-        {
-            await AuthorizeRequest(request);
-
-            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
-
-            return new BaseResponse()
-            {
-                StatusCode = response.StatusCode,
-                IsSuccessful = response.IsSuccessStatusCode
-            };
-        }
-
-        private async Task<BaseResponse<T>> SendRequestAsync<T>(HttpRequestMessage request) where T : class
-        {
-            await AuthorizeRequest(request);
-
-            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
-            var content = await response.Content.ReadAsStreamAsync();
-
-            var baseResponse = new BaseResponse<T>()
-            {
-                StatusCode = response.StatusCode
-            };
-
-            if (response.IsSuccessStatusCode)
-            {
-                baseResponse.Content = await JsonSerializer.DeserializeAsync<T>(content, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-                baseResponse.IsSuccessful = true;
-            }
-            return baseResponse;
-        }
     }
 }

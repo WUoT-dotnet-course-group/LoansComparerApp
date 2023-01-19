@@ -1,5 +1,6 @@
 ﻿using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
+using LoansComparer.Services.LoaningServices;
 
 namespace LoansComparer.Services
 {
@@ -14,7 +15,7 @@ namespace LoansComparer.Services
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager, configuration));
             _lazyInquiryService = new Lazy<IInquiryService>(() => new InquiryService(repositoryManager));
-            _lazyLoaningService = new Lazy<ILoaningService>(() => new LoaningService(clientFactory, configuration));
+            _lazyLoaningService = new Lazy<ILoaningService>(() => new LoaningBankService(clientFactory, configuration));
             _lazyEmailService = new Lazy<IEmailService>(() => new EmailService(configuration.EmailClientConnectionString, configuration.EmailClientDomain, repositoryManager, configuration));
         }
 
