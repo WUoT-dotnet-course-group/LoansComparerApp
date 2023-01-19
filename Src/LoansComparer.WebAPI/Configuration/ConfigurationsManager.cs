@@ -7,6 +7,7 @@ namespace LoansComparer.WebAPI.Configuration
         private readonly DatabaseConfig _databaseConfig;
         private readonly GoogleAuthConfig _googleAuthConfig;
         private readonly EmailServiceConfig _emailServiceConfig;
+        private readonly LoaningBankConfig _loaningBankConfig;
 
         public readonly IConfiguration Configuration;
 
@@ -16,6 +17,7 @@ namespace LoansComparer.WebAPI.Configuration
             _databaseConfig = Configuration.GetRequiredSection(DatabaseConfig.SectionName).Get<DatabaseConfig>();
             _googleAuthConfig = Configuration.GetRequiredSection(GoogleAuthConfig.SectionName).Get<GoogleAuthConfig>();
             _emailServiceConfig = Configuration.GetRequiredSection(EmailServiceConfig.SectionName).Get<EmailServiceConfig>();
+            _loaningBankConfig = Configuration.GetRequiredSection(LoaningBankConfig.SectionName).Get<LoaningBankConfig>();
         }
 
         public string DbConnectionString
@@ -39,13 +41,15 @@ namespace LoansComparer.WebAPI.Configuration
 
         public string EmailClientDomain => _emailServiceConfig.Domain;
 
-        public string LoaningBankDomain => Configuration.GetValue<string>("LoaningBankDomain");
+        public string LoaningBankDomain => _loaningBankConfig.Domain;
 
         public string GoogleAuthClientId => _googleAuthConfig.ClientId;
 
         public string GoogleAuthSecretKey => _googleAuthConfig.SecretKey;
 
         public string WebClientDomain => Configuration.GetValue<string>("WebClientDomain");
+
+        public KeyValuePair<string, string> LoaningBankClientCredentials => new(_loaningBankConfig.ClientId, _loaningBankConfig.ClientSecret);
 
         public string GetWebClientOfferDetailsPath(Guid offerId) => WebClientDomain + $"offers/{offerId}";
     }
