@@ -5,7 +5,7 @@ namespace LoansComparer.CrossCutting.DTO.LoaningBank
 {
     public class GetOfferResponse
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = default!;
 
         [JsonPropertyName("requestedValue")]
         public int LoanValue { get; set; }
@@ -17,7 +17,7 @@ namespace LoansComparer.CrossCutting.DTO.LoaningBank
         public OfferStatus Status { get; set; }
 
         [JsonPropertyName("inquireId")]
-        public Guid InquiryId { get; set; }
+        public string InquiryId { get; set; } = default!;
 
         public float Percentage { get; set; }
         public float MonthlyInstallment { get; set; }

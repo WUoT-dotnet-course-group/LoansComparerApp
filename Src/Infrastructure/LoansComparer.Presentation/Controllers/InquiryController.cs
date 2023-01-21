@@ -32,7 +32,7 @@ namespace LoansComparer.Presentation.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
             var inquiryId = await _serviceManager.InquiryService.Add(inquiry, userId);
 
-            var response = await _serviceManager.LoaningBankService.Inquire(inquiry);
+            var response = await _serviceManager.LecturerBankService.Inquire(inquiry);
             if (response.IsSuccessful)
             {
                 return Ok(new CreateInquiryResponseDTO() { InquiryId = inquiryId, BankInquiryId = response.Content!.InquiryId });
@@ -51,9 +51,9 @@ namespace LoansComparer.Presentation.Controllers
 
         [AllowAnonymous]
         [HttpGet("fetch-offer/{bankInquiryId}")]
-        public async Task<ActionResult<OfferDTO>> FetchOffer(Guid bankInquiryId)
+        public async Task<ActionResult<OfferDTO>> FetchOffer(string bankInquiryId)
         {
-            var response = await _serviceManager.LoaningBankService.FetchOffer(bankInquiryId);
+            var response = await _serviceManager.LecturerBankService.FetchOffer(bankInquiryId);
             if (!response.IsSuccessful)
             {
                 return NotFound();
@@ -69,7 +69,7 @@ namespace LoansComparer.Presentation.Controllers
             var offerId = await _serviceManager.InquiryService.GetOfferId(inquiryId);
 
             var file = Request.Form.Files[0];
-            var response = await _serviceManager.LoaningBankService.UploadFile(offerId, file.OpenReadStream(), file.FileName);
+            var response = await _serviceManager.LecturerBankService.UploadFile(offerId!, file.OpenReadStream(), file.FileName);
             if (!response.IsSuccessful)
             {
                 return NotFound();

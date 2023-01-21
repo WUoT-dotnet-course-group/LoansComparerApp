@@ -3,6 +3,6 @@
     public class CreateInquiryResponseDTO
     {
         public Guid InquiryId { get; set; }
-        public Guid BankInquiryId { get; set; }
+        public string BankInquiryId { get; set; } = default!;
     }
 }

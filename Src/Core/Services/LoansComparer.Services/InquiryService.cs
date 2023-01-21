@@ -61,7 +61,7 @@ namespace LoansComparer.Services
             return paginatedInquiries.Adapt<PaginatedResponse<GetInquiryDTO>>();
         }
 
-        public async Task<Guid> GetOfferId(Guid inquiryId)
+        public async Task<string?> GetOfferId(Guid inquiryId)
         {
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 

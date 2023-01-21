@@ -8,6 +8,6 @@
         string EmailClientConnectionString { get; }
         string EmailClientDomain { get; }
 
-        string GetWebClientOfferDetailsPath(Guid offerId);
+        string GetWebClientOfferDetailsPath(string offerId);
     }
 }

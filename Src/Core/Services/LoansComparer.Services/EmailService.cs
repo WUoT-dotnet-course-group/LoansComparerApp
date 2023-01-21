@@ -43,12 +43,12 @@ namespace LoansComparer.Services
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 
             var emailBody = string.Format(Resources.InquirySubmittedEmailBody, inquiry.User.PersonalData!.FirstName,
-                _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenOfferId));
+                _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenOfferId!));
 
             await SendEmailAsync(Resources.InquirySubmittedEmailSubject, emailBody, inquiry.User.Email!);
         }
 
-        public async Task SendAfterDecisionEmail(Guid offerId)
+        public async Task SendAfterDecisionEmail(string offerId)
         {
             var debtor = await _repositoryManager.InquiryRepository.GetDebtorByOffer(offerId);
 

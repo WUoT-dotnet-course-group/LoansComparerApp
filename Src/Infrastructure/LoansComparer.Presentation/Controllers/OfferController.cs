@@ -29,9 +29,9 @@ namespace LoansComparer.Presentation.Controllers
 
         [AllowAnonymous]
         [HttpGet("{offerId}")]
-        public async Task<ActionResult<OfferDTO>> GetOffer(Guid offerId)
+        public async Task<ActionResult<OfferDTO>> GetOffer(string offerId)
         {
-            var response = await _serviceManager.LoaningBankService.GetOffer(offerId);
+            var response = await _serviceManager.LecturerBankService.GetOffer(offerId);
 
             if (!response.IsSuccessful)
             {
@@ -42,9 +42,9 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [HttpPatch("{offerId}/accept")]
-        public async Task<ActionResult> AcceptOffer(Guid offerId)
+        public async Task<ActionResult> AcceptOffer(string offerId)
         {
-            var response = await _serviceManager.LoaningBankService.AcceptOffer(offerId);
+            var response = await _serviceManager.LoaningBankService.AcceptOffer(Guid.Parse(offerId));
 
             if (!response.IsSuccessful)
             {
@@ -57,9 +57,9 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [HttpPatch("{offerId}/reject")]
-        public async Task<ActionResult> RejectOffer(Guid offerId)
+        public async Task<ActionResult> RejectOffer(string offerId)
         {
-            var response = await _serviceManager.LoaningBankService.RejectOffer(offerId);
+            var response = await _serviceManager.LoaningBankService.RejectOffer(Guid.Parse(offerId));
 
             if (!response.IsSuccessful)
             {

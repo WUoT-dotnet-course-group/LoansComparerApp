@@ -5,6 +5,6 @@
         Task SendEmailAsync(string emailSubject, string emailBody, string emailAddress);
         Task SendEmailsAsync(string emailSubject, string emailBody, List<string> emailAddresses);
         Task SendAfterSubmissionEmail(Guid inquiryId);
-        Task SendAfterDecisionEmail(Guid offerId);
+        Task SendAfterDecisionEmail(string offerId);
     }
 }

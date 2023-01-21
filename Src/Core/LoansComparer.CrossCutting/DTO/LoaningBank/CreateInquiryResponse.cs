@@ -1,8 +1,11 @@
-﻿namespace LoansComparer.CrossCutting.DTO.LoaningBank
+﻿using System.Text.Json.Serialization;
+
+namespace LoansComparer.CrossCutting.DTO.LoaningBank
 {
     public class CreateInquiryResponse
     {
-        public Guid InquiryId { get; set; }
+        [JsonPropertyName("inquireId")]
+        public string InquiryId { get; set; } = default!; 
         public DateTime CreateDate { get; set; }
     }
 }

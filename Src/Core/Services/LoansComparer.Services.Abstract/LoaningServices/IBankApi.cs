@@ -6,11 +6,11 @@ namespace LoansComparer.Services.Abstract.LoaningServices
     public interface IBankApi
     {
         Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData);
-        Task<BaseResponse<GetInquiryResponse>> GetInquiry(Guid inquiryId);
-        Task<BaseResponse<OfferDTO>> GetOffer(Guid offerId);
-        Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename);
+        Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId);
+        Task<BaseResponse<OfferDTO>> GetOffer(string offerId);
+        Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename);
 
-        async Task<BaseResponse<OfferDTO>> FetchOffer(Guid inquiryId)
+        async Task<BaseResponse<OfferDTO>> FetchOffer(string inquiryId)
         {
             var inquiryResponse = await GetInquiry(inquiryId);
 
@@ -22,7 +22,7 @@ namespace LoansComparer.Services.Abstract.LoaningServices
                 };
             }
 
-            return await GetOffer(inquiryResponse.Content.OfferId.Value);
+            return await GetOffer(inquiryResponse.Content.OfferId);
         }
     }
 }

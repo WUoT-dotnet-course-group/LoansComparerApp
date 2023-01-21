@@ -13,6 +13,9 @@ namespace LoansComparer.Services.LoaningServices
     internal class LecturerBankService : BaseLoaningService, IBankApi
     {
         private string? Token { get; set; }
+
+        protected override string HttpClientId => "LecturerBank";
+
         private readonly LecturerBankConfig _configuration;
 
         public LecturerBankService(IHttpClientFactory clientFactory, IOptions<LecturerBankConfig> configuration) : base(clientFactory)
@@ -45,12 +48,12 @@ namespace LoansComparer.Services.LoaningServices
             request.Headers.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, Token);
         }
 
-        public async Task<BaseResponse<GetInquiryResponse>> GetInquiry(Guid inquiryId)
+        public async Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId)
         {
             return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"/api/v1/Inquire/{inquiryId}");
         }
 
-        public async Task<BaseResponse<OfferDTO>> GetOffer(Guid offerId)
+        public async Task<BaseResponse<OfferDTO>> GetOffer(string offerId)
         {
             var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"/api/v1/Offer/{offerId}");
             return response.Adapt<BaseResponse<OfferDTO>>();
@@ -62,7 +65,7 @@ namespace LoansComparer.Services.LoaningServices
             return await SendAsync<CreateInquiryResponse, CreateInquiryRequest>(HttpMethod.Post, "/api/v1/Inquire", body);
         }
 
-        public async Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename)
+        public async Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename)
         {
             using var formData = new MultipartFormDataContent
             {

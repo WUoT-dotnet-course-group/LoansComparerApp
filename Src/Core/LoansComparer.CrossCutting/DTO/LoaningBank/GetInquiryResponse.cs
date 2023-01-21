@@ -6,12 +6,12 @@ namespace LoansComparer.CrossCutting.DTO.LoaningBank
     public class GetInquiryResponse
     {
         [JsonPropertyName("inquireId")]
-        public Guid ID { get; set; }
+        public string ID { get; set; } = default!;
 
         [JsonPropertyName("createDate")]
         public DateTime InquireDate { get; set; }
 
-        public Guid? OfferId { get; set; }
+        public string? OfferId { get; set; }
 
         [JsonPropertyName("statusId")]
         public OfferStatus OfferStatus { get; set; }

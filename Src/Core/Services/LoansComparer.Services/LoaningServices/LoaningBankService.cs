@@ -12,6 +12,9 @@ namespace LoansComparer.Services.LoaningServices
     internal sealed class LoaningBankService : BaseLoaningService, ILoaningBank
     {
         private string? Token { get; set; }
+
+        protected override string HttpClientId => "LoaningBank";
+
         private readonly LoaningBankConfig _configuration;
 
         public LoaningBankService(IHttpClientFactory clientFactory, IOptions<LoaningBankConfig> configuration) : base(clientFactory)
@@ -50,20 +53,20 @@ namespace LoansComparer.Services.LoaningServices
             return await SendAsync<CreateInquiryResponse, CreateInquiryRequest>(HttpMethod.Post, "api/inquiries/add", body);
         }
 
-        public async Task<BaseResponse<GetInquiryResponse>> GetInquiry(Guid inquiryId)
+        public async Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId)
         {
             // TODO: fetch hardcoded url from db
             return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"api/inquiries/{inquiryId}");
         }
 
-        public async Task<BaseResponse<OfferDTO>> GetOffer(Guid offerId)
+        public async Task<BaseResponse<OfferDTO>> GetOffer(string offerId)
         {
             // TODO: fetch hardcoded url from db
             var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
             return response.Adapt<BaseResponse<OfferDTO>>();
         }
 
-        public async Task<BaseResponse> UploadFile(Guid offerId, Stream fileStream, string filename)
+        public async Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename)
         {
             using var formData = new MultipartFormDataContent
             {

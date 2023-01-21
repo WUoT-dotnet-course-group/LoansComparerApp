@@ -1,12 +1,14 @@
 ﻿using LoansComparer.CrossCutting.DTO.LoaningBank;
-using System.Text.Json;
+using LoansComparer.CrossCutting.Utils;
 using System.Text;
+using System.Text.Json;
 
 namespace LoansComparer.Services.LoaningServices
 {
     internal abstract class BaseLoaningService
     {
         protected readonly IHttpClientFactory _clientFactory;
+        protected abstract string HttpClientId { get; }
 
         protected BaseLoaningService(IHttpClientFactory clientFactory)
         {
@@ -32,7 +34,7 @@ namespace LoansComparer.Services.LoaningServices
         {
             await AuthorizeRequest(request);
 
-            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
+            var response = await _clientFactory.CreateClient(HttpClientId).SendAsync(request);
 
             return new BaseResponse()
             {
@@ -45,7 +47,7 @@ namespace LoansComparer.Services.LoaningServices
         {
             await AuthorizeRequest(request);
 
-            var response = await _clientFactory.CreateClient("LoaningBank").SendAsync(request);
+            var response = await _clientFactory.CreateClient(HttpClientId).SendAsync(request);
             var content = await response.Content.ReadAsStreamAsync();
 
             var baseResponse = new BaseResponse<T>()
@@ -57,7 +59,8 @@ namespace LoansComparer.Services.LoaningServices
             {
                 baseResponse.Content = await JsonSerializer.DeserializeAsync<T>(content, new JsonSerializerOptions
                 {
-                    PropertyNameCaseInsensitive = true
+                    PropertyNameCaseInsensitive = true,
+                    Converters = { new JsonStringIntConverter() }
                 });
                 baseResponse.IsSuccessful = true;
             }

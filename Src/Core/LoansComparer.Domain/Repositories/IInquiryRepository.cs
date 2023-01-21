@@ -10,6 +10,6 @@ namespace LoansComparer.Domain.Repositories
         Task<Inquiry> GetById(Guid id);
         Task<PaginatedResponse<InquirySearch>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader);
         Task<int> Count();
-        Task<User> GetDebtorByOffer(Guid offerId);
+        Task<User> GetDebtorByOffer(string offerId);
     }
 }

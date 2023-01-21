@@ -9,6 +9,7 @@ import {
 } from '@angular/animations';
 import {
   CreateInquiryDTO,
+  CreateInquiryResponseDTO,
   LoansComparerService,
   PersonalDataDTO,
 } from '../../shared/services/loans-comparer/loans-comparer.service';
@@ -64,7 +65,7 @@ export class InquiryFormComponent implements OnInit {
   onFormSubmit(): void {
     this.loansComparerService
       .createInquiry(<CreateInquiryDTO>this.inquiryForm.value)
-      .subscribe((response) => {
+      .subscribe((response: CreateInquiryResponseDTO) => {
         this.offerProviderService.fetchOffers(response);
       });
 
