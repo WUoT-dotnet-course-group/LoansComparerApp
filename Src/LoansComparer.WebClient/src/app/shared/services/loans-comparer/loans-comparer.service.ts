@@ -33,7 +33,7 @@ export interface PersonalDataDTO {
 
 export interface CreateInquiryResponseDTO {
   inquiryId: string;
-  bankInquiryId: string;
+  bankInquiries: { [key: string]: string };
 }
 
 export interface DictionaryDTO {
@@ -118,14 +118,16 @@ export class LoansComparerService {
     );
   }
 
-  fetchOffer(bankInquiryId: string): Observable<OfferDTO> {
+  fetchOffer(bankId: string, bankInquiryId: string): Observable<OfferDTO> {
     return this.http.get<OfferDTO>(
-      this.path + `api/inquiries/fetch-offer/${bankInquiryId}`
+      this.path + `api/inquiries/fetch-offer/${bankId}/${bankInquiryId}`
     );
   }
 
-  getInquiryOffer(offerId: string): Observable<OfferDTO> {
-    return this.http.get<OfferDTO>(this.path + `api/offers/${offerId}`);
+  getInquiryOffer(bankId: string, offerId: string): Observable<OfferDTO> {
+    return this.http.get<OfferDTO>(
+      this.path + `api/offers/${bankId}/${offerId}`
+    );
   }
 
   chooseOffer(inquiryId: string, chooseOfferData: ChooseOfferDTO): void {

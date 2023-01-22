@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  BehaviorSubject,
+  catchError,
+  empty,
+  forkJoin,
+  map,
+  Observable,
+  of,
+} from 'rxjs';
+import {
   CreateInquiryResponseDTO,
   LoansComparerService,
   OfferDTO,
@@ -28,8 +37,9 @@ export interface ReviewOffer {
 @Injectable()
 export class OfferProviderService {
   private _offers: ReviewOffer[] = [];
+  private _offersToFetch: { [key: string]: string } = {};
 
-  // offerCreated = new Subject<ReviewOffer>();
+  offersFetched$ = new BehaviorSubject<ReviewOffer[]>([]);
 
   constructor(
     private inquireDataStorageService: InquireDataStorageService,
@@ -37,18 +47,34 @@ export class OfferProviderService {
     private router: Router
   ) {}
 
-  get offers(): ReviewOffer[] {
-    return this._offers;
+  get wasAllFetched(): boolean {
+    return Object.keys(this._offersToFetch).length === 0;
   }
 
-  fetchOffers(inquiryCreateResponse: CreateInquiryResponseDTO): void {
+  initOffers(inquiryCreateResponse: CreateInquiryResponseDTO): void {
     this.inquireDataStorageService.inquiryId = inquiryCreateResponse.inquiryId;
-    this.loansComparerService
-      .fetchOffer(inquiryCreateResponse.bankInquiryId)
-      .subscribe((offer: OfferDTO) => {
-        // this.offerCreated.next(offer);
-        this._offers.push(offer);
-        this.router.navigateByUrl('/inquire/offers');
+    this._offersToFetch = inquiryCreateResponse.bankInquiries;
+    this.router.navigateByUrl('/inquire/offers');
+  }
+
+  fetchOffers(): void {
+    const requests: Observable<OfferDTO | null>[] = [];
+
+    for (let bankId in this._offersToFetch) {
+      requests.push(
+        this.loansComparerService
+          .fetchOffer(bankId, this._offersToFetch[bankId])
+          .pipe(catchError((_) => of(null)))
+      );
+    }
+
+    forkJoin(requests)
+      .pipe(
+        map((offer) => <ReviewOffer[]>offer.filter((value) => value !== null))
+      )
+      .subscribe((offers: ReviewOffer[]) => {
+        offers.forEach((offer) => delete this._offersToFetch[offer.bankId]);
+        this.offersFetched$.next(offers);
       });
   }
 

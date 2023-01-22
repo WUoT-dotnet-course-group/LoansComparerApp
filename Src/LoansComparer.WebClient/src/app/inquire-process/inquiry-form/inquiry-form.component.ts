@@ -54,8 +54,6 @@ export class InquiryFormComponent implements OnInit {
       loanValue: new FormControl(null, Validators.required),
       numberOfInstallments: new FormControl(null, Validators.required),
     });
-
-    this.offerProviderService.cleanOffers();
   }
 
   onReturn(event: any): void {
@@ -66,7 +64,7 @@ export class InquiryFormComponent implements OnInit {
     this.loansComparerService
       .createInquiry(<CreateInquiryDTO>this.inquiryForm.value)
       .subscribe((response: CreateInquiryResponseDTO) => {
-        this.offerProviderService.fetchOffers(response);
+        this.offerProviderService.initOffers(response);
       });
 
     const personalData = <PersonalDataDTO>(
