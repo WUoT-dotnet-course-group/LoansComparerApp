@@ -1,6 +1,4 @@
-﻿using LoansComparer.Services.Abstract.LoaningServices;
-
-namespace LoansComparer.Services.Abstract
+﻿namespace LoansComparer.Services.Abstract
 {
     public interface IServiceManager
     {
