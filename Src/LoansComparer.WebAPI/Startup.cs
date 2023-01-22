@@ -33,8 +33,10 @@ namespace LoansComparer
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServicesConfiguration, ConfigurationsManager>();
 
+            // loaning banks Options
             services.Configure<LoaningBankConfig>(ConfigurationsManager.Configuration.GetSection(LoaningBankConfig.SectionName));
             services.Configure<LecturerBankConfig>(ConfigurationsManager.Configuration.GetSection(LecturerBankConfig.SectionName));
+            services.Configure<OtherTeamBankConfig>(ConfigurationsManager.Configuration.GetSection(OtherTeamBankConfig.SectionName));
 
             var mappingConfig = TypeAdapterConfig.GlobalSettings;
             mappingConfig.Scan(typeof(Services.Mapping.AssemblyReference).Assembly);
@@ -50,6 +52,12 @@ namespace LoansComparer
             services.AddHttpClient("LecturerBank", client =>
             {
                 client.BaseAddress = new Uri(ConfigurationsManager.LecturerBankDomain);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
+            services.AddHttpClient("OtherTeamBank", client =>
+            {
+                client.BaseAddress = new Uri(ConfigurationsManager.OtherTeamBankDomain);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 

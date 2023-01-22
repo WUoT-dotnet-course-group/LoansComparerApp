@@ -12,15 +12,17 @@ namespace LoansComparer.Services
     {
         private readonly Dictionary<string, IBankApi> BankServices;
 
-        public LoaningManager(IHttpClientFactory clientFactory, IOptions<LoaningBankConfig> loaningBankConfig, IOptions<LecturerBankConfig> lecturerBankConfig)
+        public LoaningManager(IHttpClientFactory clientFactory, IOptions<LoaningBankConfig> loaningBankConfig, IOptions<LecturerBankConfig> lecturerBankConfig, IOptions<OtherTeamBankConfig> otherTeamBankConfig)
         {
             LoaningBankService = new LoaningBankService(clientFactory, loaningBankConfig);
             LecturerBankService = new LecturerBankService(clientFactory, lecturerBankConfig);
+            OtherTeamBankService = new OtherTeamBankService(clientFactory, otherTeamBankConfig);
 
             BankServices = new()
             {
                 { LoaningBankService.Id,  LoaningBankService },
-                { LecturerBankService.Id, LecturerBankService }
+                { LecturerBankService.Id, LecturerBankService },
+                { OtherTeamBankService.Id, OtherTeamBankService }
             };
         }
 
@@ -28,20 +30,19 @@ namespace LoansComparer.Services
 
         public IBankApi LecturerBankService { get; private set; }
 
+        public IBankApi OtherTeamBankService { get; private set; }
+
         public async Task<Dictionary<string, string>> InquireToAll(CreateInquiryDTO inquiry)
         {
             var bankInquiries = new Dictionary<string, string>();
 
-            var response = await LecturerBankService.Inquire(inquiry);
-            if (response.IsSuccessful)
+            foreach (var item in BankServices)
             {
-                bankInquiries.Add(LecturerBankService.Id, response.Content!.InquiryId);
-            }
-
-            response = await LoaningBankService.Inquire(inquiry);
-            if (response.IsSuccessful)
-            {
-                bankInquiries.Add(LoaningBankService.Id, response.Content!.InquiryId);
+                var response = await item.Value.Inquire(inquiry);
+                if (response.IsSuccessful)
+                {
+                    bankInquiries.Add(item.Key, response.Content!.InquiryId);
+                }
             }
 
             return bankInquiries;

@@ -14,7 +14,7 @@ namespace LoansComparer.Services.LoaningServices
         private string? Token { get; set; }
         private readonly LoaningBankConfig _configuration;
 
-        public override string Id => "LoaningBank";
+        public string Id => "LoaningBank";
 
         protected override string HttpClientId => Id;
         protected override string Name => "Loaning SA";
@@ -24,7 +24,7 @@ namespace LoansComparer.Services.LoaningServices
             _configuration = configuration.Value;
         }
 
-        protected override async Task AuthorizeRequest(HttpRequestMessage request)
+        protected async override Task AuthorizeRequest(HttpRequestMessage request)
         {
             if (Token is null)
             {
@@ -48,20 +48,20 @@ namespace LoansComparer.Services.LoaningServices
             request.Headers.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, Token);
         }
 
-        public async override Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData)
+        public async Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData)
         {
             var body = inquiryData.Adapt<CreateInquiryRequest>();
             // TODO: fetch hardcoded url from db
             return await SendAsync<CreateInquiryResponse, CreateInquiryRequest>(HttpMethod.Post, "api/inquiries/add", body);
         }
 
-        public async override Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId)
+        public async Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId)
         {
             // TODO: fetch hardcoded url from db
             return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"api/inquiries/{inquiryId}");
         }
 
-        public async override Task<BaseResponse<OfferDTO>> GetOffer(string offerId)
+        public async Task<BaseResponse<OfferDTO>> GetOffer(string offerId)
         {
             // TODO: fetch hardcoded url from db
             var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
@@ -76,7 +76,17 @@ namespace LoansComparer.Services.LoaningServices
             return finalResponse;
         }
 
-        public async override Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename)
+        public async Task<Stream> DownloadFile(string fileUrl)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, fileUrl);
+            await AuthorizeRequest(request);
+
+            var response = await client.SendAsync(request);
+            return await response.Content.ReadAsStreamAsync();
+        }
+
+        public async Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename)
         {
             using var formData = new MultipartFormDataContent
             {
