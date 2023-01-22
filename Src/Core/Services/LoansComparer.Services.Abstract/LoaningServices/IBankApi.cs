@@ -5,6 +5,8 @@ namespace LoansComparer.Services.Abstract.LoaningServices
 {
     public interface IBankApi
     {
+        string Id { get; }
+
         Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData);
         Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId);
         Task<BaseResponse<OfferDTO>> GetOffer(string offerId);

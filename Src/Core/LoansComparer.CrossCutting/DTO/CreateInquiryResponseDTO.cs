@@ -3,6 +3,6 @@
     public class CreateInquiryResponseDTO
     {
         public Guid InquiryId { get; set; }
-        public string BankInquiryId { get; set; } = default!;
+        public Dictionary<string, string> BankInquiries { get; set; } = default!;
     }
 }

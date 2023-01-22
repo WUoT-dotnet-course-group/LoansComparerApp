@@ -11,13 +11,15 @@ namespace LoansComparer.Services
         private readonly EmailClient _emailClient;
         private readonly string _sendOutEmailAddress;
         private readonly IRepositoryManager _repositoryManager;
+        private readonly ILoaningManager _loaningManager;
         private readonly IServicesConfiguration _configuration;
 
-        public EmailService(string connectionString, string sendOutEmail, IRepositoryManager repositoryManager, IServicesConfiguration configuration)
+        public EmailService(string connectionString, string sendOutEmail, IRepositoryManager repositoryManager, ILoaningManager loaningManager, IServicesConfiguration configuration)
         {
             _emailClient = new EmailClient(connectionString);
             _sendOutEmailAddress = sendOutEmail;
             _repositoryManager = repositoryManager;
+            _loaningManager = loaningManager;
             _configuration = configuration;
         }
 
@@ -43,17 +45,19 @@ namespace LoansComparer.Services
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 
             var emailBody = string.Format(Resources.InquirySubmittedEmailBody, inquiry.User.PersonalData!.FirstName,
-                _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenOfferId!));
+                _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenBankId!, inquiry.ChosenOfferId!));
 
             await SendEmailAsync(Resources.InquirySubmittedEmailSubject, emailBody, inquiry.User.Email!);
         }
 
         public async Task SendAfterDecisionEmail(string offerId)
         {
-            var debtor = await _repositoryManager.InquiryRepository.GetDebtorByOffer(offerId);
+            var loaningBankId = _loaningManager.LoaningBankService.Id;
+
+            var debtor = await _repositoryManager.InquiryRepository.GetDebtorByOffer(loaningBankId, offerId);
 
             var emailBody = string.Format(Resources.OfferStatusChangedEmailBody, debtor.PersonalData!.FirstName,
-                _configuration.GetWebClientOfferDetailsPath(offerId));
+                _configuration.GetWebClientOfferDetailsPath(loaningBankId, offerId));
 
             await SendEmailAsync(Resources.OfferStatusChangedEmailSubject, emailBody, debtor.Email!);
         }

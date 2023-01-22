@@ -41,8 +41,7 @@ namespace LoansComparer.Services
         {
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 
-            inquiry.Bank = await _repositoryManager.BankRepository.GetById(Guid.Empty); // as long as service handles only one bank
-            //inquiry.Bank = await _repositoryManager.BankRepository.GetById(chosenOffer.BankId);
+            inquiry.ChosenBankId = chosenOffer.BankId;
             inquiry.ChosenOfferId = chosenOffer.OfferId;
 
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
@@ -61,11 +60,16 @@ namespace LoansComparer.Services
             return paginatedInquiries.Adapt<PaginatedResponse<GetInquiryDTO>>();
         }
 
-        public async Task<string?> GetOfferId(Guid inquiryId)
+        public async Task<ChooseOfferDTO> GetOfferIds(Guid inquiryId)
         {
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 
-            return inquiry.ChosenOfferId;
+            // TODO: add if null validation
+            return new()
+            {
+                OfferId = inquiry.ChosenOfferId,
+                BankId = inquiry.ChosenBankId
+            };
         }
 
         public async Task<int> GetInquiriesAmount() => await _repositoryManager.InquiryRepository.Count();

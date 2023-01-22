@@ -11,13 +11,19 @@ namespace LoansComparer.Presentation.Controllers
     public class OfferController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
+        private readonly ILoaningManager _loaningManager;
 
-        public OfferController(IServiceManager serviceManager) => _serviceManager = serviceManager;
-
-        [HttpGet]
-        public async Task<ActionResult<PaginatedResponse<OfferDTO>>> Get([FromQuery] PagingParameter pagingParams)
+        public OfferController(IServiceManager serviceManager, ILoaningManager loaningManager)
         {
-            var response = await _serviceManager.LoaningBankService.GetBankOffers(pagingParams);
+            _serviceManager = serviceManager;
+            _loaningManager = loaningManager;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{bankId}/{offerId}")]
+        public async Task<ActionResult<OfferDTO>> GetOffer(string bankId, string offerId)
+        {
+            var response = await _loaningManager.GetOffer(bankId, offerId);
 
             if (!response.IsSuccessful)
             {
@@ -27,11 +33,10 @@ namespace LoansComparer.Presentation.Controllers
             return Ok(response.Content);
         }
 
-        [AllowAnonymous]
-        [HttpGet("{offerId}")]
-        public async Task<ActionResult<OfferDTO>> GetOffer(string offerId)
+        [HttpGet]
+        public async Task<ActionResult<PaginatedResponse<OfferDTO>>> Get([FromQuery] PagingParameter pagingParams)
         {
-            var response = await _serviceManager.LecturerBankService.GetOffer(offerId);
+            var response = await _loaningManager.LoaningBankService.GetBankOffers(pagingParams);
 
             if (!response.IsSuccessful)
             {
@@ -44,7 +49,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPatch("{offerId}/accept")]
         public async Task<ActionResult> AcceptOffer(string offerId)
         {
-            var response = await _serviceManager.LoaningBankService.AcceptOffer(Guid.Parse(offerId));
+            var response = await _loaningManager.LoaningBankService.AcceptOffer(Guid.Parse(offerId));
 
             if (!response.IsSuccessful)
             {
@@ -59,7 +64,7 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPatch("{offerId}/reject")]
         public async Task<ActionResult> RejectOffer(string offerId)
         {
-            var response = await _serviceManager.LoaningBankService.RejectOffer(Guid.Parse(offerId));
+            var response = await _loaningManager.LoaningBankService.RejectOffer(Guid.Parse(offerId));
 
             if (!response.IsSuccessful)
             {

@@ -8,6 +8,6 @@
         string EmailClientConnectionString { get; }
         string EmailClientDomain { get; }
 
-        string GetWebClientOfferDetailsPath(string offerId);
+        string GetWebClientOfferDetailsPath(string bankId, string offerId);
     }
 }

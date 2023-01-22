@@ -8,7 +8,9 @@ namespace LoansComparer.Services.LoaningServices
     internal abstract class BaseLoaningService
     {
         protected readonly IHttpClientFactory _clientFactory;
+
         protected abstract string HttpClientId { get; }
+        protected abstract string Name { get; }
 
         protected BaseLoaningService(IHttpClientFactory clientFactory)
         {

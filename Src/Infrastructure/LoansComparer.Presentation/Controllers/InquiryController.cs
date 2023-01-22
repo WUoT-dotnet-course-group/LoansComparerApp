@@ -12,8 +12,13 @@ namespace LoansComparer.Presentation.Controllers
     public class InquiryController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
+        private readonly ILoaningManager _loaningManager;
 
-        public InquiryController(IServiceManager serviceManager) => _serviceManager = serviceManager;
+        public InquiryController(IServiceManager serviceManager, ILoaningManager loaningManager)
+        {
+            _serviceManager = serviceManager;
+            _loaningManager = loaningManager;
+        }
 
         [HttpGet]
         public async Task<ActionResult<PaginatedResponse<GetInquiryDTO>>> Get([FromQuery] PagingParameter pagingParams)
@@ -32,13 +37,14 @@ namespace LoansComparer.Presentation.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
             var inquiryId = await _serviceManager.InquiryService.Add(inquiry, userId);
 
-            var response = await _serviceManager.LecturerBankService.Inquire(inquiry);
-            if (response.IsSuccessful)
+            var response = await _loaningManager.InquireToAll(inquiry);
+
+            if (response.Any())
             {
-                return Ok(new CreateInquiryResponseDTO() { InquiryId = inquiryId, BankInquiryId = response.Content!.InquiryId });
+                return Ok(new CreateInquiryResponseDTO() { InquiryId = inquiryId, BankInquiries = response });
             }
 
-            return StatusCode(500);
+            return NotFound();
         }
 
         [AllowAnonymous]
@@ -50,10 +56,10 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("fetch-offer/{bankInquiryId}")]
-        public async Task<ActionResult<OfferDTO>> FetchOffer(string bankInquiryId)
+        [HttpGet("fetch-offer/{bankId}/{bankInquiryId}")]
+        public async Task<ActionResult<OfferDTO>> FetchOffer(string bankId, string bankInquiryId)
         {
-            var response = await _serviceManager.LecturerBankService.FetchOffer(bankInquiryId);
+            var response = await _loaningManager.FetchOffer(bankId, bankInquiryId);
             if (!response.IsSuccessful)
             {
                 return NotFound();
@@ -66,10 +72,10 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPost("{inquiryId}/upload")]
         public async Task<ActionResult> UploadFile(Guid inquiryId)
         {
-            var offerId = await _serviceManager.InquiryService.GetOfferId(inquiryId);
+            var offerIds = await _serviceManager.InquiryService.GetOfferIds(inquiryId);
 
             var file = Request.Form.Files[0];
-            var response = await _serviceManager.LecturerBankService.UploadFile(offerId!, file.OpenReadStream(), file.FileName);
+            var response = await _loaningManager.UploadFile(offerIds.BankId, offerIds.OfferId, file.OpenReadStream(), file.FileName);
             if (!response.IsSuccessful)
             {
                 return NotFound();

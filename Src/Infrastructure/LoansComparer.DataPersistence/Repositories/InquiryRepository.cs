@@ -20,13 +20,13 @@ namespace LoansComparer.DataPersistence.Repositories
             return inquiry.ID;
         }
 
-        public async Task<PaginatedResponse<InquirySearch>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader)
+        public async Task<PaginatedResponse<Inquiry>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader)
         {
-            var query = _dbContext.InquirySearch.Where(x => x.UserID == userId);
+            var query = _dbContext.Inquiries.Where(x => x.UserID == userId);
 
             if (sortOrder is not SortOrder.Undefined)
             {
-                query = query.Sort<TResult, InquirySearch>(sortOrder, sortHeader);
+                query = query.Sort<TResult, Inquiry>(sortOrder, sortHeader);
             }
 
             return await query.Paginate(pageIndex, pageSize);
@@ -40,9 +40,11 @@ namespace LoansComparer.DataPersistence.Repositories
 
         public async Task<int> Count() => await _dbContext.Inquiries.CountAsync();
 
-        public async Task<User> GetDebtorByOffer(string offerId)
+        public async Task<User> GetDebtorByOffer(string bankId, string offerId)
         {
-            var userData = await _dbContext.Inquiries.Select(x => new { x.ChosenOfferId, x.User }).SingleAsync(x => x.ChosenOfferId == offerId);
+            var userData = await _dbContext.Inquiries.Select(x => new { x.ChosenOfferId, x.ChosenBankId, x.User })
+                .SingleAsync(x => x.ChosenOfferId == offerId && x.ChosenBankId == bankId);
+
             return userData.User;
         }
     }

@@ -13,10 +13,12 @@ namespace LoansComparer.Services.LoaningServices
     internal class LecturerBankService : BaseLoaningService, IBankApi
     {
         private string? Token { get; set; }
-
-        protected override string HttpClientId => "LecturerBank";
-
         private readonly LecturerBankConfig _configuration;
+
+        public string Id => "LecturerBank";
+
+        protected override string HttpClientId => Id;
+        protected override string Name => "Lecturer SA";
 
         public LecturerBankService(IHttpClientFactory clientFactory, IOptions<LecturerBankConfig> configuration) : base(clientFactory)
         {
@@ -56,7 +58,15 @@ namespace LoansComparer.Services.LoaningServices
         public async Task<BaseResponse<OfferDTO>> GetOffer(string offerId)
         {
             var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"/api/v1/Offer/{offerId}");
-            return response.Adapt<BaseResponse<OfferDTO>>();
+
+            var finalResponse = response.Adapt<BaseResponse<OfferDTO>>();
+            if (finalResponse.IsSuccessful)
+            {
+                finalResponse.Content!.BankId = Id;
+                finalResponse.Content!.BankName = Name;
+            }
+
+            return finalResponse;
         }
 
         public async Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData)

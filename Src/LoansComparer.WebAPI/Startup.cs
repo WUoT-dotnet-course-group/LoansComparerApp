@@ -29,6 +29,7 @@ namespace LoansComparer
                 conf.UseLazyLoadingProxies().UseSqlServer(ConfigurationsManager.DbConnectionString));
 
             services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<ILoaningManager, LoaningManager>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServicesConfiguration, ConfigurationsManager>();
 

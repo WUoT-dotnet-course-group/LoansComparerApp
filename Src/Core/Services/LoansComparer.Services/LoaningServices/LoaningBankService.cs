@@ -12,10 +12,12 @@ namespace LoansComparer.Services.LoaningServices
     internal sealed class LoaningBankService : BaseLoaningService, ILoaningBank
     {
         private string? Token { get; set; }
-
-        protected override string HttpClientId => "LoaningBank";
-
         private readonly LoaningBankConfig _configuration;
+
+        public string Id => "LoaningBank";
+
+        protected override string HttpClientId => Id;
+        protected override string Name => "Loaning SA";
 
         public LoaningBankService(IHttpClientFactory clientFactory, IOptions<LoaningBankConfig> configuration) : base(clientFactory)
         {
@@ -26,7 +28,7 @@ namespace LoansComparer.Services.LoaningServices
         {
             if (Token is null)
             {
-                var client = _clientFactory.CreateClient("LoaningBank");
+                var client = _clientFactory.CreateClient(HttpClientId);
 
                 var authRequest = new HttpRequestMessage(HttpMethod.Post, "api/auth/token")
                 {
@@ -63,7 +65,15 @@ namespace LoansComparer.Services.LoaningServices
         {
             // TODO: fetch hardcoded url from db
             var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"api/offers/{offerId}");
-            return response.Adapt<BaseResponse<OfferDTO>>();
+
+            var finalResponse = response.Adapt<BaseResponse<OfferDTO>>();
+            if (finalResponse.IsSuccessful)
+            {
+                finalResponse.Content!.BankId = Id;
+                finalResponse.Content!.BankName = Name;
+            }
+
+            return finalResponse;
         }
 
         public async Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename)
@@ -86,7 +96,14 @@ namespace LoansComparer.Services.LoaningServices
             var response = await SendAsync<PaginatedResponse<GetOfferDetailsResponse>>(HttpMethod.Get,
                 $"api/inquiries?sortOrder={pagingParams.SortOrder}&sortHeader={pagingParams.SortHeader}&pageIndex={pagingParams.PageIndex}&pageSize={pagingParams.PageSize}");
 
-            return response.Adapt<BaseResponse<PaginatedResponse<OfferDTO>>>();
+            var finalResponse = response.Adapt<BaseResponse<PaginatedResponse<OfferDTO>>>();
+
+            if (finalResponse.IsSuccessful)
+            {
+                finalResponse.Content!.Items.ForEach(x => x.BankId = Id);
+            }
+
+            return finalResponse;
         }
 
         public async Task<BaseResponse> AcceptOffer(Guid offerId)

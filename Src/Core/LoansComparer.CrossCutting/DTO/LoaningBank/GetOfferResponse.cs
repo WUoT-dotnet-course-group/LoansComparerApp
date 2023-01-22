@@ -8,7 +8,7 @@ namespace LoansComparer.CrossCutting.DTO.LoaningBank
         public string Id { get; set; } = default!;
 
         [JsonPropertyName("requestedValue")]
-        public int LoanValue { get; set; }
+        public float LoanValue { get; set; }
 
         [JsonPropertyName("requestedPeriodInMonth")]
         public short LoanPeriod { get; set; }

@@ -8,8 +8,8 @@ namespace LoansComparer.Domain.Repositories
     {
         Task<Guid> Add(Inquiry inquiry);
         Task<Inquiry> GetById(Guid id);
-        Task<PaginatedResponse<InquirySearch>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader);
+        Task<PaginatedResponse<Inquiry>> GetByUser<TResult>(Guid userId, int pageIndex, int pageSize, SortOrder sortOrder, string sortHeader);
         Task<int> Count();
-        Task<User> GetDebtorByOffer(string offerId);
+        Task<User> GetDebtorByOffer(string bankId, string offerId);
     }
 }
