@@ -105,7 +105,7 @@ namespace LoansComparer.Services.LoaningServices
         {
             var response = await SendAsync<PaginatedResponse<GetOfferDetailsResponse>>(HttpMethod.Get,
                 $"api/inquiries?sortOrder={pagingParams.SortOrder}&sortHeader={pagingParams.SortHeader}&pageIndex={pagingParams.PageIndex}&pageSize={pagingParams.PageSize}");
-            
+
             var finalResponse = response.Adapt<BaseResponse<PaginatedResponse<OfferDTO>>>();
 
             if (finalResponse.IsSuccessful)

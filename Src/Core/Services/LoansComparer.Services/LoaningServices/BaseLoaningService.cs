@@ -37,7 +37,7 @@ namespace LoansComparer.Services.LoaningServices
             await AuthorizeRequest(request);
 
             var response = await _clientFactory.CreateClient(HttpClientId).SendAsync(request);
-            
+
             return new BaseResponse()
             {
                 StatusCode = response.StatusCode,

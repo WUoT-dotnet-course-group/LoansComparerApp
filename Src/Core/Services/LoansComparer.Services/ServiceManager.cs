@@ -13,7 +13,7 @@ namespace LoansComparer.Services
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager, configuration));
             _lazyInquiryService = new Lazy<IInquiryService>(() => new InquiryService(repositoryManager));
-            _lazyEmailService = new Lazy<IEmailService>(() => new EmailService(configuration.EmailClientConnectionString, configuration.EmailClientDomain, 
+            _lazyEmailService = new Lazy<IEmailService>(() => new EmailService(configuration.EmailClientConnectionString, configuration.EmailClientDomain,
                 repositoryManager, loaningManager, configuration));
         }
 
