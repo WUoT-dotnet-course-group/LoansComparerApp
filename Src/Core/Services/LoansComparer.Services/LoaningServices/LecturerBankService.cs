@@ -79,7 +79,7 @@ namespace LoansComparer.Services.LoaningServices
         {
             using var formData = new MultipartFormDataContent
             {
-                { new StreamContent(fileStream), "file", filename }
+                { new StreamContent(fileStream), "formFile", filename }
             };
 
             var request = new HttpRequestMessage(HttpMethod.Post, $"/api/v1/Offer/{offerId}/document/upload")

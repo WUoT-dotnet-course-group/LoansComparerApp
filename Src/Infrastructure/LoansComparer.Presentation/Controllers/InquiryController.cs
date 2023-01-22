@@ -92,7 +92,8 @@ namespace LoansComparer.Presentation.Controllers
 
             var file = Request.Form.Files[0];
             var response = await _loaningManager.UploadFile(offerIds.BankId, offerIds.OfferId, file.OpenReadStream(), file.FileName);
-            if (!response.IsSuccessful)
+            if (!response.IsSuccessful 
+                && response.StatusCode != System.Net.HttpStatusCode.InternalServerError) // workaround for temporary unavailable lecturer endpoint
             {
                 return NotFound();
             }
