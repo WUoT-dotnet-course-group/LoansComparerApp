@@ -1,16 +1,19 @@
-﻿using LoansComparer.CrossCutting.DTO.LoaningBank;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.CrossCutting.DTO.LoaningBank;
 using LoansComparer.CrossCutting.Utils;
+using LoansComparer.Services.Abstract.LoaningServices;
 using System.Text;
 using System.Text.Json;
 
 namespace LoansComparer.Services.LoaningServices
 {
-    internal abstract class BaseLoaningService
+    internal abstract class BaseLoaningService : IBankApi
     {
         protected readonly IHttpClientFactory _clientFactory;
 
         protected abstract string HttpClientId { get; }
         protected abstract string Name { get; }
+        public abstract string Id { get; }
 
         protected BaseLoaningService(IHttpClientFactory clientFactory)
         {
@@ -18,6 +21,21 @@ namespace LoansComparer.Services.LoaningServices
         }
 
         protected abstract Task AuthorizeRequest(HttpRequestMessage request);
+
+        public abstract Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData);
+        public abstract Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId);
+        public abstract Task<BaseResponse<OfferDTO>> GetOffer(string offerId);
+        public abstract Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename);
+
+        public async Task<Stream> DownloadFile(string fileUrl)
+        {
+            var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, fileUrl);
+            await AuthorizeRequest(request);
+
+            var response = await client.SendAsync(request);
+            return await response.Content.ReadAsStreamAsync();
+        }
 
         protected async Task<BaseResponse<T>> SendAsync<T>(HttpMethod httpMethod, string url) where T : class
             => await SendRequestAsync<T>(new HttpRequestMessage(httpMethod, url));
@@ -37,7 +55,7 @@ namespace LoansComparer.Services.LoaningServices
             await AuthorizeRequest(request);
 
             var response = await _clientFactory.CreateClient(HttpClientId).SendAsync(request);
-
+            
             return new BaseResponse()
             {
                 StatusCode = response.StatusCode,

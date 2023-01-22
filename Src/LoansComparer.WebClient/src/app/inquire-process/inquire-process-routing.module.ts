@@ -21,7 +21,7 @@ const routes: Routes = [
         component: ReviewOffersComponent,
       },
       {
-        path: 'submit/:inquiryId',
+        path: 'submit',
         component: InquirySubmissionFormComponent,
       },
     ],

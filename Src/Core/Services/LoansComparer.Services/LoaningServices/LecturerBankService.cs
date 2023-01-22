@@ -10,12 +10,12 @@ using System.Net.Http.Headers;
 
 namespace LoansComparer.Services.LoaningServices
 {
-    internal class LecturerBankService : BaseLoaningService, IBankApi
+    internal class LecturerBankService : BaseLoaningService
     {
         private string? Token { get; set; }
         private readonly LecturerBankConfig _configuration;
 
-        public string Id => "LecturerBank";
+        public override string Id => "LecturerBank";
 
         protected override string HttpClientId => Id;
         protected override string Name => "Lecturer SA";
@@ -50,12 +50,12 @@ namespace LoansComparer.Services.LoaningServices
             request.Headers.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, Token);
         }
 
-        public async Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId)
+        public async override Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId)
         {
             return await SendAsync<GetInquiryResponse>(HttpMethod.Get, $"/api/v1/Inquire/{inquiryId}");
         }
 
-        public async Task<BaseResponse<OfferDTO>> GetOffer(string offerId)
+        public async override Task<BaseResponse<OfferDTO>> GetOffer(string offerId)
         {
             var response = await SendAsync<GetOfferResponse>(HttpMethod.Get, $"/api/v1/Offer/{offerId}");
 
@@ -69,13 +69,13 @@ namespace LoansComparer.Services.LoaningServices
             return finalResponse;
         }
 
-        public async Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData)
+        public async override Task<BaseResponse<CreateInquiryResponse>> Inquire(CreateInquiryDTO inquiryData)
         {
             var body = inquiryData.Adapt<CreateInquiryRequest>();
             return await SendAsync<CreateInquiryResponse, CreateInquiryRequest>(HttpMethod.Post, "/api/v1/Inquire", body);
         }
 
-        public async Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename)
+        public async override Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename)
         {
             using var formData = new MultipartFormDataContent
             {

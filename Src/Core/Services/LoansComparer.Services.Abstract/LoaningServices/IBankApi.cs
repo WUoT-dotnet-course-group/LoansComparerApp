@@ -11,6 +11,7 @@ namespace LoansComparer.Services.Abstract.LoaningServices
         Task<BaseResponse<GetInquiryResponse>> GetInquiry(string inquiryId);
         Task<BaseResponse<OfferDTO>> GetOffer(string offerId);
         Task<BaseResponse> UploadFile(string offerId, Stream fileStream, string filename);
+        Task<Stream> DownloadFile(string fileUrl);
 
         async Task<BaseResponse<OfferDTO>> FetchOffer(string inquiryId)
         {

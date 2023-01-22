@@ -69,6 +69,22 @@ namespace LoansComparer.Presentation.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("{inquiryId}/agreement")]
+        public async Task<ActionResult> DownloadAgreement(Guid inquiryId)
+        {
+            var inquiry = await _serviceManager.InquiryService.GetOfferIds(inquiryId);
+
+            var response = await _loaningManager.DownloadFile(inquiry.BankId, inquiry.OfferId);
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+
+            return File(response.Content!, "text/plain", fileDownloadName: "arrangement.txt");
+        }
+
+        [AllowAnonymous]
         [HttpPost("{inquiryId}/upload")]
         public async Task<ActionResult> UploadFile(Guid inquiryId)
         {

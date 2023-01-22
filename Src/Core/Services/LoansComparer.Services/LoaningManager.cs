@@ -55,5 +55,17 @@ namespace LoansComparer.Services
 
         public async Task<BaseResponse<OfferDTO>> GetOffer(string bankId, string offerId)
             => await BankServices[bankId].GetOffer(offerId);
+
+        public async Task<BaseResponse<Stream>> DownloadFile(string bankId, string offerId)
+        {
+            var offerResponse = await GetOffer(bankId, offerId);
+
+            return new BaseResponse<Stream>
+            {
+                IsSuccessful = offerResponse.IsSuccessful,
+                StatusCode = offerResponse.StatusCode,
+                Content = await BankServices[bankId].DownloadFile(offerResponse.Content!.DocumentLink!)
+            };
+        }
     }
 }
