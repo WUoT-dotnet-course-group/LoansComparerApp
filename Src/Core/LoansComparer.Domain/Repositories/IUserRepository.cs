@@ -1,4 +1,5 @@
-﻿using LoansComparer.Domain.Entities;
+﻿using LoansComparer.CrossCutting.DTO;
+using LoansComparer.Domain.Entities;
 
 namespace LoansComparer.Domain.Repositories
 {
@@ -8,5 +9,6 @@ namespace LoansComparer.Domain.Repositories
         Task<User> GetUserById(Guid userId);
         Task<bool> UserExistsByEmail(string email);
         Task<User> GetUserByEmail(string email);
+        Task<List<BaseEmailData>> GetUsersBaseEmailData();
     }
 }

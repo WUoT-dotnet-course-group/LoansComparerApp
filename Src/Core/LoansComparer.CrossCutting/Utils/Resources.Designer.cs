@@ -61,12 +61,43 @@ namespace LoansComparer.CrossCutting.Utils {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Congratulations {0}!
+        ///   Looks up a localized string similar to Hi ###NAME###!
+        ///
+        ///
+        ///Do you want to realize your dreams?
+        ///Take an investment into future?
+        ///Or maybe simply have an empty wallet?
+        ///
+        ///New spectacular loan offers are waiting for you right now!
+        ///Do not wait! Inquire process lasts less then 5 minutes, only in LoansComparer application!
+        ///
+        ///Visit us here: ###LINK###
+        ///
+        ///
+        ///LoansComparer Team.
+        /// </summary>
+        public static string DailyReminderEmailBody {
+            get {
+                return ResourceManager.GetString("DailyReminderEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Have you already thought about taking a loan?.
+        /// </summary>
+        public static string DailyReminderEmailSubject {
+            get {
+                return ResourceManager.GetString("DailyReminderEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Congratulations ###NAME###!
         ///
         ///
         ///Your submitted inquiry request is now waiting for a bank employee action. 
         ///
-        ///You can still track its status here: {1}
+        ///You can still track its status here: ###LINK###
         ///
         ///
         ///Thank you for loaning with us!
@@ -98,11 +129,11 @@ namespace LoansComparer.CrossCutting.Utils {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hi {0}!
+        ///   Looks up a localized string similar to Hi ###NAME###!
         ///
         ///
         ///Status of your inquiry has changed.
-        ///For details click here: {1}
+        ///For details click here: ###LINK###
         ///
         ///
         ///Thank you for loaning with us!

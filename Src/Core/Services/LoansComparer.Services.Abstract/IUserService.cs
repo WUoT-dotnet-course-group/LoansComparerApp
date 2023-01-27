@@ -8,6 +8,7 @@ namespace LoansComparer.Services.Abstract
         Task<PersonalDataDTO?> GetData(Guid userId);
         Task SaveData(Guid userId, PersonalDataDTO userData);
         Task<AuthDTO> Authenticate(string userEmail);
+        Task<List<BaseEmailData>> GetDataForEmailReminder();
         Task<bool> UserExistsByEmail(string userEmail);
     }
 }

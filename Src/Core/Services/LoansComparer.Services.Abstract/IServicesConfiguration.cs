@@ -2,6 +2,8 @@
 {
     public interface IServicesConfiguration
     {
+        string WebClientDomain { get; }
+
         string GoogleAuthClientId { get; }
         string GoogleAuthSecretKey { get; }
 
