@@ -48,7 +48,7 @@ namespace LoansComparer.Services
                 {
                     await _emailClient.SendAsync(emailMessage);
                 }
-                catch (ArgumentException ex) 
+                catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
