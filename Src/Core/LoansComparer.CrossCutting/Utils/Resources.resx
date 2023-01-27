@@ -117,13 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DailyReminderEmailBody" xml:space="preserve">
+    <value>Hi ###NAME###!
+
+
+Do you want to realize your dreams?
+Take an investment into future?
+Or maybe simply have an empty wallet?
+
+New spectacular loan offers are waiting for you right now!
+Do not wait! Inquire process lasts less then 5 minutes, only in LoansComparer application!
+
+Visit us here: ###LINK###
+
+
+LoansComparer Team</value>
+  </data>
+  <data name="DailyReminderEmailSubject" xml:space="preserve">
+    <value>Have you already thought about taking a loan?</value>
+  </data>
   <data name="InquirySubmittedEmailBody" xml:space="preserve">
-    <value>Congratulations {0}!
+    <value>Congratulations ###NAME###!
 
 
 Your submitted inquiry request is now waiting for a bank employee action. 
 
-You can still track its status here: {1}
+You can still track its status here: ###LINK###
 
 
 Thank you for loaning with us!
@@ -137,11 +156,11 @@ LoansComparer Team</value>
     <value>Invalid sorted column header name</value>
   </data>
   <data name="OfferStatusChangedEmailBody" xml:space="preserve">
-    <value>Hi {0}!
+    <value>Hi ###NAME###!
 
 
 Status of your inquiry has changed.
-For details click here: {1}
+For details click here: ###LINK###
 
 
 Thank you for loaning with us!

@@ -1,5 +1,6 @@
 ﻿using Azure.Communication.Email;
 using Azure.Communication.Email.Models;
+using LoansComparer.CrossCutting.DTO;
 using LoansComparer.CrossCutting.Utils;
 using LoansComparer.Domain.Repositories;
 using LoansComparer.Services.Abstract;
@@ -23,31 +24,49 @@ namespace LoansComparer.Services
             _configuration = configuration;
         }
 
-        public async Task SendEmailAsync(string emailSubject, string emailBody, string emailAddress)
-            => await SendEmailsAsync(emailSubject, emailBody, new List<string> { emailAddress });
+        public async Task SendEmailAsync(string emailSubject, string emailBodyTemplate, EmailWithLinkData emailData)
+            => await SendEmailsAsync(emailSubject, emailBodyTemplate, new List<EmailWithLinkData>() { emailData });
 
-        public async Task SendEmailsAsync(string emailSubject, string emailBody, List<string> emailAddresses)
+        public async Task SendEmailsAsync(string emailSubject, string emailBodyTemplate, IEnumerable<EmailWithLinkData> emailsData)
         {
-            var emailContent = new EmailContent(emailSubject)
+            foreach (var emailData in emailsData)
             {
-                PlainText = emailBody
-            };
+                var emailBody = emailBodyTemplate
+                    .Replace("###NAME###", emailData.Name)
+                    .Replace("###LINK###", emailData.Link);
 
-            var emailRecipients = new EmailRecipients(emailAddresses.Select(x => new EmailAddress(x)));
+                var emailContent = new EmailContent(emailSubject)
+                {
+                    PlainText = emailBody
+                };
 
-            var emailMessage = new EmailMessage(_sendOutEmailAddress, emailContent, emailRecipients);
+                var emailRecipients = new EmailRecipients(new List<EmailAddress>() { new EmailAddress(emailData.Email) });
 
-            await _emailClient.SendAsync(emailMessage);
+                var emailMessage = new EmailMessage(_sendOutEmailAddress, emailContent, emailRecipients);
+
+                try
+                {
+                    await _emailClient.SendAsync(emailMessage);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
         public async Task SendAfterSubmissionEmail(Guid inquiryId)
         {
             var inquiry = await _repositoryManager.InquiryRepository.GetById(inquiryId);
 
-            var emailBody = string.Format(Resources.InquirySubmittedEmailBody, inquiry.User.PersonalData!.FirstName,
-                _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenBankId!, inquiry.ChosenOfferId!));
+            var emailData = new EmailWithLinkData
+            {
+                Email = inquiry.User.Email!,
+                Name = inquiry.User.PersonalData!.FirstName,
+                Link = _configuration.GetWebClientOfferDetailsPath(inquiry.ChosenBankId!, inquiry.ChosenOfferId!),
+            };
 
-            await SendEmailAsync(Resources.InquirySubmittedEmailSubject, emailBody, inquiry.User.Email!);
+            await SendEmailAsync(Resources.InquirySubmittedEmailSubject, Resources.InquirySubmittedEmailBody, emailData);
         }
 
         public async Task SendAfterDecisionEmail(string offerId)
@@ -56,10 +75,14 @@ namespace LoansComparer.Services
 
             var debtor = await _repositoryManager.InquiryRepository.GetDebtorByOffer(loaningBankId, offerId);
 
-            var emailBody = string.Format(Resources.OfferStatusChangedEmailBody, debtor.PersonalData!.FirstName,
-                _configuration.GetWebClientOfferDetailsPath(loaningBankId, offerId));
+            var emailData = new EmailWithLinkData
+            {
+                Email = debtor.Email!,
+                Name = debtor.PersonalData!.FirstName,
+                Link = _configuration.GetWebClientOfferDetailsPath(loaningBankId, offerId),
+            };
 
-            await SendEmailAsync(Resources.OfferStatusChangedEmailSubject, emailBody, debtor.Email!);
+            await SendEmailAsync(Resources.OfferStatusChangedEmailSubject, Resources.OfferStatusChangedEmailBody, emailData);
         }
     }
 }

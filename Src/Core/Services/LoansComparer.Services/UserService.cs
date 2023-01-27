@@ -72,6 +72,8 @@ namespace LoansComparer.Services
             };
         }
 
+        public async Task<List<BaseEmailData>> GetDataForEmailReminder() => await _repositoryManager.UserRepository.GetUsersBaseEmailData();
+
         public async Task<bool> UserExistsByEmail(string userEmail) => await _repositoryManager.UserRepository.UserExistsByEmail(userEmail);
     }
 }
