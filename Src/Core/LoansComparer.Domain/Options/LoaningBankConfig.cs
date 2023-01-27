@@ -1,4 +1,4 @@
-﻿namespace LoansComparer.WebAPI.Configuration
+﻿namespace LoansComparer.Domain.Options
 {
     public class LoaningBankConfig
     {

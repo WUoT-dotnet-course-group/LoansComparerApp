@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace LoansComparer.CrossCutting.DTO.LoaningBank
+namespace LoansComparer.CrossCutting.DTO.LoaningBank.OtherTeam
 {
-    public class CreateInquiryResponse
+    public class OTCreateInquiryResponse
     {
-        [JsonPropertyName("inquireId")]
+        [JsonPropertyName("applicationId")]
         public string InquiryId { get; set; } = default!;
         public DateTime CreateDate { get; set; }
     }

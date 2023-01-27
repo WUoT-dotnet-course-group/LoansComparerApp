@@ -4,8 +4,8 @@ namespace LoansComparer.CrossCutting.DTO.LoaningBank
 {
     public class GetOfferDetailsResponse
     {
-        public Guid InquiryID { get; set; }
-        public Guid? OfferID { get; set; }
+        public string InquiryID { get; set; } = default!;
+        public string? OfferID { get; set; }
         public int LoanValue { get; set; }
         public short NumberOfInstallments { get; set; }
         public DateTime InquireDate { get; set; }

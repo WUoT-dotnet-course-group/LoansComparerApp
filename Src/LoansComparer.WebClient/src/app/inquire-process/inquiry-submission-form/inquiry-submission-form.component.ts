@@ -16,6 +16,7 @@ import {
   InquireDataStorageService,
   InquiryDetails,
 } from '../services/inquire-data-storage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-inquiry-submission-form',
@@ -33,6 +34,7 @@ import {
 export class InquirySubmissionFormComponent implements OnInit {
   form = new FormGroup({});
   inquiry!: InquiryDetails;
+  agreementDownloadLink: string | null = null;
 
   constructor(
     protected authService: AuthService,
@@ -45,6 +47,8 @@ export class InquirySubmissionFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.inquireDataStorageService.hasAllData) {
       this.inquiry = this.inquireDataStorageService.getInquiryDetails();
+      this.agreementDownloadLink =
+        environment.apiUrl + `api/inquiries/${this.inquiry.id}/agreement`;
     } else {
       this.router.navigate(['/inquire']);
     }

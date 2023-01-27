@@ -4,6 +4,7 @@ using LoansComparer.DataPersistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoansComparer.DataPersistence.Migrations
 {
     [DbContext(typeof(RepositoryDbContext))]
-    partial class RepositoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230121145047_AlterChosenOfferIdColumnType")]
+    partial class AlterChosenOfferIdColumnType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,14 +28,57 @@ namespace LoansComparer.DataPersistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("LoansComparer.Domain.Entities.Bank", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Domain")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GetInquiryRoute")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GetOfferDocumentRoute")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GetOfferRoute")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostInquiryRoute")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostOfferDocumentRoute")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostOfferRoute")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Banks");
+                });
+
             modelBuilder.Entity("LoansComparer.Domain.Entities.Inquiry", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ChosenBankId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("BankID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ChosenOfferId")
                         .HasColumnType("nvarchar(max)");
@@ -53,15 +99,53 @@ namespace LoansComparer.DataPersistence.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("BankID");
+
                     b.HasIndex("UserID");
 
                     b.ToTable("Inquiries");
+                });
+
+            modelBuilder.Entity("LoansComparer.Domain.Entities.InquirySearch", b =>
+                {
+                    b.Property<Guid>("InquiryID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BankID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ChosenOfferId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InquireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LoanValue")
+                        .HasColumnType("int");
+
+                    b.Property<short>("NumberOfInstallments")
+                        .HasColumnType("smallint");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("InquiryID");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("InquirySearch", (string)null);
                 });
 
             modelBuilder.Entity("LoansComparer.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BankID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
@@ -74,22 +158,34 @@ namespace LoansComparer.DataPersistence.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("BankID");
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("LoansComparer.Domain.Entities.Inquiry", b =>
                 {
+                    b.HasOne("LoansComparer.Domain.Entities.Bank", "Bank")
+                        .WithMany("Inquiries")
+                        .HasForeignKey("BankID");
+
                     b.HasOne("LoansComparer.Domain.Entities.User", "User")
                         .WithMany("Inquiries")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Bank");
+
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("LoansComparer.Domain.Entities.User", b =>
                 {
+                    b.HasOne("LoansComparer.Domain.Entities.Bank", "Bank")
+                        .WithMany("Employees")
+                        .HasForeignKey("BankID");
+
                     b.OwnsOne("LoansComparer.Domain.Entities.PersonalData", "PersonalData", b1 =>
                         {
                             b1.Property<Guid>("UserID")
@@ -138,7 +234,16 @@ namespace LoansComparer.DataPersistence.Migrations
                                 .HasForeignKey("UserID");
                         });
 
+                    b.Navigation("Bank");
+
                     b.Navigation("PersonalData");
+                });
+
+            modelBuilder.Entity("LoansComparer.Domain.Entities.Bank", b =>
+                {
+                    b.Navigation("Employees");
+
+                    b.Navigation("Inquiries");
                 });
 
             modelBuilder.Entity("LoansComparer.Domain.Entities.User", b =>

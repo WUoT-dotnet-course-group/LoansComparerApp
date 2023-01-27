@@ -5,54 +5,54 @@ namespace LoansComparer.CrossCutting.Enums
     public enum JobType
     {
         [Description("Director")]
-        Director,
+        Director = 30,
         [Description("Agent")]
-        Agent,
+        Agent = 37,
         [Description("Administrator")]
-        Administrator,
+        Administrator = 44,
         [Description("Coordinator")]
-        Coordinator,
+        Coordinator = 47,
         [Description("Specialist")]
-        Specialist,
+        Specialist = 60,
         [Description("Orchestrator")]
-        Orchestrator,
+        Orchestrator = 62,
         [Description("Assistant")]
-        Assistant,
+        Assistant = 64,
         [Description("Designer")]
-        Designer,
+        Designer = 69,
         [Description("Facilitator")]
-        Facilitator,
+        Facilitator = 72,
         [Description("Analyst")]
-        Analyst,
+        Analyst = 79,
         [Description("Producer")]
-        Producer,
+        Producer = 80,
         [Description("Technician")]
-        Technician,
+        Technician = 81,
         [Description("Manager")]
-        Manager,
+        Manager = 84,
         [Description("Liaison")]
-        Liaison,
+        Liaison = 87,
         [Description("Associate")]
-        Associate,
+        Associate = 88,
         [Description("Consultant")]
-        Consultant,
+        Consultant = 89,
         [Description("Engineer")]
-        Engineer,
+        Engineer = 92,
         [Description("Strategist")]
-        Strategist,
+        Strategist = 93,
         [Description("Supervisor")]
-        Supervisor,
+        Supervisor = 94,
         [Description("Executive")]
-        Executive,
+        Executive = 95,
         [Description("Planner")]
-        Planner,
+        Planner = 96,
         [Description("Developer")]
-        Developer,
+        Developer = 97,
         [Description("Officer")]
-        Officer,
+        Officer = 98,
         [Description("Architect")]
-        Architect,
+        Architect = 99,
         [Description("Representative")]
-        Representative,
+        Representative = 100,
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Mapster;
 using MapsterMapper;
+using LoansComparer.Domain.Options;
 
 namespace LoansComparer
 {
@@ -28,8 +29,14 @@ namespace LoansComparer
                 conf.UseLazyLoadingProxies().UseSqlServer(ConfigurationsManager.DbConnectionString));
 
             services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<ILoaningManager, LoaningManager>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IServicesConfiguration, ConfigurationsManager>();
+
+            // loaning banks Options
+            services.Configure<LoaningBankConfig>(ConfigurationsManager.Configuration.GetSection(LoaningBankConfig.SectionName));
+            services.Configure<LecturerBankConfig>(ConfigurationsManager.Configuration.GetSection(LecturerBankConfig.SectionName));
+            services.Configure<OtherTeamBankConfig>(ConfigurationsManager.Configuration.GetSection(OtherTeamBankConfig.SectionName));
 
             var mappingConfig = TypeAdapterConfig.GlobalSettings;
             mappingConfig.Scan(typeof(Services.Mapping.AssemblyReference).Assembly);
@@ -39,6 +46,18 @@ namespace LoansComparer
             services.AddHttpClient("LoaningBank", client =>
             {
                 client.BaseAddress = new Uri(ConfigurationsManager.LoaningBankDomain);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
+            services.AddHttpClient("LecturerBank", client =>
+            {
+                client.BaseAddress = new Uri(ConfigurationsManager.LecturerBankDomain);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
+            services.AddHttpClient("OtherTeamBank", client =>
+            {
+                client.BaseAddress = new Uri(ConfigurationsManager.OtherTeamBankDomain);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 

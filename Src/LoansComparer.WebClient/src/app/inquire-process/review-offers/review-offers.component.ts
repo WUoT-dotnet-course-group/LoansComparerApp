@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -10,9 +10,13 @@ import {
   OfferProviderService,
   ReviewOffer,
 } from '../services/offer-provider.service';
-import { LoansComparerService } from '../../shared/services/loans-comparer/loans-comparer.service';
+import {
+  LoansComparerService,
+  OfferDTO,
+} from '../../shared/services/loans-comparer/loans-comparer.service';
 import { InquireDataStorageService } from '../services/inquire-data-storage.service';
-// import { Subscription } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { catchError, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-review-offers',
@@ -27,8 +31,8 @@ import { InquireDataStorageService } from '../services/inquire-data-storage.serv
     ]),
   ],
 })
-export class ReviewOffersComponent implements OnInit, OnDestroy {
-  offers!: ReviewOffer[];
+export class ReviewOffersComponent implements OnInit {
+  offers = new MatTableDataSource<ReviewOffer>();
   selectedOffer: ReviewOffer | null = null;
 
   displayedColumns: string[] = [
@@ -39,22 +43,23 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
     'loanValue',
   ];
 
-  // offersSubscription!: Subscription;
-
   constructor(
-    protected offerProviderService: OfferProviderService,
     protected inquireDataStorageService: InquireDataStorageService,
-    protected loansComparerService: LoansComparerService
+    protected loansComparerService: LoansComparerService,
+    public offerProviderService: OfferProviderService
   ) {}
 
   ngOnInit(): void {
-    this.offers = this.offerProviderService.offers;
-    // this.offersSubscription = this.offerProviderService.offerCreated.subscribe(
-    //   (offer: ReviewOffer) => {
-    //     console.log(offer);
-    //     this.offers.push(offer);
-    //   }
-    // );
+    this.offerProviderService.offersFetched$
+      .asObservable()
+      .subscribe((offers) => {
+        this.offers = new MatTableDataSource<ReviewOffer>([
+          ...this.offers.data,
+          ...offers,
+        ]);
+      });
+
+    this.onRefresh();
   }
 
   onRowSelected(offer: ReviewOffer): void {
@@ -70,7 +75,7 @@ export class ReviewOffersComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    // this.offersSubscription.unsubscribe();
+  onRefresh(): void {
+    this.offerProviderService.fetchOffers();
   }
 }

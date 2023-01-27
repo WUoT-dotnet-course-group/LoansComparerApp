@@ -1,11 +1,11 @@
 ﻿using LoansComparer.CrossCutting.Enums;
 using System.Text.Json.Serialization;
 
-namespace LoansComparer.CrossCutting.DTO.LoaningBank
+namespace LoansComparer.CrossCutting.DTO.LoaningBank.OtherTeam
 {
-    public class GetInquiryResponse
+    public class OTGetInquiryResponse
     {
-        [JsonPropertyName("inquireId")]
+        [JsonPropertyName("applicationId")]
         public string ID { get; set; } = default!;
 
         [JsonPropertyName("createDate")]

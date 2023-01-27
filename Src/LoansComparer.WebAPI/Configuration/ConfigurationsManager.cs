@@ -1,3 +1,4 @@
+using LoansComparer.Domain.Options;
 using LoansComparer.Services.Abstract;
 
 namespace LoansComparer.WebAPI.Configuration
@@ -7,7 +8,10 @@ namespace LoansComparer.WebAPI.Configuration
         private readonly DatabaseConfig _databaseConfig;
         private readonly GoogleAuthConfig _googleAuthConfig;
         private readonly EmailServiceConfig _emailServiceConfig;
+
         private readonly LoaningBankConfig _loaningBankConfig;
+        private readonly LecturerBankConfig _lecturerBankConfig;
+        private readonly OtherTeamBankConfig _otherTeamBankConfig;
 
         public readonly IConfiguration Configuration;
 
@@ -17,7 +21,10 @@ namespace LoansComparer.WebAPI.Configuration
             _databaseConfig = Configuration.GetRequiredSection(DatabaseConfig.SectionName).Get<DatabaseConfig>();
             _googleAuthConfig = Configuration.GetRequiredSection(GoogleAuthConfig.SectionName).Get<GoogleAuthConfig>();
             _emailServiceConfig = Configuration.GetRequiredSection(EmailServiceConfig.SectionName).Get<EmailServiceConfig>();
+
             _loaningBankConfig = Configuration.GetRequiredSection(LoaningBankConfig.SectionName).Get<LoaningBankConfig>();
+            _lecturerBankConfig = Configuration.GetRequiredSection(LecturerBankConfig.SectionName).Get<LecturerBankConfig>();
+            _otherTeamBankConfig = Configuration.GetRequiredSection(OtherTeamBankConfig.SectionName).Get<OtherTeamBankConfig>();
         }
 
         public string DbConnectionString
@@ -43,14 +50,16 @@ namespace LoansComparer.WebAPI.Configuration
 
         public string LoaningBankDomain => _loaningBankConfig.Domain;
 
+        public string LecturerBankDomain => _lecturerBankConfig.Domain;
+
+        public string OtherTeamBankDomain => _otherTeamBankConfig.Domain;
+
         public string GoogleAuthClientId => _googleAuthConfig.ClientId;
 
         public string GoogleAuthSecretKey => _googleAuthConfig.SecretKey;
 
         public string WebClientDomain => Configuration.GetValue<string>("WebClientDomain");
 
-        public KeyValuePair<string, string> LoaningBankClientCredentials => new(_loaningBankConfig.ClientId, _loaningBankConfig.ClientSecret);
-
-        public string GetWebClientOfferDetailsPath(Guid offerId) => WebClientDomain + $"offers/{offerId}";
+        public string GetWebClientOfferDetailsPath(string bankId, string offerId) => WebClientDomain + $"offers/{bankId}/{offerId}";
     }
 }

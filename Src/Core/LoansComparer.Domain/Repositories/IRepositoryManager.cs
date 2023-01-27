@@ -6,8 +6,6 @@
 
         IInquiryRepository InquiryRepository { get; }
 
-        IBankRepository BankRepository { get; }
-
         IUnitOfWork UnitOfWork { get; }
     }
 }

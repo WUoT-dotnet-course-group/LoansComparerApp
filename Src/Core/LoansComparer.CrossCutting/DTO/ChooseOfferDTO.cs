@@ -2,7 +2,7 @@
 {
     public class ChooseOfferDTO
     {
-        public Guid OfferId { get; set; }
-        public Guid? BankId { get; set; } // not used as long as service handles only one bank
+        public string OfferId { get; set; } = default!;
+        public string BankId { get; set; } = default!;
     }
 }

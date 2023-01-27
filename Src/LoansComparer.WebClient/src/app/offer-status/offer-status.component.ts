@@ -26,6 +26,7 @@ export interface OfferDetails {
   createDate: Date;
   updateDate: Date;
   approvedBy: string | null;
+  bankId: string;
   bankName: string;
 }
 
@@ -57,13 +58,13 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.loadOffer(params['offerId']);
+      this.loadOffer(params['bankId'], params['offerId']);
     });
   }
 
-  loadOffer(offerId: string): void {
+  loadOffer(bankId: string, offerId: string): void {
     this.loansComparerService
-      .getInquiryOffer(offerId)
+      .getInquiryOffer(bankId, offerId)
       .subscribe(
         (response: OfferDTO) => (this.offer = <OfferDetails>(<unknown>response))
       );
@@ -80,13 +81,13 @@ export class OfferStatusComponent implements OnInit, OnDestroy {
   onReject(): void {
     this.loansComparerService
       .rejectOffer(this.offer.id)
-      .subscribe((_) => this.loadOffer(this.offer.id));
+      .subscribe((_) => this.loadOffer(this.offer.bankId, this.offer.id));
   }
 
   onAccept(): void {
     this.loansComparerService
       .acceptOffer(this.offer.id)
-      .subscribe((_) => this.loadOffer(this.offer.id));
+      .subscribe((_) => this.loadOffer(this.offer.bankId, this.offer.id));
   }
 
   onReturn(): void {

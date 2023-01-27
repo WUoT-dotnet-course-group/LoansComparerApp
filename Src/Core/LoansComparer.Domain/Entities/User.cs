@@ -9,9 +9,6 @@ namespace LoansComparer.Domain.Entities
         public PersonalData? PersonalData { get; set; }
         public UserRole Role { get; set; }
 
-        public Guid? BankID { get; set; }
-        public virtual Bank? Bank { get; set; }
-
         public virtual ICollection<Inquiry> Inquiries { get; set; } = default!;
     }
 }

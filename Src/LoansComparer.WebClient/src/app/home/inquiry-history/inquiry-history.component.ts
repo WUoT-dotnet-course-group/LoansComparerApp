@@ -37,7 +37,6 @@ export class InquiryHistoryComponent implements AfterViewInit, OnInit {
     'loanValue',
     'installments',
     'inquireDate',
-    'chosenBank',
   ];
 
   dataSource!: InquiryHistoryDataSource;

@@ -1,4 +1,4 @@
-<div *ngIf="offers.length > 0" fxLayout="row" fxLayoutAlign="center center" fxFill [@displayForm]>
+<div *ngIf="offers.data.length > 0" fxLayout="row" fxLayoutAlign="center center" fxFill [@displayForm]>
   <table mat-table [dataSource]="offers" class="mat-elevation-z8">
     <!-- Bank Column -->
     <ng-container matColumnDef="bankName">
@@ -31,7 +31,11 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row routerLink="/inquire/submit/{{ row.inquiryId }}" (click)="onRowSelected(row)"
+    <tr mat-row routerLink="/inquire/submit" (click)="onRowSelected(row)"
       *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <button *ngIf="!offerProviderService.wasAllFetched" mat-mini-fab type="button" class="app-secondary" fxFlexOffset="2"
+    fxLayoutAlign="center center" (click)="onRefresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
 </div>
