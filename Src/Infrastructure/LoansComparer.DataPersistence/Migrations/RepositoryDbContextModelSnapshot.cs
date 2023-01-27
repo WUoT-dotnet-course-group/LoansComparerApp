@@ -32,10 +32,10 @@ namespace LoansComparer.DataPersistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ChosenBankId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ChosenOfferId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("InquireDate")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,13 @@ namespace LoansComparer.DataPersistence.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ID");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("ID"));
+
                     b.HasIndex("UserID");
+
+                    b.HasIndex("ChosenBankId", "ChosenOfferId");
 
                     b.ToTable("Inquiries");
                 });
@@ -65,7 +71,7 @@ namespace LoansComparer.DataPersistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Role")
                         .ValueGeneratedOnAdd()
@@ -73,6 +79,12 @@ namespace LoansComparer.DataPersistence.Migrations
                         .HasDefaultValue(0);
 
                     b.HasKey("ID");
+
+                    b.HasIndex("Email");
+
+                    b.HasIndex("ID");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("ID"));
 
                     b.ToTable("Users");
                 });

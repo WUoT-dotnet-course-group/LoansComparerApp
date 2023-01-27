@@ -16,6 +16,8 @@ namespace LoansComparer.DataPersistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Users table
+
             modelBuilder.Entity<User>()
                 .OwnsOne(
                 x => x.PersonalData,
@@ -35,9 +37,32 @@ namespace LoansComparer.DataPersistence
                 .Property(x => x.Role)
                 .HasDefaultValue(UserRole.Debtor);
 
+            modelBuilder.Entity<User>()
+                .HasIndex(x => x.ID)
+                .IsClustered(true);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(x => x.Email);
+
+            #endregion Users table
+
+            #region Inquiries table
+
             modelBuilder.Entity<Inquiry>()
                 .Property(x => x.InquireDate)
                 .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Inquiry>()
+                .HasIndex(x => x.ID)
+                .IsClustered(true);
+
+            modelBuilder.Entity<Inquiry>()
+                .HasIndex(x => x.UserID);
+
+            modelBuilder.Entity<Inquiry>()
+                .HasIndex(x => new { x.ChosenBankId, x.ChosenOfferId });
+
+            #endregion Inquiries table
         }
     }
 }
