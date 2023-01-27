@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dc0816c2-9f63-4c7b-af39-4ee76575eb98</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/13262a61-196f-4abe-83e7-86caed37504f/resourceGroups/wout-dotnet/providers/microsoft.insights/components/loans-comparer-api</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />

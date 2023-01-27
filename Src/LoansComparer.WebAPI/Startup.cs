@@ -95,8 +95,8 @@ namespace LoansComparer
                     };
                 });
 
-
             services.AddSwaggerGen();
+            services.AddApplicationInsightsTelemetry();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
