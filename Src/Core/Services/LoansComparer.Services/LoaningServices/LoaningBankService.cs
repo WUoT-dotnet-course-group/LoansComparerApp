@@ -103,8 +103,12 @@ namespace LoansComparer.Services.LoaningServices
 
         public async Task<BaseResponse<PaginatedResponse<OfferDTO>>> GetBankOffers(PagingParameter pagingParams)
         {
-            var response = await SendAsync<PaginatedResponse<GetOfferDetailsResponse>>(HttpMethod.Get,
-                $"api/inquiries?sortOrder={pagingParams.SortOrder}&sortHeader={pagingParams.SortHeader}&pageIndex={pagingParams.PageIndex}&pageSize={pagingParams.PageSize}");
+            var response = await SendAsync<PaginatedResponse<GetOfferDetailsResponse>>(HttpMethod.Get, $"api/inquiries?" +
+                $"sortOrder={pagingParams.SortOrder}&" +
+                $"sortHeader={pagingParams.SortHeader}&" +
+                $"pageIndex={pagingParams.PageIndex}&" +
+                $"pageSize={pagingParams.PageSize}&" +
+                $"filter={pagingParams.Filter}");
 
             var finalResponse = response.Adapt<BaseResponse<PaginatedResponse<OfferDTO>>>();
 
