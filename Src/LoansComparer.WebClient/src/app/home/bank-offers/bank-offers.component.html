@@ -1,5 +1,10 @@
 <div fxLayout="column" fxLayoutAlign="center start" fxFill [@enterAndLeave]>
-  <span class="header">Inquiries made to your bank:</span>
+  <div fxFill fxLayoutAlign="space-between center">
+    <span class="header">Inquiries made to your bank:</span>
+    <mat-form-field>
+      <input matInput placeholder="Filter" (keyup)="loadData()">
+    </mat-form-field>
+  </div>
   <div class="table-container mat-elevation-z8" cdkScrollable>
     <table mat-table matSort matSortDisableClear [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Indexer Column -->

@@ -69,6 +69,7 @@ export interface PagingParameter {
   sortHeader: string;
   pageIndex: number;
   pageSize: number;
+  filterValue: string;
 }
 
 export interface PaginatedResponse<T> {
@@ -155,7 +156,8 @@ export class LoansComparerService {
           .set('sortOrder', request.sortOrder)
           .set('sortHeader', request.sortHeader)
           .set('pageIndex', request.pageIndex)
-          .set('pageSize', request.pageSize),
+          .set('pageSize', request.pageSize)
+          .set('filter', request.filterValue),
       }
     );
   }

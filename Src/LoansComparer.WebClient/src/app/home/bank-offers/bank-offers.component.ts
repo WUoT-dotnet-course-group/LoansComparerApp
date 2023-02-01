@@ -15,6 +15,7 @@ import { MatSort } from '@angular/material/sort';
 import { mergeAll } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { BankOffersDataSource } from './bank-offers-data-source';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-bank-offers',
@@ -47,6 +48,7 @@ export class BankOffersComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatInput) filterValue!: MatInput;
 
   constructor(private loansComparerService: LoansComparerService) {}
 
@@ -57,6 +59,7 @@ export class BankOffersComponent implements AfterViewInit, OnInit {
       sortHeader: '',
       pageIndex: 0,
       pageSize: this.defaultPageSize,
+      filterValue: '',
     });
   }
 
@@ -74,6 +77,7 @@ export class BankOffersComponent implements AfterViewInit, OnInit {
       sortHeader: this.sort.active,
       pageIndex: this.paginator.pageIndex,
       pageSize: this.paginator.pageSize,
+      filterValue: this.filterValue.value.trim().toLowerCase(),
     });
   }
 }
