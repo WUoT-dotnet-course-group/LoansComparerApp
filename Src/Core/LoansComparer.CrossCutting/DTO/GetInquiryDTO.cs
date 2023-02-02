@@ -15,4 +15,7 @@ public class GetInquiryDTO
     [SortHeader("inquireDate")]
     [EntityPropertyName("InquireDate")]
     public DateTime InquireDate { get; set; }
+
+    public string? ChosenBankId { get; set; }
+    public string? ChosenOfferId { get; set; }
 }

@@ -2,6 +2,7 @@
 using LoansComparer.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LoansComparer.Presentation.Controllers
 {
@@ -49,7 +50,10 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPatch("{offerId}/accept")]
         public async Task<ActionResult> AcceptOffer(string offerId)
         {
-            var response = await _loaningManager.LoaningBankService.AcceptOffer(Guid.Parse(offerId));
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
+            var user = await _serviceManager.UserService.GetData(Guid.Parse(userId));
+
+            var response = await _loaningManager.LoaningBankService.AcceptOffer(Guid.Parse(offerId), $"{user!.FirstName} {user!.LastName}");
 
             if (!response.IsSuccessful)
             {
@@ -64,7 +68,10 @@ namespace LoansComparer.Presentation.Controllers
         [HttpPatch("{offerId}/reject")]
         public async Task<ActionResult> RejectOffer(string offerId)
         {
-            var response = await _loaningManager.LoaningBankService.RejectOffer(Guid.Parse(offerId));
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
+            var user = await _serviceManager.UserService.GetData(Guid.Parse(userId));
+
+            var response = await _loaningManager.LoaningBankService.RejectOffer(Guid.Parse(offerId), $"{user!.FirstName} {user!.LastName}");
 
             if (!response.IsSuccessful)
             {

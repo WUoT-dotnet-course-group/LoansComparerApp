@@ -20,7 +20,7 @@ Application provides access for employee of a bank (which API was created by the
 
     - Entity Framework Core (Code First approach)
 
-  - File storage
+  - File storage (Loaning Bank API)
     - Azure Blob Storage
 
   - Email sending

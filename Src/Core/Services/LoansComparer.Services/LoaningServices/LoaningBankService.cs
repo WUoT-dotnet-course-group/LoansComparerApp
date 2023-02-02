@@ -6,6 +6,8 @@ using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
 
 namespace LoansComparer.Services.LoaningServices
 {
@@ -120,10 +122,10 @@ namespace LoansComparer.Services.LoaningServices
             return finalResponse;
         }
 
-        public async Task<BaseResponse> AcceptOffer(Guid offerId)
-            => await SendRequestAsync(new HttpRequestMessage(HttpMethod.Patch, $"api/offers/{offerId}/accept"));
+        public async Task<BaseResponse> AcceptOffer(Guid offerId, string employee)
+            => await SendRequestAsync(new HttpRequestMessage(HttpMethod.Patch, $"api/offers/{offerId}/accept?approvedBy={employee}"));
 
-        public async Task<BaseResponse> RejectOffer(Guid offerId)
-            => await SendRequestAsync(new HttpRequestMessage(HttpMethod.Patch, $"api/offers/{offerId}/reject"));
+        public async Task<BaseResponse> RejectOffer(Guid offerId, string employee)
+            => await SendRequestAsync(new HttpRequestMessage(HttpMethod.Patch, $"api/offers/{offerId}/reject?approvedBy={employee}"));
     }
 }
