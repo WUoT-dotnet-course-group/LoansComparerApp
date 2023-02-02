@@ -73,6 +73,12 @@ export class InquiryHistoryComponent implements AfterViewInit, OnInit {
     });
   }
 
+  offerLink(row: any): string[] {
+    return row.chosenBankId === null || row.chosenOfferId === null
+      ? ['/home']
+      : [`/offers/${row.chosenBankId}/${row.chosenOfferId}`];
+  }
+
   get isAnyInquiry(): boolean {
     return this.dataSource.totalNumberOfInquiries > 0;
   }

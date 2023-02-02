@@ -9,6 +9,8 @@ export interface GetInquiryData {
   loanValue: number;
   numberOfInstallments: number;
   inquireDate: Date;
+  chosenBankId: string | null;
+  chosenOfferId: string | null;
 }
 
 export class InquiryHistoryDataSource extends BaseDataSource<GetInquiryData> {
