@@ -70,7 +70,7 @@ namespace LoansComparer.Presentation.Controllers
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
             var user = await _serviceManager.UserService.GetData(Guid.Parse(userId));
-            
+
             var response = await _loaningManager.LoaningBankService.RejectOffer(Guid.Parse(offerId), $"{user!.FirstName} {user!.LastName}");
 
             if (!response.IsSuccessful)
