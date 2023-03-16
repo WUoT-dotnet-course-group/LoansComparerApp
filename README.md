@@ -1,6 +1,6 @@
 # Loans Comparer Application
 
-Web application with backend written in C# with .NET 6 and Angular used on frontend. Realized as a team project for .NET classes at Faculty of Mathematics and Information Science of the Warsaw University of Technology. Project was realized in Scrum.
+Web application with backend written in C# with .NET 6 and Angular used on frontend. Implemented as a team project for .NET classes at Faculty of Mathematics and Information Science of the Warsaw University of Technology. Project was realized in Scrum.
 
 ## Description
 
